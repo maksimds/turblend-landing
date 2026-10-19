@@ -1,15 +1,204 @@
 /*
  * Turblend · small enhancements.
  * The page reads and navigates without this file; it adds the mobile menu,
- * the active nav state, pop-up dates, and in-page form submission.
+ * the active nav state, pop-up dates, in-page form submission, and the
+ * scroll animations.
  */
 (function () {
   "use strict";
 
+  // Tells the inline script in <head> that the animations can run.
+  window.TURBLEND_READY = true;
+
   var TIME_ZONE = "America/New_York"; // Cincinnati
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function $(selector, root) {
     return (root || document).querySelector(selector);
+  }
+
+  function $$(selector, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+  }
+
+  /* ---------- Header and reading progress ------------------------------ */
+
+  // The header picks up a shadow once you scroll, hides while you scroll
+  // down, and comes back as soon as you scroll up.
+  function initHeader() {
+    var header = $("[data-header]");
+    var progress = $("[data-progress]");
+    var lastY = window.scrollY;
+    var queued = false;
+
+    function update() {
+      queued = false;
+      var y = window.scrollY;
+      if (header) {
+        var menuOpen = document.documentElement.classList.contains("is-locked");
+        var hide = !menuOpen && !header.contains(document.activeElement) && y > 480 && y > lastY + 4;
+        header.dataset.scrolled = String(y > 24);
+        if (hide) header.dataset.hidden = "true";
+        else if (y < lastY - 4 || y <= 480) header.dataset.hidden = "false";
+      }
+      if (progress) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+      }
+      lastY = y;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    if (header) header.addEventListener("focusin", function () { header.dataset.hidden = "false"; });
+    update();
+  }
+
+  /* ---------- Scroll reveals ------------------------------------------- */
+
+  // Wraps each word of a headline in two spans so it can rise into place.
+  // Elements inside (like <em>) keep their styling; <br> stays a line break.
+  function splitWords(heading) {
+    var index = 0;
+
+    function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 1) {
+          if (child.tagName !== "BR") walk(child);
+          return;
+        }
+        if (child.nodeType !== 3 || !child.textContent.trim()) return;
+
+        var fragment = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (!part.trim()) {
+            fragment.appendChild(document.createTextNode(part));
+            return;
+          }
+          var outer = document.createElement("span");
+          var inner = document.createElement("span");
+          outer.className = "w";
+          inner.className = "wi";
+          inner.style.setProperty("--i", index++);
+          inner.textContent = part;
+          outer.appendChild(inner);
+          fragment.appendChild(outer);
+        });
+        node.replaceChild(fragment, child);
+      });
+    }
+
+    walk(heading);
+  }
+
+  function initReveals() {
+    var items = $$(".rv, .rv-up, .rv-clip, .rw");
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      items.forEach(function (item) { item.classList.add("in"); });
+      return;
+    }
+
+    $$(".rw").forEach(splitWords);
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("in");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+    // A fully clipped image has no visible area, so the observer never sees it
+    // arrive. Those are checked by position on scroll instead.
+    var clips = [];
+    items.forEach(function (item) {
+      if (item.classList.contains("rv-clip")) clips.push(item);
+      else observer.observe(item);
+    });
+
+    var queued = false;
+    function checkClips() {
+      queued = false;
+      var limit = window.innerHeight * 0.94;
+      clips = clips.filter(function (item) {
+        var box = item.getBoundingClientRect();
+        if (box.top < limit && box.bottom > 0) {
+          item.classList.add("in");
+          return false;
+        }
+        return true;
+      });
+      if (!clips.length) {
+        window.removeEventListener("scroll", queueClips);
+        window.removeEventListener("resize", queueClips);
+      }
+    }
+    function queueClips() {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(checkClips);
+      }
+    }
+    window.addEventListener("scroll", queueClips, { passive: true });
+    window.addEventListener("resize", queueClips);
+    checkClips();
+  }
+
+  /* ---------- Counting numbers ----------------------------------------- */
+
+  // The final number is already in the HTML; this only animates up to it.
+  function initCounters() {
+    var counters = $$("[data-count]");
+    if (reduceMotion || !counters.length || !("IntersectionObserver" in window)) return;
+
+    function format(value, separator) {
+      var text = String(Math.round(value));
+      return separator ? text.replace(/\B(?=(\d{3})+(?!\d))/g, separator) : text;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+
+        var node = entry.target;
+        var target = parseFloat(node.dataset.count);
+        var separator = node.dataset.sep || "";
+        var start = performance.now();
+
+        function step(now) {
+          var t = Math.min(1, (now - start) / 1500);
+          node.textContent = format(target * (1 - Math.pow(1 - t, 3)), separator);
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+
+    counters.forEach(function (node) { observer.observe(node); });
+  }
+
+  /* ---------- Spotlight on the maroon blocks --------------------------- */
+
+  function initSpotlight() {
+    if (reduceMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+    $$(".block-maroon").forEach(function (block) {
+      block.addEventListener("pointermove", function (event) {
+        var box = block.getBoundingClientRect();
+        block.style.setProperty("--mx", ((event.clientX - box.left) / box.width * 100).toFixed(1) + "%");
+        block.style.setProperty("--my", ((event.clientY - box.top) / box.height * 100).toFixed(1) + "%");
+        block.style.setProperty("--lamp", "1");
+      }, { passive: true });
+      block.addEventListener("pointerleave", function () {
+        block.style.setProperty("--lamp", "0");
+      }, { passive: true });
+    });
   }
 
   /* ---------- Mobile menu drawer --------------------------------------- */
@@ -252,8 +441,36 @@
     });
   }
 
+  /* ---------- Share prompt after signing up ----------------------------- */
+
+  // Uses the phone's share sheet, or copies the link. Without either, the
+  // button stays a plain email link.
+  function initShare() {
+    var button = $("[data-share]");
+    if (!button) return;
+    var label = $("span", button);
+    var url = "https://turblend.us/";
+
+    button.addEventListener("click", function (event) {
+      if (navigator.share) {
+        event.preventDefault();
+        navigator.share({ title: "Turblend", text: "Puerto Rican coffee, brewed on sand.", url: url }).catch(function () {});
+      } else if (navigator.clipboard && window.isSecureContext) {
+        event.preventDefault();
+        navigator.clipboard.writeText(url).then(function () {
+          label.textContent = button.dataset.copied;
+        });
+      }
+    });
+  }
+
+  initHeader();
   initDrawer();
   initActiveNav();
   initEvents();
   initSignup();
+  initShare();
+  initReveals();
+  initCounters();
+  initSpotlight();
 })();
