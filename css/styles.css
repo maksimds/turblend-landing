@@ -948,10 +948,10 @@ main:focus { outline: none; }
   padding-block: var(--s-5);
   text-align: center;
 }
-/* Same hand-lettered artwork as the masthead, in paper for the dark footer. */
+/* Same hand-lettered artwork as the masthead, in paper for the dark footer, 1.6x smaller. */
 .footer-word img {
   display: block;
-  width: clamp(250px, 31.67vw, 500px);
+  width: clamp(156px, 19.79vw, 312px);
   height: auto;
 }
 .footer-info p + p { margin-top: var(--s-1); }
