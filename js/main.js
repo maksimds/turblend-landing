@@ -1,8 +1,8 @@
 /*
  * Turblend · small enhancements.
  * The page reads and navigates without this file; it adds the mobile menu,
- * the active nav state, pop-up dates, in-page form submission, and the
- * scroll animations.
+ * the header bar that pins on scroll-up, the round badge's behavior, pop-up
+ * dates, in-page form submission, and the scroll reveals.
  */
 (function () {
   "use strict";
@@ -21,29 +21,42 @@
     return Array.prototype.slice.call((root || document).querySelectorAll(selector));
   }
 
-  /* ---------- Header and reading progress ------------------------------ */
+  /* ---------- Header bar ----------------------------------------------- */
 
-  // The header picks up a shadow once you scroll, hides while you scroll
-  // down, and comes back as soon as you scroll up.
-  function initHeader() {
-    var header = $("[data-header]");
-    var progress = $("[data-progress]");
+  // The bar scrolls away with the page. As soon as you scroll back up it
+  // pins to the top of the screen, and it tucks away again when you scroll
+  // down. Back at the very top it returns to its place in the page.
+  function initNav() {
+    var nav = $("[data-nav]");
+    if (!nav) return;
+    var root = document.documentElement;
     var lastY = window.scrollY;
     var queued = false;
+
+    function set(pinned, hidden) {
+      nav.dataset.pinned = String(pinned);
+      nav.dataset.hidden = String(hidden);
+      root.classList.toggle("nav-shown", pinned && !hidden);
+    }
 
     function update() {
       queued = false;
       var y = window.scrollY;
-      if (header) {
-        var menuOpen = document.documentElement.classList.contains("is-locked");
-        var hide = !menuOpen && !header.contains(document.activeElement) && y > 480 && y > lastY + 4;
-        header.dataset.scrolled = String(y > 24);
-        if (hide) header.dataset.hidden = "true";
-        else if (y < lastY - 4 || y <= 480) header.dataset.hidden = "false";
+      var pinned = nav.dataset.pinned === "true";
+
+      if (y <= 0) {
+        set(false, false);
+        lastY = y;
+        return;
       }
-      if (progress) {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+      // Small moves are saved up, so a slow scroll still counts as a direction.
+      if (Math.abs(y - lastY) < 6) return;
+
+      if (y < lastY) {
+        if (pinned || y > nav.offsetHeight) set(true, false);
+      } else if (pinned && !nav.contains(document.activeElement)) {
+        if (y > nav.offsetHeight) set(true, true);
+        else set(false, false);
       }
       lastY = y;
     }
@@ -54,56 +67,50 @@
         requestAnimationFrame(update);
       }
     }, { passive: true });
-    if (header) header.addEventListener("focusin", function () { header.dataset.hidden = "false"; });
+
+    // Tabbing into a tucked-away bar brings it back.
+    nav.addEventListener("focusin", function () {
+      if (nav.dataset.pinned === "true") set(true, false);
+    });
+  }
+
+  /* ---------- Round "Get on the list" badge ---------------------------- */
+
+  // The badge tucks up toward the corner once you scroll, and steps aside
+  // while the signup form itself is on screen.
+  function initBadge() {
+    var badge = $("[data-badge]");
+    if (!badge) return;
+    var queued = false;
+
+    function update() {
+      queued = false;
+      badge.dataset.scrolled = String(window.scrollY > 150);
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
     update();
+
+    var signup = document.getElementById("signup");
+    if (!signup || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (entries) {
+      badge.dataset.hidden = String(entries[0].isIntersecting);
+    }, { rootMargin: "0px 0px -35% 0px" }).observe(signup);
   }
 
   /* ---------- Scroll reveals ------------------------------------------- */
 
-  // Wraps each word of a headline in two spans so it can rise into place.
-  // Elements inside (like <em>) keep their styling; <br> stays a line break.
-  function splitWords(heading) {
-    var index = 0;
-
-    function walk(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-        if (child.nodeType === 1) {
-          if (child.tagName !== "BR") walk(child);
-          return;
-        }
-        if (child.nodeType !== 3 || !child.textContent.trim()) return;
-
-        var fragment = document.createDocumentFragment();
-        child.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (!part.trim()) {
-            fragment.appendChild(document.createTextNode(part));
-            return;
-          }
-          var outer = document.createElement("span");
-          var inner = document.createElement("span");
-          outer.className = "w";
-          inner.className = "wi";
-          inner.style.setProperty("--i", index++);
-          inner.textContent = part;
-          outer.appendChild(inner);
-          fragment.appendChild(outer);
-        });
-        node.replaceChild(fragment, child);
-      });
-    }
-
-    walk(heading);
-  }
-
   function initReveals() {
-    var items = $$(".rv, .rv-up, .rv-clip, .rw");
+    var items = $$(".rv, .rv-up");
     if (reduceMotion || !("IntersectionObserver" in window)) {
       items.forEach(function (item) { item.classList.add("in"); });
       return;
     }
-
-    $$(".rw").forEach(splitWords);
 
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -113,40 +120,7 @@
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
 
-    // A fully clipped image has no visible area, so the observer never sees it
-    // arrive. Those are checked by position on scroll instead.
-    var clips = [];
-    items.forEach(function (item) {
-      if (item.classList.contains("rv-clip")) clips.push(item);
-      else observer.observe(item);
-    });
-
-    var queued = false;
-    function checkClips() {
-      queued = false;
-      var limit = window.innerHeight * 0.94;
-      clips = clips.filter(function (item) {
-        var box = item.getBoundingClientRect();
-        if (box.top < limit && box.bottom > 0) {
-          item.classList.add("in");
-          return false;
-        }
-        return true;
-      });
-      if (!clips.length) {
-        window.removeEventListener("scroll", queueClips);
-        window.removeEventListener("resize", queueClips);
-      }
-    }
-    function queueClips() {
-      if (!queued) {
-        queued = true;
-        requestAnimationFrame(checkClips);
-      }
-    }
-    window.addEventListener("scroll", queueClips, { passive: true });
-    window.addEventListener("resize", queueClips);
-    checkClips();
+    items.forEach(function (item) { observer.observe(item); });
   }
 
   /* ---------- Counting numbers ----------------------------------------- */
@@ -181,24 +155,6 @@
     }, { threshold: 0.4 });
 
     counters.forEach(function (node) { observer.observe(node); });
-  }
-
-  /* ---------- Spotlight on the maroon blocks --------------------------- */
-
-  function initSpotlight() {
-    if (reduceMotion || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
-    $$(".block-maroon").forEach(function (block) {
-      block.addEventListener("pointermove", function (event) {
-        var box = block.getBoundingClientRect();
-        block.style.setProperty("--mx", ((event.clientX - box.left) / box.width * 100).toFixed(1) + "%");
-        block.style.setProperty("--my", ((event.clientY - box.top) / box.height * 100).toFixed(1) + "%");
-        block.style.setProperty("--lamp", "1");
-      }, { passive: true });
-      block.addEventListener("pointerleave", function () {
-        block.style.setProperty("--lamp", "0");
-      }, { passive: true });
-    });
   }
 
   /* ---------- Mobile menu drawer --------------------------------------- */
@@ -239,33 +195,6 @@
     window.matchMedia("(min-width: 1024px)").addEventListener("change", function (event) {
       if (event.matches && drawer.open) drawer.close();
     });
-  }
-
-  /* ---------- Highlight the nav item for the section in view ----------- */
-
-  function initActiveNav() {
-    var links = Array.prototype.slice.call(document.querySelectorAll("[data-nav-link]"));
-    if (!links.length || !("IntersectionObserver" in window)) return;
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          links.forEach(function (link) {
-            link.classList.toggle("is-active", link.hash === "#" + entry.target.id);
-          });
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-
-    links
-      .map(function (link) { return link.hash.slice(1); })
-      .filter(function (id, i, ids) { return ids.indexOf(id) === i; })
-      .forEach(function (id) {
-        var section = document.getElementById(id);
-        if (section) observer.observe(section);
-      });
   }
 
   /* ---------- Pop-up dates (from js/events.js) ------------------------- */
@@ -328,7 +257,7 @@
   function initEvents() {
     var list = $("[data-events]");
     var empty = $("[data-events-empty]");
-    var ticker = $("[data-next-popup]");
+    var tickers = $$("[data-next-popup]");
     var events = Array.isArray(window.TURBLEND_EVENTS) ? window.TURBLEND_EVENTS : [];
     var today = todayISO();
 
@@ -346,12 +275,12 @@
     }
     if (empty) empty.hidden = upcoming.length > 0;
 
-    if (ticker) {
-      var next = upcoming[0];
+    var next = upcoming[0];
+    tickers.forEach(function (ticker) {
       ticker.textContent = next
         ? formatDate(next.date, { weekday: "short", month: "short", day: "numeric" }) + " · " + typeset(next.venue)
         : ticker.dataset.fallback;
-    }
+    });
   }
 
   /* ---------- Email signup (Formspree) --------------------------------- */
@@ -464,13 +393,12 @@
     });
   }
 
-  initHeader();
+  initNav();
+  initBadge();
   initDrawer();
-  initActiveNav();
   initEvents();
   initSignup();
   initShare();
   initReveals();
   initCounters();
-  initSpotlight();
 })();

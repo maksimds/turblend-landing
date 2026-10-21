@@ -9,7 +9,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Yeseva+One&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
   <!-- Styles are inline because GitHub Pages serves this page at any missing URL,
        where relative links to css/ would break. -->
   <style>
@@ -17,66 +17,76 @@
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 48px 16px;
+      display: flex;
+      flex-direction: column;
       background: #f7f2ea;
       color: #2e0c14;
-      font: 400 1.0625rem/1.6 "Josefin Sans", "Futura", "Century Gothic", system-ui, sans-serif;
+      font: 400 1.25rem/1.45 "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
       -webkit-font-smoothing: antialiased;
     }
-    main {
-      width: 100%;
-      max-width: 40rem;
-      padding: clamp(28px, 6vw, 56px);
-      border-radius: clamp(24px, 4vw, 48px);
-      background: #651d2b;
-      color: #f7f2ea;
-    }
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 0.65em;
+    .mini {
       margin: 0;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
+      font-family: "Courier Prime", "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      line-height: 1.375;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      color: #e2d3cd;
     }
-    .eyebrow::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: currentColor; }
+    header {
+      margin: 0 clamp(18px, 4vw, 40px);
+      padding: 20px 0;
+      border-bottom: 1px solid #2e0c14;
+      text-align: center;
+    }
+    .word {
+      color: #651d2b;
+      font-size: 1.375rem;
+      line-height: 1;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    main {
+      flex: 1;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      padding: 70px clamp(18px, 4vw, 40px);
+      text-align: center;
+    }
+    .label { color: #725a5d; }
     h1 {
-      margin: 20px 0 0;
-      font: 400 clamp(2.4rem, 1.4rem + 4.5vw, 4rem)/1.04 "Yeseva One", Georgia, serif;
-      letter-spacing: -0.012em;
+      max-width: 16ch;
+      margin: 18px auto 0;
+      font-size: clamp(2.125rem, 1.75rem + 1.2vw, 2.8125rem);
+      font-weight: 400;
+      line-height: 1.2;
     }
-    h1 em { font-family: "Josefin Sans", sans-serif; font-weight: 300; letter-spacing: -0.02em; color: #f0e2df; }
-    p.body { margin: 20px 0 0; color: #e2d3cd; max-width: 34ch; }
-    a.btn {
+    h1 em { color: #651d2b; }
+    p.body { max-width: 34ch; margin: 18px auto 0; }
+    a.cta {
       display: inline-flex;
       align-items: center;
-      min-height: 48px;
-      margin-top: 28px;
-      padding: 0.95em 1.6em 0.85em;
-      border-radius: 999px;
-      background: #f7f2ea;
+      gap: 0.4em;
+      margin-top: 30px;
       color: #651d2b;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
+      font-size: 1.5rem;
       text-decoration: none;
-      transition: background 0.18s, color 0.18s;
     }
-    a.btn:hover { background: #2e0c14; color: #f7f2ea; }
-    a:focus-visible { outline: 2px solid #f7f2ea; outline-offset: 3px; }
+    a.cta:hover span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    a.cta svg { width: 1em; height: 0.42em; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    a:focus-visible { outline: 2px solid #8b2c3e; outline-offset: 3px; }
   </style>
 </head>
 <body>
+  <header>
+    <a class="word" href="/">Turblend</a>
+  </header>
   <main>
-    <p class="eyebrow">404 · Page not found</p>
+    <p class="mini label">404 · Page not found</p>
     <h1>This cup came up <em>empty.</em></h1>
     <p class="body">The page you’re looking for isn’t here. The coffee, the pop-up dates, and the list are all on the home page.</p>
-    <a class="btn" href="/">Back to Turblend</a>
+    <a class="cta" href="/"><span>Back to Turblend</span><svg viewBox="0 0 24 10" aria-hidden="true"><path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/></svg></a>
   </main>
 </body>
 </html>

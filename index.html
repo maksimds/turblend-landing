@@ -27,7 +27,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Yeseva+One&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 
   <!-- Business details for search engines. Once you have them, add
@@ -68,11 +68,8 @@
 
   <!-- Shared icons, drawn once and reused below with <use href="#..."> -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <symbol id="icon-arrow" viewBox="0 0 16 16">
-      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/>
-    </symbol>
-    <symbol id="icon-down" viewBox="0 0 16 16">
-      <path d="M8 2.5v11M3.5 9 8 13.5 12.5 9"/>
+    <symbol id="icon-arrow" viewBox="0 0 24 10">
+      <path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/>
     </symbol>
     <symbol id="icon-camera" viewBox="0 0 24 24">
       <path d="M3.5 8.5A1.5 1.5 0 0 1 5 7h2.6l1.5-2h5.8l1.5 2H19a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/>
@@ -81,62 +78,74 @@
   </svg>
 
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="progress" aria-hidden="true" data-progress></div>
 
   <!-- ================================================================ HEADER -->
-  <header class="site-header" data-header>
-    <div class="container">
-      <div class="header-inner">
-        <!-- {LOGO}: the dashed "Logo" boxes are placeholders (header, menu, origin card, footer).
-             Replace each <span class="logo-ph ...">Logo</span> with your logo, e.g.
-             <img class="logo" src="images/logo.svg" alt="" width="120" height="32"> -->
-        <a class="brand" href="#top" aria-label="Turblend, back to top">
-          <span class="logo-ph" aria-hidden="true">Logo</span>
-        </a>
+  <!-- {LOGO}: "Turblend" is typeset as a stand-in wordmark in four places (header,
+       masthead, menu, footer). To use the real logo, replace each wordmark's text with
+       <img src="images/logo.svg" alt="Turblend" width="…" height="…">. -->
+  <header id="top" class="site-header">
+    <!-- The bar scrolls away with the page and pins to the top as soon as you
+         scroll back up (js/main.js). The slot holds its place meanwhile. -->
+    <div class="nav-slot">
+      <div class="nav-shell" data-nav>
+        <div class="container">
+          <div class="header-bar">
+            <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+              <span class="sr-only">Open menu</span>
+              <span class="menu-lines" aria-hidden="true"></span>
+            </button>
 
-        <nav class="primary-nav" aria-label="Primary">
-          <ul role="list">
-            <li><a class="nav-link" href="#origin" data-nav-link>Origin</a></li>
-            <li><a class="nav-link" href="#method" data-nav-link>Method</a></li>
-            <li><a class="nav-link" href="#bean" data-nav-link>The Bean</a></li>
-            <li><a class="nav-link" href="#misfits" data-nav-link>The Misfits</a></li>
-            <li><a class="nav-link" href="#popups" data-nav-link>Pop-ups</a></li>
-          </ul>
-        </nav>
+            <a class="brand-word header-brand" href="#top" aria-label="Turblend, back to top">Turblend</a>
 
-        <div class="header-actions">
-          <a class="btn btn-sm header-cta" href="#signup"><span>Get on the list</span></a>
-          <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
-            <span class="sr-only">Open menu</span>
-            <span class="menu-lines" aria-hidden="true"></span>
-          </button>
+            <!-- {BLOG URL}: there is no blog page yet. Put its address in both Blog links
+                 (here and in the mobile menu below). -->
+            <nav class="primary-nav" aria-label="Primary">
+              <ul role="list">
+                <li><a class="nav-link mini" href="#origin">Story</a></li>
+                <li><a class="nav-link mini" href="#popups">Roadmap</a></li>
+                <li><a class="nav-link mini" href="{BLOG URL}">Blog</a></li>
+              </ul>
+            </nav>
+
+            <!-- The date and venue fill in automatically from js/events.js -->
+            <a class="header-next mini" href="#popups">
+              <span class="dot pulse" aria-hidden="true"></span>
+              <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- The right-hand column stays empty: the round badge sits there. -->
+    <div class="masthead container">
+      <p class="mini masthead-note">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
+      <p class="wordmark">Turblend</p>
+    </div>
   </header>
+
+  <a class="badge-cta" href="#signup" data-badge><span>Get on the list</span></a>
 
   <!-- Mobile menu -->
   <dialog id="menu-drawer" class="drawer" aria-label="Menu" data-drawer>
     <div class="drawer-inner">
       <div class="drawer-top">
-        <span class="logo-ph" aria-hidden="true">Logo</span>
         <button class="menu-btn is-close" type="button" data-menu-close>
           <span class="sr-only">Close menu</span>
           <span class="menu-lines" aria-hidden="true"></span>
         </button>
+        <p class="brand-word" aria-hidden="true">Turblend</p>
       </div>
       <nav class="drawer-nav" aria-label="Menu">
         <ul role="list">
-          <li><a href="#origin" data-nav-link><span class="drawer-num" aria-hidden="true">01</span><span>Origin</span></a></li>
-          <li><a href="#method" data-nav-link><span class="drawer-num" aria-hidden="true">02</span><span>Method</span></a></li>
-          <li><a href="#bean" data-nav-link><span class="drawer-num" aria-hidden="true">03</span><span>The Bean</span></a></li>
-          <li><a href="#misfits" data-nav-link><span class="drawer-num" aria-hidden="true">04</span><span>The Misfits</span></a></li>
-          <li><a href="#popups" data-nav-link><span class="drawer-num" aria-hidden="true">05</span><span>Pop-ups</span></a></li>
+          <li><a href="#origin"><span class="drawer-num mini" aria-hidden="true">01</span><span>Story</span></a></li>
+          <li><a href="#popups"><span class="drawer-num mini" aria-hidden="true">02</span><span>Roadmap</span></a></li>
+          <li><a href="{BLOG URL}"><span class="drawer-num mini" aria-hidden="true">03</span><span>Blog</span></a></li>
         </ul>
       </nav>
       <div class="drawer-actions">
-        <a class="btn" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
-        <a class="btn btn-ghost" href="#popups"><span>Find a pop-up</span></a>
+        <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+        <a class="cta" href="#popups"><span>Find a pop-up</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
       </div>
     </div>
   </dialog>
@@ -144,395 +153,388 @@
   <main id="main" tabindex="-1">
 
     <!-- ============================================================== HERO -->
-    <section id="top" class="hero" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-head">
-            <p class="eyebrow rv-up">Welcome to Turblend · Cincinnati</p>
-            <h1 id="hero-title" class="display hero-title rw">Brewed on <em>sand.</em><br> Grown in the <em>sun.</em></h1>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-banner">
+        <!-- {HERO PHOTO}: replace this placeholder <div class="ph">…</div> with
+             <img src="images/hero.jpg" alt="A copper cezve nestled into hot sand, foam rising to the rim">.
+             Landscape, 16:9 or wider; it is cropped to fill. Keep the subject away from
+             the bottom-left corner, where the headline sits. -->
+        <figure class="hero-media">
+          <div class="ph ph-dark" role="img" aria-label="Photo placeholder: A copper cezve nestled into hot sand, foam rising to the rim">
+            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+            <span class="ph-tag">Photo placeholder</span>
+            <span class="ph-note">Copper cezve in hot sand, foam rising. Landscape, 16:9.</span>
           </div>
+        </figure>
+        <div class="hero-content container dark">
+          <div class="hero-text rv-up">
+            <p class="mini hero-sup">Welcome to Turblend · Cincinnati</p>
+            <h1 id="hero-title" class="title-page hero-title">Brewed on <em>sand.</em> Grown in the <em>sun.</em></h1>
+          </div>
+        </div>
+      </div>
 
-          <div class="hero-sub">
-            <p class="lede rv-up" data-d="2">Single-origin Puerto Rican beans, roasted fresh in small batches and prepared in the Turkish tradition: slow, fragrant, and brewed over hot sand. A 500-year-old ritual, returned to its freshest form.</p>
-            <div class="actions rv-up" data-d="3">
-              <a class="btn btn-lg" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
-              <a class="btn btn-lg btn-ghost" href="#popups"><span>Find a pop-up</span></a>
+      <div class="intro strate container">
+        <div class="grid">
+          <figure class="fig intro-fig rv">
+            <div class="fig-art">
+              <svg class="drawing" viewBox="0 0 100 125" aria-hidden="true">
+                <path d="M45 37c-3-4 3-7 0-11s3-7 0-11M53 38c-3-4 3-7 0-11s3-7 0-10"/>
+                <path d="M33 46c5-3 25-3 30 0M33 46c5 3 25 3 30 0M33 46c-2.2-.6-3.8-1.3-5.2-2.6 2.2.3 4 .7 5.4 1.5"/>
+                <path d="M37.5 45.4c1.4-2.6 4.2-2.6 5.6 0M43.1 45c1.5-2.8 4.4-2.8 5.9 0M49 45c1.5-2.8 4.4-2.8 5.9 0M54.9 45.4c1.4-2.4 4-2.4 5.3 0"/>
+                <path d="M34.8 47.6c1.8 2.4 2.8 5 3 7.8-6.2 6.6-9.2 16.6-8.2 33.6M61.2 47.6c-1.8 2.4-2.8 5-3 7.8 6.2 6.6 9.2 16.6 8.2 33.6M37.8 55.4c6.2 1.6 14.2 1.6 20.4 0"/>
+                <path d="M58.6 53 91 31.5M59.8 57.4 92.6 35.6M91 31.5c1.6-.6 2.6.6 1.6 4.1"/>
+                <path d="M29.6 89c10.4 3.6 26.4 3.6 36.8 0M4 92c9-3.4 18-4 25.6-3M66.4 89c8.6-1 19.6-.4 29.6 3M8 101c9-2.6 19-2.8 28-.6s19 2.4 28 .2 19-2.4 28-.4M14 110c8-2 16-2.2 24-.4s16 2 24 .2 16-1.8 24-.2"/>
+                <circle class="grain" cx="20" cy="96" r=".7"/><circle class="grain" cx="34" cy="97" r=".7"/><circle class="grain" cx="47" cy="96.5" r=".7"/><circle class="grain" cx="61" cy="97.5" r=".7"/><circle class="grain" cx="76" cy="95.5" r=".7"/><circle class="grain" cx="88" cy="97" r=".7"/><circle class="grain" cx="26" cy="105" r=".7"/><circle class="grain" cx="52" cy="105.5" r=".7"/><circle class="grain" cx="70" cy="104.5" r=".7"/><circle class="grain" cx="40" cy="114" r=".7"/><circle class="grain" cx="62" cy="114.6" r=".7"/><circle class="grain" cx="82" cy="112" r=".7"/>
+              </svg>
+            </div>
+            <figcaption class="fig-cap mini">Fig. 1<br>Cezve in hot sand</figcaption>
+          </figure>
+
+          <div class="intro-text rv-up" data-d="1">
+            <p class="mini">Single origin · Fresh roasted · Brewed on sand</p>
+            <p class="title-small">Single-origin Puerto Rican beans, roasted fresh in small batches and prepared in the Turkish tradition: slow, fragrant, and brewed over hot sand. A 500-year-old ritual, returned to its freshest form.</p>
+            <div class="cta-row">
+              <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+              <a class="cta" href="#popups"><span>Find a pop-up</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
             </div>
             <!-- The date and venue fill in automatically from js/events.js -->
-            <div class="tag-row rv-up" data-d="4">
-              <a class="tag tag-live" href="#popups">
-                <span class="pulse" aria-hidden="true"></span>
-                <span>Next pop-up · Cincinnati · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
-              </a>
-              <span class="tag">Single origin · Fresh roasted · Brewed on sand</span>
-            </div>
+            <p class="mini intro-next">
+              <span class="dot pulse" aria-hidden="true"></span>
+              <a href="#popups">Next pop-up · Cincinnati · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></a>
+            </p>
           </div>
-        </div>
-
-        <!-- {HERO PHOTO}: four photo slots. Replace each placeholder <div class="ph">…</div> with an
-             <img src="images/hero-1.jpg" alt="…"> that describes the photo. Portrait, 4:5. -->
-        <div class="hero-strip">
-          <figure class="media rv-clip">
-            <div class="ph" role="img" aria-label="Photo placeholder: A copper cezve nestled into hot sand, foam rising to the rim">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Copper cezve in hot sand, foam rising</span>
-            </div>
-          </figure>
-          <figure class="media rv-clip" data-d="1">
-            <div class="ph" role="img" aria-label="Photo placeholder: Ripe coffee cherries on the branch at Sandra Farms">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Ripe cherries at Sandra Farms</span>
-            </div>
-          </figure>
-          <figure class="media rv-clip" data-d="2">
-            <div class="ph" role="img" aria-label="Photo placeholder: A small cup of Turkish coffee with thick foam">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">The poured cup, thick foam on top</span>
-            </div>
-          </figure>
-          <figure class="media rv-clip" data-d="3">
-            <div class="ph" role="img" aria-label="Photo placeholder: Guests at a Turblend pop-up stall in Cincinnati">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Guests at a Cincinnati pop-up</span>
-            </div>
-          </figure>
-        </div>
-
-        <div class="hero-foot">
-          <p>Est. MMXXVI · Adjuntas, Puerto Rico</p>
-          <a class="ulink" href="#origin"><span>Start with the story</span><svg class="ar" aria-hidden="true"><use href="#icon-down"/></svg></a>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================== MARQUEE -->
-    <div class="marquee-band" aria-hidden="true">
-      <div class="marquee">
-        <div class="marquee-track">
-          <span>Puerto Rican bean</span><span class="it">Turkish ritual</span>
-          <span>Brewed on sand</span><span class="it">Adjuntas</span>
-          <span>Roasted weekly</span><span class="it">Cincinnati</span>
-        </div>
-        <div class="marquee-track">
-          <span>Puerto Rican bean</span><span class="it">Turkish ritual</span>
-          <span>Brewed on sand</span><span class="it">Adjuntas</span>
-          <span>Roasted weekly</span><span class="it">Cincinnati</span>
-        </div>
-      </div>
-    </div>
-
     <!-- ========================================================= 01 ORIGIN -->
-    <section id="origin" class="section" aria-labelledby="origin-title">
-      <div class="container origin-grid">
-        <div class="origin-copy">
-          <p class="eyebrow rv-up">Chapter 01 · Origin</p>
-          <h2 id="origin-title" class="display h-1 rw">A discovery in <em>Adjuntas.</em></h2>
-          <div class="prose rv-up" data-d="1">
-            <p class="prose-open">Three years ago, deep in the mountains of Puerto Rico, I walked the rows of Sandra Farms, a small estate in Adjuntas growing arabica at elevations most farms can only dream of. I bought a bag, took it home, and ground it fine the way my mom taught me.</p>
+    <section id="origin" class="strate container" aria-labelledby="origin-title">
+      <div class="grid edito ruled">
+        <div class="edito-text rv-up">
+          <p class="mini">Chapter 01 · Origin</p>
+          <h2 id="origin-title" class="title-page">A discovery in <em>Adjuntas.</em></h2>
+          <div class="prose">
+            <p class="title-small">Three years ago, deep in the mountains of Puerto Rico, I walked the rows of Sandra Farms, a small estate in Adjuntas growing arabica at elevations most farms can only dream of. I bought a bag, took it home, and ground it fine the way my mom taught me.</p>
             <p>What came out of the cezve that morning changed everything. The body, the foam, the chocolate-and-citrus finish. Puerto Rican coffee, it turns out, was made for Turkish brewing.</p>
             <p>Turblend is what happened next: a Puerto Rican bean and a Turkish ritual, blended into one cup. A small, stubborn project that starts with pop-ups and is growing into a shop in Cincinnati.</p>
           </div>
-          <p class="signature rv-up" data-d="2">
+          <p class="signature">
             <span class="signature-name">{FOUNDER NAME}</span>
-            <span class="signature-role">Founder</span>
+            <span class="signature-role mini">Founder</span>
           </p>
-          <dl class="facts rv-up" data-d="3">
-            <div><dt>Estate</dt><dd>Sandra Farms</dd></div>
-            <div><dt>Region</dt><dd>Adjuntas, PR</dd></div>
-            <div><dt>Elevation</dt><dd>3,200 ft</dd></div>
-          </dl>
-          <a class="ulink chapter-next rv-up" href="#method"><span>Next: how it’s brewed</span><svg class="ar" aria-hidden="true"><use href="#icon-down"/></svg></a>
+          <a class="cta cta-next" href="#method"><span>Next: how it’s brewed</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <div class="origin-aside">
-          <!-- {ORIGIN PHOTO}: replace this placeholder <div class="ph">…</div> with
-               <img src="images/origin.jpg" alt="Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas" loading="lazy"> -->
-          <figure class="media media-43 rv-clip">
+        <!-- {ORIGIN PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
+             small: <img src="images/cherries.jpg" alt="Ripe coffee cherries on the branch at Sandra Farms" loading="lazy">  (portrait, 4:5)
+             tall:  <img src="images/origin.jpg" alt="Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas" loading="lazy">  (portrait, 2:3) -->
+        <div class="edito-small rv" data-d="1">
+          <figure class="frame frame-45">
+            <div class="ph" role="img" aria-label="Photo placeholder: Ripe coffee cherries on the branch at Sandra Farms">
+              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+              <span class="ph-tag">Photo placeholder</span>
+              <span class="ph-note">Ripe cherries at Sandra Farms. Portrait, 4:5.</span>
+            </div>
+          </figure>
+          <dl class="facts">
+            <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
+            <div><dt class="mini">Region</dt><dd>Adjuntas, PR</dd></div>
+            <div><dt class="mini">Elevation</dt><dd>3,200 ft</dd></div>
+          </dl>
+        </div>
+
+        <figure class="edito-big rv" data-d="2">
+          <div class="frame frame-23">
             <div class="ph" role="img" aria-label="Photo placeholder: Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas">
               <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
               <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Coffee rows on the hillside at Sandra Farms, Adjuntas. Landscape, 4:3.</span>
+              <span class="ph-note">Coffee rows on the hillside at Sandra Farms, Adjuntas. Portrait, 2:3.</span>
             </div>
-          </figure>
-
-          <div class="origin-card block block-maroon rv-up" data-d="2">
-            <p class="coords">
-              <span>18.2101° N</span>
-              <span>66.8193° W</span>
-              <span>Adjuntas · Puerto Rico</span>
-            </p>
-            <div class="card-brand">
-              <span class="logo-ph logo-ph-sm" aria-hidden="true">Logo</span>
-              <div>
-                <p class="card-wordmark">Turblend</p>
-                <p class="card-tag">Single origin · Est. MMXXVI</p>
-              </div>
-            </div>
-            <blockquote class="pull">
-              <p>The cezve doesn’t lie. <em>Either the bean sings or it doesn’t.</em></p>
-            </blockquote>
           </div>
-        </div>
+          <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
+        </figure>
       </div>
     </section>
 
+    <!-- ========================================================= PULL QUOTE -->
+    <figure class="quote-block strate container rv-up">
+      <figcaption class="mini">Turblend · Single origin · Est. MMXXVI</figcaption>
+      <blockquote>
+        <p>The cezve doesn’t lie. <em>Either the bean sings or it doesn’t.</em></p>
+      </blockquote>
+    </figure>
+
     <!-- ========================================================= 02 METHOD -->
-    <section id="method" class="section" aria-labelledby="method-title">
-      <div class="container">
-        <div class="block block-maroon zs">
-          <div class="head">
-            <div>
-              <p class="eyebrow rv-up">Chapter 02 · Method</p>
-              <h2 id="method-title" class="display h-1 rw">Old ritual, <em>fresh hand.</em></h2>
-            </div>
-            <p class="head-note rv-up" data-d="2">Most Turkish coffee on shelves today was roasted months ago. Ours never sits. We roast in small batches, grind to order, and brew on hot sand the way it has been done in Türkiye for centuries. The result: foam that lasts, aroma that travels, and a cup that tastes the way it was meant to.</p>
-          </div>
+    <section id="method" class="split strate" aria-labelledby="method-title">
+      <!-- {METHOD PHOTO}: replace this placeholder <div class="ph">…</div> with
+           <img src="images/cup.jpg" alt="A small cup of Turkish coffee with thick foam" loading="lazy">.
+           It fills half the screen, so portrait or square works best. -->
+      <figure class="split-media rv">
+        <div class="ph" role="img" aria-label="Photo placeholder: A small cup of Turkish coffee with thick foam">
+          <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+          <span class="ph-tag">Photo placeholder</span>
+          <span class="ph-note">The poured cup, thick foam on top. Portrait or square.</span>
+        </div>
+      </figure>
+
+      <div class="split-body">
+        <div class="split-inner rv-up">
+          <p class="mini">Chapter 02 · Method</p>
+          <h2 id="method-title" class="title-page">Old ritual, <em>fresh hand.</em></h2>
+          <p class="title-small">Most Turkish coffee on shelves today was roasted months ago. Ours never sits. We roast in small batches, grind to order, and brew on hot sand the way it has been done in Türkiye for centuries. The result: foam that lasts, aroma that travels, and a cup that tastes the way it was meant to.</p>
 
           <ol class="steps" role="list">
-            <li class="step rv-up">
-              <p class="step-label"><span class="step-num">01</span> Source</p>
-              <h3 class="display step-title">Grown <em>high.</em></h3>
+            <li class="step">
+              <p class="step-label mini">01 · Source</p>
+              <h3 class="step-title">Grown <em>high.</em></h3>
               <p class="step-body">Arabica from Sandra Farms in Adjuntas, Puerto Rico. Volcanic soil, cool mountain nights, and a slow ripening that builds the chocolate and stone-fruit notes Turkish brewing pulls forward.</p>
             </li>
-            <li class="step rv-up" data-d="1">
-              <p class="step-label"><span class="step-num">02</span> Roast</p>
-              <h3 class="display step-title">Roasted <em>fresh.</em></h3>
+            <li class="step">
+              <p class="step-label mini">02 · Roast</p>
+              <h3 class="step-title">Roasted <em>fresh.</em></h3>
               <p class="step-body">Small batches, never warehoused. Where the big Turkish brands sit on shelves for months, we roast weekly to a medium profile: dark enough for body, light enough to let the origin speak.</p>
             </li>
-            <li class="step rv-up" data-d="2">
-              <p class="step-label"><span class="step-num">03</span> Brew</p>
-              <h3 class="display step-title">Brewed on <em>sand.</em></h3>
+            <li class="step">
+              <p class="step-label mini">03 · Brew</p>
+              <h3 class="step-title">Brewed on <em>sand.</em></h3>
               <p class="step-body">The traditional way: a copper cezve nestled into hot sand, heated slowly so the foam builds before the boil. Every cup poured in front of you.</p>
             </li>
           </ol>
 
-          <a class="ulink chapter-next rv-up" href="#bean"><span>Next: why this bean</span><svg class="ar" aria-hidden="true"><use href="#icon-down"/></svg></a>
+          <a class="cta cta-next" href="#bean"><span>Next: why this bean</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
       </div>
     </section>
 
     <!-- ======================================================= 03 THE BEAN -->
-    <section id="bean" class="section" aria-labelledby="bean-title">
-      <div class="container">
-        <div class="bean-grid">
-          <div class="bean-copy">
-            <p class="eyebrow rv-up">Chapter 03 · The Bean</p>
-            <h2 id="bean-title" class="display h-1 rw">Why Puerto Rico, <em>of all places.</em></h2>
-            <div class="prose rv-up" data-d="1">
-              <p>Turkish coffee asks more of a bean than any other brewing method. It is ground to the finest powder, unfiltered, and served whole: body, oils, sediment and all. A weak coffee falls apart in a cezve. A great one becomes something else entirely.</p>
+    <section id="bean" class="strate container" aria-labelledby="bean-title">
+      <div class="grid edito">
+        <div class="edito-text">
+          <div class="rv-up">
+            <p class="mini">Chapter 03 · The Bean</p>
+            <h2 id="bean-title" class="title-page">Why Puerto Rico, <em>of all places.</em></h2>
+            <div class="prose">
+              <p class="title-small">Turkish coffee asks more of a bean than any other brewing method. It is ground to the finest powder, unfiltered, and served whole: body, oils, sediment and all.</p>
+              <p>A weak coffee falls apart in a cezve. A great one becomes something else entirely.</p>
               <p>Puerto Rican arabica is high-grown, dense, and naturally sweet, and it handles the fine grind better than almost any origin we have tried. It is the unexpected match. And it is grown a short trip from Cincinnati, not halfway around the world.</p>
             </div>
+            <a class="cta cta-next" href="#misfits"><span>Next: the beans nobody wanted</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
           </div>
 
-          <svg class="seal spin rv" viewBox="0 0 200 200" aria-hidden="true">
-            <defs><path id="seal-ring" d="M100 100m-80 0a80 80 0 1 1 160 0a80 80 0 1 1-160 0"/></defs>
-            <circle class="seal-disc" cx="100" cy="100" r="98"/>
-            <circle class="seal-line" cx="100" cy="100" r="64"/>
-            <text class="seal-text"><textPath href="#seal-ring" textLength="498">100% arabica · Sandra Farms · Adjuntas, PR · </textPath></text>
-            <g transform="rotate(-24 100 100)">
-              <ellipse class="seal-bean" cx="100" cy="100" rx="24" ry="34"/>
-              <path class="seal-crease" d="M100 69c-9 15 9 45 0 62"/>
-            </g>
-          </svg>
+          <figure class="fig fig-land bean-fig rv" data-d="1">
+            <div class="fig-art">
+              <svg class="drawing" viewBox="0 0 150 100" aria-hidden="true">
+                <circle cx="40" cy="58" r="24"/>
+                <path d="M40 34c0-8 4-15 11-20M51 14c4-3 10-3 14 0-4 4-10 4-14 0Z"/>
+                <circle cx="40" cy="79.5" r="1.8"/>
+                <path d="M26.5 48.5a16 16 0 0 1 8.5-8.5"/>
+                <circle cx="106" cy="56" r="28"/>
+                <circle class="soft" cx="106" cy="56" r="23.5"/>
+                <path d="M105 36.5c-12 2-18 11-18 19.5s6 17.5 18 19.5ZM107 36.5c12 2 18 11 18 19.5s-6 17.5-18 19.5Z"/>
+                <path d="M105 50c-3.2 1.8-3.2 6.2 0 8M107 50c3.2 1.8 3.2 6.2 0 8"/>
+              </svg>
+            </div>
+            <figcaption class="fig-cap mini">Fig. 2 · Coffee cherry<br>Whole and in section</figcaption>
+          </figure>
         </div>
 
         <dl class="stats">
           <div class="stat rv-up">
-            <dt>Altitude</dt>
+            <dt class="mini">Altitude</dt>
             <dd class="stat-value"><span data-count="3200" data-sep=",">3,200</span> ft</dd>
             <dd class="stat-body">High elevation slows ripening and builds sugar density, the foundation of body and foam.</dd>
           </div>
           <div class="stat rv-up" data-d="1">
-            <dt>Variety</dt>
+            <dt class="mini">Variety</dt>
             <dd class="stat-value"><span data-count="100">100</span>%</dd>
             <dd class="stat-body">Arabica only. No robusta, no fillers. Just the cleanest expression of the estate.</dd>
           </div>
-          <div class="stat rv-up" data-d="2">
-            <dt>Roast</dt>
+          <div class="stat rv-up">
+            <dt class="mini">Roast</dt>
             <dd class="stat-value"><span data-count="7">7</span> days</dd>
             <dd class="stat-body">From roast to cup, never longer than a week. Most Turkish brands measure in months.</dd>
           </div>
-          <div class="stat rv-up" data-d="3">
-            <dt>Grind</dt>
+          <div class="stat rv-up" data-d="1">
+            <dt class="mini">Grind</dt>
             <dd class="stat-value">Flour</dd>
             <dd class="stat-body">Finer than espresso. The cezve demands it, and only the right bean survives it.</dd>
           </div>
         </dl>
-
-        <a class="ulink chapter-next rv-up" href="#misfits"><span>Next: the beans nobody wanted</span><svg class="ar" aria-hidden="true"><use href="#icon-down"/></svg></a>
       </div>
     </section>
 
     <!-- ==================================================== 04 THE MISFITS -->
-    <section id="misfits" class="section" aria-labelledby="misfits-title">
-      <div class="container">
-        <div class="block block-maroon zs">
-          <div class="misfits-grid">
-            <div class="misfits-copy">
-              <p class="eyebrow rv-up">Chapter 04 · The Misfits</p>
-              <h2 id="misfits-title" class="display h-1 rw">The bean the bag <em>leaves behind.</em></h2>
-              <div class="prose rv-up" data-d="1">
-                <p>Walk through Sandra Farms’ processing room and you’ll see two piles: whole beans headed for premium bags, and the cracked ones, split during sorting, perfectly delicious but visually imperfect. Most roasters won’t touch them. They go to waste.</p>
-                <p class="standout display">We take them. <em>Every one.</em></p>
-                <p>In Turkish coffee, the bean is ground to flour. Appearance disappears the moment the grinder runs. What survives is what mattered all along: origin, altitude, freshness, care. Same farm, same harvest, same hands. Just a different shape on the way to a great cup.</p>
-              </div>
-              <p class="closing rv-up">It is the most Turblend thing about us.</p>
-            </div>
-
-            <ul class="compare" role="list">
-              <li class="compare-card rv-up">
-                <svg class="bean-art" viewBox="0 0 120 160" aria-hidden="true">
-                  <g transform="rotate(-18 60 80)">
-                    <ellipse class="bean-body" cx="60" cy="80" rx="40" ry="58"/>
-                    <path class="bean-crease" d="M60 26c-15 26 15 76 0 108"/>
-                  </g>
-                </svg>
-                <h3 class="compare-kicker">What the bag keeps</h3>
-                <p class="compare-title">Whole. Photogenic.</p>
-              </li>
-              <li class="compare-card is-ours rv-up" data-d="2">
-                <svg class="bean-art" viewBox="0 0 120 160" aria-hidden="true">
-                  <g transform="rotate(-18 60 80)">
-                    <g transform="translate(-5 -7) rotate(-7 60 50)">
-                      <path class="bean-body" d="M20 78A40 58 0 1 1 99.9 84L84 90 70 78 58 88 46 76 34 86z"/>
-                      <path class="bean-crease" d="M60 26c-9 16-1 34-3 50"/>
-                    </g>
-                    <g transform="translate(5 8) rotate(6 60 110)">
-                      <path class="bean-body" d="M99.9 84A40 58 0 0 1 20 78L34 86 46 76 58 88 70 78 84 90z"/>
-                      <path class="bean-crease" d="M62 92c7 16-6 30-2 42"/>
-                    </g>
-                  </g>
-                </svg>
-                <h3 class="compare-kicker">What we take</h3>
-                <p class="compare-title">Cracked. Same farm. Same cup.</p>
-              </li>
-            </ul>
+    <section id="misfits" class="split strate" aria-labelledby="misfits-title">
+      <div class="split-body split-body-dark dark">
+        <div class="split-inner rv-up">
+          <p class="mini">Chapter 04 · The Misfits</p>
+          <h2 id="misfits-title" class="title-page">The bean the bag <em>leaves behind.</em></h2>
+          <div class="prose">
+            <p class="title-small">Walk through Sandra Farms’ processing room and you’ll see two piles: whole beans headed for premium bags, and the cracked ones, split during sorting, perfectly delicious but visually imperfect. Most roasters won’t touch them. They go to waste.</p>
+            <p class="standout title-page">We take them. <em>Every one.</em></p>
+            <p>In Turkish coffee, the bean is ground to flour. Appearance disappears the moment the grinder runs. What survives is what mattered all along: origin, altitude, freshness, care. Same farm, same harvest, same hands. Just a different shape on the way to a great cup.</p>
           </div>
-
-          <a class="ulink chapter-next rv-up" href="#popups"><span>Next: where to taste it</span><svg class="ar" aria-hidden="true"><use href="#icon-down"/></svg></a>
+          <p class="closing title-small">It is the most Turblend thing about us.</p>
+          <a class="cta cta-next" href="#popups"><span>Next: where to taste it</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
+      </div>
+
+      <div class="split-media split-plate">
+        <ul class="plate" role="list">
+          <li class="specimen rv">
+            <svg class="drawing" viewBox="0 0 120 160" aria-hidden="true">
+              <g transform="rotate(-18 60 80)">
+                <ellipse cx="60" cy="80" rx="40" ry="58"/>
+                <path d="M60 26c-15 26 15 76 0 108"/>
+                <path d="M88 54c5 16 5 38-1 56M93.5 66c2 10 2 21-1 30"/>
+              </g>
+            </svg>
+            <p class="specimen-fig mini" aria-hidden="true">Fig. 3</p>
+            <h3 class="mini">What the bag keeps</h3>
+            <p class="specimen-title">Whole. Photogenic.</p>
+          </li>
+          <li class="specimen is-ours rv" data-d="1">
+            <svg class="drawing" viewBox="0 0 120 160" aria-hidden="true">
+              <g transform="rotate(-18 60 80)">
+                <g transform="translate(-5 -7) rotate(-7 60 50)">
+                  <path d="M20 78A40 58 0 1 1 99.9 84L84 90 70 78 58 88 46 76 34 86z"/>
+                  <path d="M60 26c-9 16-1 34-3 50"/>
+                </g>
+                <g transform="translate(5 8) rotate(6 60 110)">
+                  <path d="M99.9 84A40 58 0 0 1 20 78L34 86 46 76 58 88 70 78 84 90z"/>
+                  <path d="M62 92c7 16-6 30-2 42"/>
+                </g>
+              </g>
+            </svg>
+            <p class="specimen-fig mini" aria-hidden="true">Fig. 4</p>
+            <h3 class="mini">What we take</h3>
+            <p class="specimen-title">Cracked. Same farm. Same cup.</p>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- ======================================================== 05 POP-UPS -->
-    <section id="popups" class="section" aria-labelledby="popups-title">
-      <div class="container">
-        <div class="popups-head">
-          <div class="popups-copy">
-            <p class="eyebrow rv-up">Chapter 05 · Pop-ups</p>
-            <h2 id="popups-title" class="display h-1 rw">Pop-ups, <em>then a shop.</em></h2>
-            <p class="lede rv-up" data-d="1">We’re starting small: farmers’ markets across Cincinnati, coffee partnerships, and private events. A storefront comes next. Get on the list to be first in line.</p>
-            <div class="actions rv-up" data-d="2">
-              <a class="btn" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
-            </div>
+    <section id="popups" class="strate container" aria-labelledby="popups-title">
+      <div class="grid edito">
+        <div class="edito-text rv-up">
+          <p class="mini">Chapter 05 · Pop-ups</p>
+          <h2 id="popups-title" class="title-page">Pop-ups, <em>then a shop.</em></h2>
+          <div class="prose">
+            <p class="title-small">We’re starting small: farmers’ markets across Cincinnati, coffee partnerships, and private events. A storefront comes next. Get on the list to be first in line.</p>
           </div>
-          <!-- {POP-UP PHOTO}: replace this placeholder <div class="ph">…</div> with
-               <img src="images/popup.jpg" alt="The Turblend sand brewer at a market stall, cups lined up and ready" loading="lazy"> -->
-          <figure class="media media-32 rv-clip">
-            <div class="ph" role="img" aria-label="Photo placeholder: The Turblend sand brewer at a market stall, cups lined up and ready">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">The sand brewer at a market stall, cups lined up. Landscape, 3:2.</span>
-            </div>
-          </figure>
+          <a class="cta cta-next" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <!-- Timeline. Badge styles: badge-live, badge-open, badge-planned
-             (and phase-live on the card for the filled line). -->
-        <ol class="timeline" role="list">
-          <li class="phase phase-live rv-up">
-            <p class="phase-when">Now</p>
-            <h3 class="phase-title">Farmers’ Markets</h3>
-            <p class="phase-where">Across Cincinnati, locations rotating</p>
-            <p class="badge badge-live"><span class="pulse" aria-hidden="true"></span>Dates posted on Instagram</p>
-          </li>
-          <li class="phase rv-up" data-d="1">
-            <p class="phase-when">Fall 2026</p>
-            <h3 class="phase-title">Private Tastings</h3>
-            <p class="phase-where">By invitation</p>
-            <p class="badge badge-open">Waitlist open</p>
-          </li>
-          <li class="phase rv-up" data-d="2">
-            <p class="phase-when">2027</p>
-            <h3 class="phase-title">The Turblend Shop</h3>
-            <p class="phase-where">Cincinnati, OH</p>
-            <p class="badge badge-planned">In planning</p>
-          </li>
-        </ol>
+        <!-- {POP-UP PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
+             small: <img src="images/guests.jpg" alt="Guests at a Turblend pop-up stall in Cincinnati" loading="lazy">  (portrait, 4:5)
+             tall:  <img src="images/popup.jpg" alt="The Turblend sand brewer at a market stall, cups lined up and ready" loading="lazy">  (portrait, 2:3) -->
+        <figure class="edito-small frame frame-45 rv" data-d="1">
+          <div class="ph" role="img" aria-label="Photo placeholder: Guests at a Turblend pop-up stall in Cincinnati">
+            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+            <span class="ph-tag">Photo placeholder</span>
+            <span class="ph-note">Guests at a Cincinnati pop-up. Portrait, 4:5.</span>
+          </div>
+        </figure>
 
-        <!-- Upcoming dates come from js/events.js. Edit them there, not here. -->
-        <div class="events block block-lift rv-up">
-          <h3 class="events-title display">Upcoming <em>dates</em></h3>
+        <figure class="edito-big frame frame-23 rv" data-d="2">
+          <div class="ph" role="img" aria-label="Photo placeholder: The Turblend sand brewer at a market stall, cups lined up and ready">
+            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
+            <span class="ph-tag">Photo placeholder</span>
+            <span class="ph-note">The sand brewer at a market stall, cups lined up. Portrait, 2:3.</span>
+          </div>
+        </figure>
+      </div>
+
+      <!-- Timeline. Status styles: status-live, status-open, status-planned. -->
+      <ol class="timeline grid" role="list">
+        <li class="phase rv-up">
+          <p class="phase-when">Now</p>
+          <h3 class="phase-title">Farmers’ Markets</h3>
+          <p class="phase-where">Across Cincinnati, locations rotating</p>
+          <p class="status status-live mini"><span class="dot pulse" aria-hidden="true"></span>Dates posted on Instagram</p>
+        </li>
+        <li class="phase rv-up" data-d="1">
+          <p class="phase-when">Fall 2026</p>
+          <h3 class="phase-title">Private Tastings</h3>
+          <p class="phase-where">By invitation</p>
+          <p class="status status-open mini"><span class="dot" aria-hidden="true"></span>Waitlist open</p>
+        </li>
+        <li class="phase rv-up" data-d="2">
+          <p class="phase-when">2027</p>
+          <h3 class="phase-title">The Turblend Shop</h3>
+          <p class="phase-where">Cincinnati, OH</p>
+          <p class="status status-planned mini"><span class="dot" aria-hidden="true"></span>In planning</p>
+        </li>
+      </ol>
+
+      <!-- Upcoming dates come from js/events.js. Edit them there, not here. -->
+      <div class="events grid rv-up">
+        <h3 class="events-title title-page">Upcoming <em>dates</em></h3>
+        <div class="events-body">
           <ul class="event-list" role="list" data-events hidden></ul>
           <div class="events-empty" data-events-empty>
-            <p>Next dates drop soon. Get on the list and you’ll hear first.</p>
-            <a class="btn btn-ghost" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+            <p class="title-small">Next dates drop soon. Get on the list and you’ll hear first.</p>
+            <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================ SIGNUP -->
-    <section id="signup" class="section" aria-labelledby="signup-title">
-      <div class="container">
-        <div class="block block-maroon zs">
-          <div class="signup-grid">
-            <div class="signup-copy">
-              <p class="eyebrow rv-up">Chapter 06 · The List</p>
-              <h2 id="signup-title" class="display h-1 rw">Be <em>first in line.</em></h2>
-              <p class="lede rv-up" data-d="1">Pop-up dates, tasting invites, and shop news. A few emails a month, nothing more.</p>
+    <section id="signup" class="band strate dark" aria-labelledby="signup-title">
+      <div class="container grid">
+        <div class="band-text rv-up">
+          <p class="mini">Chapter 06 · The List</p>
+          <h2 id="signup-title" class="title-page">Be <em>first in line.</em></h2>
+          <p class="title-small">Pop-up dates, tasting invites, and shop news. A few emails a month, nothing more.</p>
+        </div>
+
+        <div class="signup-panel rv-up" data-d="1">
+          <!-- Signups go to Formspree (formspree.io). Paste your form ID in place of
+               {FORMSPREE FORM ID} in the action below. See README for setup. -->
+          <form class="form" action="https://formspree.io/f/{FORMSPREE FORM ID}" method="POST" data-signup>
+            <input type="hidden" name="_subject" value="New Turblend list signup">
+            <p hidden><label>Leave this empty: <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+            <div class="field">
+              <label class="mini" for="signup-email">Email</label>
+              <input class="input" id="signup-email" type="email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com">
+              <p class="field-error" id="signup-email-error" data-email-error data-message="Please enter a valid email address, like you@example.com." hidden></p>
             </div>
 
-            <div class="signup-panel rv-up" data-d="2">
-              <!-- Signups go to Formspree (formspree.io). Paste your form ID in place of
-                   {FORMSPREE FORM ID} in the action below. See README for setup. -->
-              <form class="form" action="https://formspree.io/f/{FORMSPREE FORM ID}" method="POST" data-signup>
-                <input type="hidden" name="_subject" value="New Turblend list signup">
-                <p hidden><label>Leave this empty: <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
-
-                <div class="field">
-                  <label for="signup-email">Email</label>
-                  <input class="input" id="signup-email" type="email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com">
-                  <p class="field-error" id="signup-email-error" data-email-error data-message="Please enter a valid email address, like you@example.com." hidden></p>
-                </div>
-
-                <div class="field">
-                  <label for="signup-name">First name <span class="field-hint">(Optional)</span></label>
-                  <input class="input" id="signup-name" type="text" name="first_name" autocomplete="given-name">
-                </div>
-
-                <label class="check">
-                  <input type="checkbox" name="private_tastings" value="yes">
-                  <span>Invite me to private tastings</span>
-                </label>
-
-                <button class="btn btn-lg btn-block" type="submit" data-label="Get on the list" data-sending="Sending">Get on the list</button>
-
-                <p class="form-error" role="alert" data-form-error data-message="That didn’t go through. Please check your connection and try again." hidden></p>
-              </form>
-
-              <div class="signup-success" role="status" tabindex="-1" data-signup-success hidden>
-                <svg class="success-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5"/><path d="M15 24.5 21 30.5 33.5 18"/></svg>
-                <p class="display success-title">You’re in. <em>See you at the cezve.</em></p>
-                <p class="success-note">Know someone who’d love a cup brewed on sand?</p>
-                <a class="btn btn-ghost" href="mailto:?subject=Turblend%3A%20Puerto%20Rican%20coffee%2C%20brewed%20on%20sand&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fturblend.us%2F" data-share data-copied="Link copied"><span>Share Turblend</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
-              </div>
+            <div class="field">
+              <label class="mini" for="signup-name">First name <span class="field-hint">(Optional)</span></label>
+              <input class="input" id="signup-name" type="text" name="first_name" autocomplete="given-name">
             </div>
+
+            <label class="check">
+              <input type="checkbox" name="private_tastings" value="yes">
+              <span>Invite me to private tastings</span>
+            </label>
+
+            <button class="btn btn-light btn-block" type="submit" data-label="Get on the list" data-sending="Sending">Get on the list</button>
+
+            <p class="form-error" role="alert" data-form-error data-message="That didn’t go through. Please check your connection and try again." hidden></p>
+          </form>
+
+          <div class="signup-success" role="status" tabindex="-1" data-signup-success hidden>
+            <svg class="success-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5"/><path d="M15 24.5 21 30.5 33.5 18"/></svg>
+            <p class="title-page">You’re in. <em>See you at the cezve.</em></p>
+            <p class="success-note">Know someone who’d love a cup brewed on sand?</p>
+            <a class="cta" href="mailto:?subject=Turblend%3A%20Puerto%20Rican%20coffee%2C%20brewed%20on%20sand&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fturblend.us%2F" data-share data-copied="Link copied"><span>Share Turblend</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- =============================================================== FAQ -->
-    <section id="faq" class="section" aria-labelledby="faq-title">
-      <div class="container faq-grid">
-        <div class="faq-head">
-          <p class="eyebrow rv-up">Chapter 07 · FAQ</p>
-          <h2 id="faq-title" class="display h-1 rw">Questions, <em>answered.</em></h2>
+    <section id="faq" class="strate container" aria-labelledby="faq-title">
+      <div class="grid ruled">
+        <div class="faq-head rv-up">
+          <p class="mini">Chapter 07 · FAQ</p>
+          <h2 id="faq-title" class="title-page">Questions, <em>answered.</em></h2>
         </div>
 
         <div class="faq-list rv-up" data-d="1">
@@ -559,20 +561,22 @@
   </main>
 
   <!-- ============================================================== FOOTER -->
-  <footer class="site-footer">
+  <footer class="site-footer strate dark">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="brand" href="#top" aria-label="Turblend, back to top">
-            <span class="logo-ph logo-ph-light" aria-hidden="true">Logo</span>
-          </a>
-          <p class="footer-tagline display">Puerto Rican bean. Turkish ritual. <em>Cincinnati.</em></p>
-          <a class="btn btn-light" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+      <div class="footer-main">
+        <p class="mini">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
+        <p class="footer-word">Turblend</p>
+        <div class="footer-info mini">
+          <p>Cincinnati, OH</p>
+          <p><a href="{INSTAGRAM URL}">Instagram</a><br><a href="mailto:{EMAIL ADDRESS}">{EMAIL ADDRESS}</a></p>
         </div>
+        <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
+      </div>
 
-        <nav aria-labelledby="footer-explore">
-          <p class="footer-heading" id="footer-explore">Explore</p>
-          <ul class="footer-links" role="list">
+      <div class="footer-base mini">
+        <p>© 2026 Turblend · Cincinnati, OH</p>
+        <nav class="footer-nav" aria-label="Footer">
+          <ul role="list">
             <li><a href="#origin">Origin</a></li>
             <li><a href="#method">Method</a></li>
             <li><a href="#bean">The Bean</a></li>
@@ -580,22 +584,8 @@
             <li><a href="#popups">Pop-ups</a></li>
           </ul>
         </nav>
-
-        <div>
-          <p class="footer-heading">Connect</p>
-          <ul class="footer-links" role="list">
-            <li><a href="{INSTAGRAM URL}">Instagram</a></li>
-            <li><a href="mailto:{EMAIL ADDRESS}">{EMAIL ADDRESS}</a></li>
-          </ul>
-        </div>
+        <a class="footer-top" href="#top">Back to top</a>
       </div>
-
-      <div class="footer-base">
-        <p>© 2026 Turblend · Cincinnati, OH</p>
-        <a href="#top">Back to top</a>
-      </div>
-
-      <p class="footer-word" aria-hidden="true">Turblend</p>
     </div>
   </footer>
 
