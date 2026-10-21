@@ -1,8 +1,8 @@
 /*
  * Turblend · small enhancements.
  * The page reads and navigates without this file; it adds the mobile menu,
- * the active nav state, the round badge's behavior, pop-up dates, in-page
- * form submission, and the scroll reveals.
+ * the header bar that pins on scroll-up, the round badge's behavior, pop-up
+ * dates, in-page form submission, and the scroll reveals.
  */
 (function () {
   "use strict";
@@ -19,6 +19,59 @@
 
   function $$(selector, root) {
     return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+  }
+
+  /* ---------- Header bar ----------------------------------------------- */
+
+  // The bar scrolls away with the page. As soon as you scroll back up it
+  // pins to the top of the screen, and it tucks away again when you scroll
+  // down. Back at the very top it returns to its place in the page.
+  function initNav() {
+    var nav = $("[data-nav]");
+    if (!nav) return;
+    var root = document.documentElement;
+    var lastY = window.scrollY;
+    var queued = false;
+
+    function set(pinned, hidden) {
+      nav.dataset.pinned = String(pinned);
+      nav.dataset.hidden = String(hidden);
+      root.classList.toggle("nav-shown", pinned && !hidden);
+    }
+
+    function update() {
+      queued = false;
+      var y = window.scrollY;
+      var pinned = nav.dataset.pinned === "true";
+
+      if (y <= 0) {
+        set(false, false);
+        lastY = y;
+        return;
+      }
+      // Small moves are saved up, so a slow scroll still counts as a direction.
+      if (Math.abs(y - lastY) < 6) return;
+
+      if (y < lastY) {
+        if (pinned || y > nav.offsetHeight) set(true, false);
+      } else if (pinned && !nav.contains(document.activeElement)) {
+        if (y > nav.offsetHeight) set(true, true);
+        else set(false, false);
+      }
+      lastY = y;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+
+    // Tabbing into a tucked-away bar brings it back.
+    nav.addEventListener("focusin", function () {
+      if (nav.dataset.pinned === "true") set(true, false);
+    });
   }
 
   /* ---------- Round "Get on the list" badge ---------------------------- */
@@ -142,33 +195,6 @@
     window.matchMedia("(min-width: 1024px)").addEventListener("change", function (event) {
       if (event.matches && drawer.open) drawer.close();
     });
-  }
-
-  /* ---------- Highlight the nav item for the section in view ----------- */
-
-  function initActiveNav() {
-    var links = Array.prototype.slice.call(document.querySelectorAll("[data-nav-link]"));
-    if (!links.length || !("IntersectionObserver" in window)) return;
-
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          links.forEach(function (link) {
-            link.classList.toggle("is-active", link.hash === "#" + entry.target.id);
-          });
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-
-    links
-      .map(function (link) { return link.hash.slice(1); })
-      .filter(function (id, i, ids) { return ids.indexOf(id) === i; })
-      .forEach(function (id) {
-        var section = document.getElementById(id);
-        if (section) observer.observe(section);
-      });
   }
 
   /* ---------- Pop-up dates (from js/events.js) ------------------------- */
@@ -367,9 +393,9 @@
     });
   }
 
+  initNav();
   initBadge();
   initDrawer();
-  initActiveNav();
   initEvents();
   initSignup();
   initShare();

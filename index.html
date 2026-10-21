@@ -84,30 +84,36 @@
        masthead, menu, footer). To use the real logo, replace each wordmark's text with
        <img src="images/logo.svg" alt="Turblend" width="…" height="…">. -->
   <header id="top" class="site-header">
-    <div class="container">
-      <div class="header-bar">
-        <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
-          <span class="sr-only">Open menu</span>
-          <span class="menu-lines" aria-hidden="true"></span>
-        </button>
+    <!-- The bar scrolls away with the page and pins to the top as soon as you
+         scroll back up (js/main.js). The slot holds its place meanwhile. -->
+    <div class="nav-slot">
+      <div class="nav-shell" data-nav>
+        <div class="container">
+          <div class="header-bar">
+            <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+              <span class="sr-only">Open menu</span>
+              <span class="menu-lines" aria-hidden="true"></span>
+            </button>
 
-        <a class="brand-word header-brand" href="#top" aria-label="Turblend, back to top">Turblend</a>
+            <a class="brand-word header-brand" href="#top" aria-label="Turblend, back to top">Turblend</a>
 
-        <nav class="primary-nav" aria-label="Primary">
-          <ul role="list">
-            <li><a class="nav-link mini" href="#origin" data-nav-link>Origin</a></li>
-            <li><a class="nav-link mini" href="#method" data-nav-link>Method</a></li>
-            <li><a class="nav-link mini" href="#bean" data-nav-link>The Bean</a></li>
-            <li><a class="nav-link mini" href="#misfits" data-nav-link>The Misfits</a></li>
-            <li><a class="nav-link mini" href="#popups" data-nav-link>Pop-ups</a></li>
-          </ul>
-        </nav>
+            <!-- {BLOG URL}: there is no blog page yet. Put its address in both Blog links
+                 (here and in the mobile menu below). -->
+            <nav class="primary-nav" aria-label="Primary">
+              <ul role="list">
+                <li><a class="nav-link mini" href="#origin">Story</a></li>
+                <li><a class="nav-link mini" href="#popups">Roadmap</a></li>
+                <li><a class="nav-link mini" href="{BLOG URL}">Blog</a></li>
+              </ul>
+            </nav>
 
-        <!-- The date and venue fill in automatically from js/events.js -->
-        <a class="header-next mini" href="#popups">
-          <span class="dot pulse" aria-hidden="true"></span>
-          <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
-        </a>
+            <!-- The date and venue fill in automatically from js/events.js -->
+            <a class="header-next mini" href="#popups">
+              <span class="dot pulse" aria-hidden="true"></span>
+              <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -132,11 +138,9 @@
       </div>
       <nav class="drawer-nav" aria-label="Menu">
         <ul role="list">
-          <li><a href="#origin" data-nav-link><span class="drawer-num mini" aria-hidden="true">01</span><span>Origin</span></a></li>
-          <li><a href="#method" data-nav-link><span class="drawer-num mini" aria-hidden="true">02</span><span>Method</span></a></li>
-          <li><a href="#bean" data-nav-link><span class="drawer-num mini" aria-hidden="true">03</span><span>The Bean</span></a></li>
-          <li><a href="#misfits" data-nav-link><span class="drawer-num mini" aria-hidden="true">04</span><span>The Misfits</span></a></li>
-          <li><a href="#popups" data-nav-link><span class="drawer-num mini" aria-hidden="true">05</span><span>Pop-ups</span></a></li>
+          <li><a href="#origin"><span class="drawer-num mini" aria-hidden="true">01</span><span>Story</span></a></li>
+          <li><a href="#popups"><span class="drawer-num mini" aria-hidden="true">02</span><span>Roadmap</span></a></li>
+          <li><a href="{BLOG URL}"><span class="drawer-num mini" aria-hidden="true">03</span><span>Blog</span></a></li>
         </ul>
       </nav>
       <div class="drawer-actions">
