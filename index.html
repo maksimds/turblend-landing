@@ -155,16 +155,11 @@
     <!-- ============================================================== HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-banner">
-        <!-- {HERO PHOTO}: replace this placeholder <div class="ph">…</div> with
-             <img src="images/hero.jpg" alt="A copper cezve nestled into hot sand, foam rising to the rim">.
-             Landscape, 16:9 or wider; it is cropped to fill. Keep the subject away from
+        <!-- HERO PHOTO: Unsplash stock by Timothy Dachraoui, until we shoot our own.
+             Cropped to fill: 16:9 on desktop, tall on phones. Keep the subject away from
              the bottom-left corner, where the headline sits. -->
         <figure class="hero-media">
-          <div class="ph ph-dark" role="img" aria-label="Photo placeholder: A copper cezve nestled into hot sand, foam rising to the rim">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">Copper cezve in hot sand, foam rising. Landscape, 16:9.</span>
-          </div>
+          <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A copper cezve set into hot sand, coffee brewing inside" fetchpriority="high">
         </figure>
         <div class="hero-content container dark">
           <div class="hero-text rv-up">
@@ -226,16 +221,12 @@
           <a class="cta cta-next" href="#method"><span>Next: how it’s brewed</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <!-- {ORIGIN PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
-             small: <img src="images/cherries.jpg" alt="Ripe coffee cherries on the branch at Sandra Farms" loading="lazy">  (portrait, 4:5)
-             tall:  <img src="images/origin.jpg" alt="Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas" loading="lazy">  (portrait, 2:3) -->
+        <!-- ORIGIN PHOTOS: Unsplash stock (cherries by eli hirtzel, hillside by Mareno Tene),
+             not Sandra Farms. Swap in photos from the farm when we have them:
+             small (portrait, 4:5), tall (portrait, 2:3). -->
         <div class="edito-small rv" data-d="1">
           <figure class="frame frame-45">
-            <div class="ph" role="img" aria-label="Photo placeholder: Ripe coffee cherries on the branch at Sandra Farms">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Ripe cherries at Sandra Farms. Portrait, 4:5.</span>
-            </div>
+            <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
           </figure>
           <dl class="facts">
             <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
@@ -246,11 +237,7 @@
 
         <figure class="edito-big rv" data-d="2">
           <div class="frame frame-23">
-            <div class="ph" role="img" aria-label="Photo placeholder: Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Coffee rows on the hillside at Sandra Farms, Adjuntas. Portrait, 2:3.</span>
-            </div>
+            <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
           </div>
           <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
         </figure>
@@ -267,15 +254,10 @@
 
     <!-- ========================================================= 02 METHOD -->
     <section id="method" class="split strate" aria-labelledby="method-title">
-      <!-- {METHOD PHOTO}: replace this placeholder <div class="ph">…</div> with
-           <img src="images/cup.jpg" alt="A small cup of Turkish coffee with thick foam" loading="lazy">.
+      <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
            It fills half the screen, so portrait or square works best. -->
       <figure class="split-media rv">
-        <div class="ph" role="img" aria-label="Photo placeholder: A small cup of Turkish coffee with thick foam">
-          <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-          <span class="ph-tag">Photo placeholder</span>
-          <span class="ph-note">The poured cup, thick foam on top. Portrait or square.</span>
-        </div>
+        <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
       </figure>
 
       <div class="split-body">
@@ -427,23 +409,15 @@
           <a class="cta cta-next" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <!-- {POP-UP PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
-             small: <img src="images/guests.jpg" alt="Guests at a Turblend pop-up stall in Cincinnati" loading="lazy">  (portrait, 4:5)
-             tall:  <img src="images/popup.jpg" alt="The Turblend sand brewer at a market stall, cups lined up and ready" loading="lazy">  (portrait, 2:3) -->
+        <!-- POP-UP PHOTOS: Unsplash stock (guests by Nathan Dumlao, sand brewer by
+             Abdullah Al Mallah), not our stall. Swap in pop-up photos when we have them:
+             small (portrait, 4:5), tall (portrait, 2:3). -->
         <figure class="edito-small frame frame-45 rv" data-d="1">
-          <div class="ph" role="img" aria-label="Photo placeholder: Guests at a Turblend pop-up stall in Cincinnati">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">Guests at a Cincinnati pop-up. Portrait, 4:5.</span>
-          </div>
+          <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
         </figure>
 
         <figure class="edito-big frame frame-23 rv" data-d="2">
-          <div class="ph" role="img" aria-label="Photo placeholder: The Turblend sand brewer at a market stall, cups lined up and ready">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">The sand brewer at a market stall, cups lined up. Portrait, 2:3.</span>
-          </div>
+          <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
         </figure>
       </div>
 

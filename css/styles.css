@@ -683,6 +683,8 @@ main:focus { outline: none; }
   aspect-ratio: 1 / 1;
   background: var(--sand);
 }
+/* cup.jpg: the cup sits right of centre; keep it in frame when cropped tall on desktop. */
+.split-media > img { object-position: 75% 50%; }
 
 .split-body {
   display: flex;
