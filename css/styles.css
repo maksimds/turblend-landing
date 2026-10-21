@@ -464,6 +464,7 @@ main:focus { outline: none; }
 
 @media (min-width: 1024px) {
   .header-bar { border-bottom: 1px solid var(--rule); }
+  .nav-shell[data-pinned="true"] .header-bar { border-bottom-color: transparent; }
 }
 @media (max-width: 1279px) {
   .primary-nav ul { gap: var(--s-2); }
