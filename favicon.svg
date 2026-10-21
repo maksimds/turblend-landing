@@ -1,5 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-  <!-- Placeholder favicon in the site's maroon. Swap for the final logo. -->
-  <rect width="40" height="40" rx="12" fill="#651d2b"/>
-  <rect x="6.5" y="6.5" width="27" height="27" rx="7" fill="none" stroke="#f7f2ea" stroke-width="1.5" stroke-dasharray="3 2.5" opacity="0.8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 5 150 150">
+  <!-- The coffee bean from Fig. 3, in maroon on a square paper tile. Strokes are thicker than
+       on the page so the drawing still reads at tab size. -->
+  <rect x="-15" y="5" width="150" height="150" fill="#eee5d8"/>
+  <g transform="rotate(-18 60 80)" fill="none" stroke="#651d2b" stroke-width="7" stroke-linecap="round">
+    <ellipse cx="60" cy="80" rx="40" ry="58"/>
+    <path d="M60 26c-15 26 15 76 0 108"/>
+    <path d="M88 54c5 16 5 38-1 56M93.5 66c2 10 2 21-1 30"/>
+  </g>
 </svg>

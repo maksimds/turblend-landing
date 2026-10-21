@@ -7,7 +7,9 @@
   <meta name="description" content="Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027. Get on the list.">
   <link rel="canonical" href="https://turblend.us/">
   <meta name="theme-color" content="#f7f2ea">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <!-- Link previews (iMessage, Slack, social) -->
   <meta property="og:type" content="website">
@@ -30,8 +32,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Business details for search engines. Once you have them, add
-       "email": "hello@turblend.us" and "sameAs": ["https://www.instagram.com/..."] -->
+  <!-- Business details for search engines. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,8 +40,10 @@
     "@id": "https://turblend.us/#business",
     "name": "Turblend",
     "description": "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027.",
-    "slogan": "Puerto Rican bean. Turkish ritual. Cincinnati.",
+    "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
     "url": "https://turblend.us/",
+    "email": "mfcetinkaya@turblend.us",
+    "sameAs": ["https://www.instagram.com/turblendcoffee/"],
     "foundingDate": "2026",
     "servesCuisine": "Turkish coffee",
     "address": {
@@ -80,9 +83,10 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ================================================================ HEADER -->
-  <!-- {LOGO}: "Turblend" is typeset as a stand-in wordmark in four places (header,
-       masthead, menu, footer). To use the real logo, replace each wordmark's text with
-       <img src="images/logo.svg" alt="Turblend" width="…" height="…">. -->
+  <!-- {LOGO}: "Turblend" is typeset as a stand-in wordmark in three places (header,
+       menu, footer). To use the real logo, replace each wordmark's text with
+       <img src="images/logo.svg" alt="Turblend" width="…" height="…">.
+       The masthead already uses hand-lettered artwork, images/turblend-coffee.png. -->
   <header id="top" class="site-header">
     <!-- The bar scrolls away with the page and pins to the top as soon as you
          scroll back up (js/main.js). The slot holds its place meanwhile. -->
@@ -119,8 +123,8 @@
 
     <!-- The right-hand column stays empty: the round badge sits there. -->
     <div class="masthead container">
-      <p class="mini masthead-note">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
-      <p class="wordmark">Turblend</p>
+      <p class="mini masthead-note">A fusion of Puerto Rican soul and Turkish tradition</p>
+      <p class="wordmark"><img src="images/turblend-coffee.png" alt="Turblend Coffee" width="1000" height="324"></p>
     </div>
   </header>
 
@@ -155,16 +159,14 @@
     <!-- ============================================================== HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-banner">
-        <!-- {HERO PHOTO}: replace this placeholder <div class="ph">…</div> with
-             <img src="images/hero.jpg" alt="A copper cezve nestled into hot sand, foam rising to the rim">.
-             Landscape, 16:9 or wider; it is cropped to fill. Keep the subject away from
-             the bottom-left corner, where the headline sits. -->
+        <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
+             16:9 on desktop; phones get hero-mobile.jpg, a 2:3 crop of the same photo.
+             Keep the subject away from the bottom-left corner, where the headline sits. -->
         <figure class="hero-media">
-          <div class="ph ph-dark" role="img" aria-label="Photo placeholder: A copper cezve nestled into hot sand, foam rising to the rim">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">Copper cezve in hot sand, foam rising. Landscape, 16:9.</span>
-          </div>
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/hero-mobile.jpg">
+            <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
+          </picture>
         </figure>
         <div class="hero-content container dark">
           <div class="hero-text rv-up">
@@ -220,22 +222,18 @@
             <p>Turblend is what happened next: a Puerto Rican bean and a Turkish ritual, blended into one cup. A small, stubborn project that starts with pop-ups and is growing into a shop in Cincinnati.</p>
           </div>
           <p class="signature">
-            <span class="signature-name">{FOUNDER NAME}</span>
+            <span class="signature-name">Muhammed F. Çetinkaya</span>
             <span class="signature-role mini">Founder</span>
           </p>
           <a class="cta cta-next" href="#method"><span>Next: how it’s brewed</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <!-- {ORIGIN PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
-             small: <img src="images/cherries.jpg" alt="Ripe coffee cherries on the branch at Sandra Farms" loading="lazy">  (portrait, 4:5)
-             tall:  <img src="images/origin.jpg" alt="Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas" loading="lazy">  (portrait, 2:3) -->
+        <!-- ORIGIN PHOTOS: Unsplash stock (cherries by eli hirtzel, hillside by Mareno Tene),
+             not Sandra Farms. Swap in photos from the farm when we have them:
+             small (portrait, 4:5), tall (portrait, 2:3). -->
         <div class="edito-small rv" data-d="1">
           <figure class="frame frame-45">
-            <div class="ph" role="img" aria-label="Photo placeholder: Ripe coffee cherries on the branch at Sandra Farms">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Ripe cherries at Sandra Farms. Portrait, 4:5.</span>
-            </div>
+            <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
           </figure>
           <dl class="facts">
             <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
@@ -246,11 +244,7 @@
 
         <figure class="edito-big rv" data-d="2">
           <div class="frame frame-23">
-            <div class="ph" role="img" aria-label="Photo placeholder: Rows of arabica coffee on the hillside at Sandra Farms in Adjuntas">
-              <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-              <span class="ph-tag">Photo placeholder</span>
-              <span class="ph-note">Coffee rows on the hillside at Sandra Farms, Adjuntas. Portrait, 2:3.</span>
-            </div>
+            <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
           </div>
           <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
         </figure>
@@ -267,15 +261,10 @@
 
     <!-- ========================================================= 02 METHOD -->
     <section id="method" class="split strate" aria-labelledby="method-title">
-      <!-- {METHOD PHOTO}: replace this placeholder <div class="ph">…</div> with
-           <img src="images/cup.jpg" alt="A small cup of Turkish coffee with thick foam" loading="lazy">.
+      <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
            It fills half the screen, so portrait or square works best. -->
       <figure class="split-media rv">
-        <div class="ph" role="img" aria-label="Photo placeholder: A small cup of Turkish coffee with thick foam">
-          <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-          <span class="ph-tag">Photo placeholder</span>
-          <span class="ph-note">The poured cup, thick foam on top. Portrait or square.</span>
-        </div>
+        <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
       </figure>
 
       <div class="split-body">
@@ -427,23 +416,15 @@
           <a class="cta cta-next" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
         </div>
 
-        <!-- {POP-UP PHOTOS}: replace each placeholder <div class="ph">…</div> with an <img>:
-             small: <img src="images/guests.jpg" alt="Guests at a Turblend pop-up stall in Cincinnati" loading="lazy">  (portrait, 4:5)
-             tall:  <img src="images/popup.jpg" alt="The Turblend sand brewer at a market stall, cups lined up and ready" loading="lazy">  (portrait, 2:3) -->
+        <!-- POP-UP PHOTOS: Unsplash stock (guests by Nathan Dumlao, sand brewer by
+             Abdullah Al Mallah), not our stall. Swap in pop-up photos when we have them:
+             small (portrait, 4:5), tall (portrait, 2:3). -->
         <figure class="edito-small frame frame-45 rv" data-d="1">
-          <div class="ph" role="img" aria-label="Photo placeholder: Guests at a Turblend pop-up stall in Cincinnati">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">Guests at a Cincinnati pop-up. Portrait, 4:5.</span>
-          </div>
+          <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
         </figure>
 
         <figure class="edito-big frame frame-23 rv" data-d="2">
-          <div class="ph" role="img" aria-label="Photo placeholder: The Turblend sand brewer at a market stall, cups lined up and ready">
-            <svg class="ph-icon" aria-hidden="true"><use href="#icon-camera"/></svg>
-            <span class="ph-tag">Photo placeholder</span>
-            <span class="ph-note">The sand brewer at a market stall, cups lined up. Portrait, 2:3.</span>
-          </div>
+          <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
         </figure>
       </div>
 
@@ -548,7 +529,7 @@
           </details>
           <details class="faq-item">
             <summary><span>Can I buy beans?</span><span class="faq-icon" aria-hidden="true"></span></summary>
-            <div class="faq-answer"><p>{PLACEHOLDER: Soon. Bags are coming first to list members.}</p></div>
+            <div class="faq-answer"><p>Soon. Bags are coming first to list members.</p></div>
           </details>
           <details class="faq-item">
             <summary><span>Do you cater events?</span><span class="faq-icon" aria-hidden="true"></span></summary>
@@ -564,11 +545,11 @@
   <footer class="site-footer strate dark">
     <div class="container">
       <div class="footer-main">
-        <p class="mini">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
+        <p class="mini">A fusion of Puerto Rican soul and Turkish tradition</p>
         <p class="footer-word">Turblend</p>
         <div class="footer-info mini">
           <p>Cincinnati, OH</p>
-          <p><a href="{INSTAGRAM URL}">Instagram</a><br><a href="mailto:{EMAIL ADDRESS}">{EMAIL ADDRESS}</a></p>
+          <p><a href="mailto:mfcetinkaya@turblend.us">mfcetinkaya@turblend.us</a><br><a href="https://www.instagram.com/turblendcoffee/">Instagram</a></p>
         </div>
         <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
       </div>

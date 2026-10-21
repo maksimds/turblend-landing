@@ -157,6 +157,48 @@
     counters.forEach(function (node) { observer.observe(node); });
   }
 
+  /* ---------- FAQ answers ---------------------------------------------- */
+
+  // Answers unfold and fold instead of snapping open. A second click mid-way
+  // reverses from wherever the answer is. Without this, <details> still works.
+  function initFaq() {
+    if (reduceMotion || !Element.prototype.animate) return;
+
+    $$(".faq-item").forEach(function (item) {
+      var summary = $("summary", item);
+      var running = null;
+
+      summary.addEventListener("click", function (event) {
+        event.preventDefault();
+        var from = item.offsetHeight;
+        var closing = item.open && item.dataset.state !== "closing";
+        if (running) running.cancel();
+
+        var to;
+        if (closing) {
+          item.dataset.state = "closing";
+          to = summary.offsetHeight + (item.offsetHeight - item.clientHeight);
+        } else {
+          item.dataset.state = "opening";
+          item.open = true;
+          to = item.offsetHeight;
+        }
+
+        item.style.overflow = "hidden";
+        running = item.animate(
+          { height: [from + "px", to + "px"] },
+          { duration: 350, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+        );
+        running.onfinish = function () {
+          running = null;
+          if (closing) item.open = false;
+          delete item.dataset.state;
+          item.style.overflow = "";
+        };
+      });
+    });
+  }
+
   /* ---------- Mobile menu drawer --------------------------------------- */
 
   function initDrawer() {
@@ -401,4 +443,5 @@
   initShare();
   initReveals();
   initCounters();
+  initFaq();
 })();

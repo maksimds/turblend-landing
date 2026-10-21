@@ -295,7 +295,7 @@ main:focus { outline: none; }
 
 .frame > img,
 .frame > .ph,
-.hero-media > img,
+.hero-media img,
 .hero-media > .ph,
 .split-media > img,
 .split-media > .ph {
@@ -455,17 +455,16 @@ main:focus { outline: none; }
 }
 .masthead-note { max-width: var(--w-sm); }
 
-.wordmark {
-  font-size: clamp(3rem, 1.4rem + 4vw, 4.75rem);
-  line-height: 1;
-  letter-spacing: 0.12em;
-  margin-right: -0.12em;
-  text-transform: uppercase;
-  color: var(--maroon);
+/* Hand-lettered "TURBLEND / COFFEE" artwork, drawn at 2x (1000px wide). */
+.wordmark img {
+  display: block;
+  width: clamp(250px, 31.67vw, 500px);
+  height: auto;
 }
 
 @media (min-width: 1024px) {
   .header-bar { border-bottom: 1px solid var(--rule); }
+  .nav-shell[data-pinned="true"] .header-bar { border-bottom-color: transparent; }
 }
 @media (max-width: 1279px) {
   .primary-nav ul { gap: var(--s-2); }
@@ -683,6 +682,8 @@ main:focus { outline: none; }
   aspect-ratio: 1 / 1;
   background: var(--sand);
 }
+/* cup.jpg: the cup sits right of centre; keep it in frame when cropped tall on desktop. */
+.split-media > img { object-position: 75% 50%; }
 
 .split-body {
   display: flex;
@@ -927,7 +928,7 @@ main:focus { outline: none; }
   transition: rotate 0.25s var(--e-out);
 }
 .faq-icon::after { rotate: 90deg; }
-.faq-item[open] .faq-icon::after { rotate: 0deg; }
+.faq-item[open]:not([data-state="closing"]) .faq-icon::after { rotate: 0deg; }
 .faq-answer { max-width: 52ch; padding-bottom: var(--s-3); color: var(--muted); }
 
 @media (max-width: 1023px) {
