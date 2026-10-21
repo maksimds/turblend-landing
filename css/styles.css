@@ -295,7 +295,7 @@ main:focus { outline: none; }
 
 .frame > img,
 .frame > .ph,
-.hero-media > img,
+.hero-media img,
 .hero-media > .ph,
 .split-media > img,
 .split-media > .ph {

@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Business details for search engines. Once you have them, add
-       "email": "hello@turblend.us" and "sameAs": ["https://www.instagram.com/..."] -->
+  <!-- Business details for search engines. Once you have it, add
+       "email": "hello@turblend.us" -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,8 +39,9 @@
     "@id": "https://turblend.us/#business",
     "name": "Turblend",
     "description": "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027.",
-    "slogan": "Puerto Rican bean. Turkish ritual. Cincinnati.",
+    "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
     "url": "https://turblend.us/",
+    "sameAs": ["https://www.instagram.com/turblendcoffee/"],
     "foundingDate": "2026",
     "servesCuisine": "Turkish coffee",
     "address": {
@@ -119,7 +120,7 @@
 
     <!-- The right-hand column stays empty: the round badge sits there. -->
     <div class="masthead container">
-      <p class="mini masthead-note">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
+      <p class="mini masthead-note">A fusion of Puerto Rican soul and Turkish tradition</p>
       <p class="wordmark">Turblend</p>
     </div>
   </header>
@@ -155,11 +156,14 @@
     <!-- ============================================================== HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-banner">
-        <!-- HERO PHOTO: Unsplash stock by Timothy Dachraoui, until we shoot our own.
-             Cropped to fill: 16:9 on desktop, tall on phones. Keep the subject away from
-             the bottom-left corner, where the headline sits. -->
+        <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
+             16:9 on desktop; phones get hero-mobile.jpg, a 2:3 crop of the same photo.
+             Keep the subject away from the bottom-left corner, where the headline sits. -->
         <figure class="hero-media">
-          <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A copper cezve set into hot sand, coffee brewing inside" fetchpriority="high">
+          <picture>
+            <source media="(max-width: 767px)" srcset="images/hero-mobile.jpg">
+            <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
+          </picture>
         </figure>
         <div class="hero-content container dark">
           <div class="hero-text rv-up">
@@ -215,7 +219,7 @@
             <p>Turblend is what happened next: a Puerto Rican bean and a Turkish ritual, blended into one cup. A small, stubborn project that starts with pop-ups and is growing into a shop in Cincinnati.</p>
           </div>
           <p class="signature">
-            <span class="signature-name">{FOUNDER NAME}</span>
+            <span class="signature-name">Muhammed F. Çetinkaya</span>
             <span class="signature-role mini">Founder</span>
           </p>
           <a class="cta cta-next" href="#method"><span>Next: how it’s brewed</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
@@ -538,11 +542,11 @@
   <footer class="site-footer strate dark">
     <div class="container">
       <div class="footer-main">
-        <p class="mini">Puerto Rican bean. Turkish ritual. Cincinnati.</p>
+        <p class="mini">A fusion of Puerto Rican soul and Turkish tradition</p>
         <p class="footer-word">Turblend</p>
         <div class="footer-info mini">
           <p>Cincinnati, OH</p>
-          <p><a href="{INSTAGRAM URL}">Instagram</a><br><a href="mailto:{EMAIL ADDRESS}">{EMAIL ADDRESS}</a></p>
+          <p><a href="https://www.instagram.com/turblendcoffee/">Instagram</a><br><a href="mailto:{EMAIL ADDRESS}">{EMAIL ADDRESS}</a></p>
         </div>
         <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
       </div>
