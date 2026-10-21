@@ -431,7 +431,8 @@ main:focus { outline: none; }
 }
 @media (hover: hover) {
   .nav-link:hover,
-  .drawer-nav a:hover { color: var(--nav-hover); }
+  .drawer-nav a:hover,
+  .footer-nav a:hover { color: var(--nav-hover); }
 }
 
 .header-next {
@@ -966,8 +967,7 @@ main:focus { outline: none; }
   color: var(--muted);
 }
 .footer-nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-1) var(--s-3); }
-.footer-nav a { color: var(--paper); transition: color var(--t-fast); }
-.footer-nav a:hover,
+.footer-nav a { color: var(--paper); }
 .footer-top:hover { color: var(--muted); }
 .footer-top { justify-self: end; color: var(--paper); transition: color var(--t-fast); }
 
