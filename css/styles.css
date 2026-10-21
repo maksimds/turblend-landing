@@ -455,10 +455,10 @@ main:focus { outline: none; }
 }
 .masthead-note { max-width: var(--w-sm); }
 
-/* Hand-lettered "TURBLEND / COFFEE" artwork, drawn at 2x (1200px wide). */
+/* Hand-lettered "TURBLEND / COFFEE" artwork, drawn at 2x (1000px wide). */
 .wordmark img {
   display: block;
-  width: clamp(300px, 38vw, 600px);
+  width: clamp(250px, 31.67vw, 500px);
   height: auto;
 }
 
