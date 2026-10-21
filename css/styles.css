@@ -948,12 +948,11 @@ main:focus { outline: none; }
   padding-block: var(--s-5);
   text-align: center;
 }
-.footer-word {
-  font-size: clamp(3rem, 1rem + 6vw, 6rem);
-  line-height: 1;
-  letter-spacing: 0.12em;
-  margin-right: -0.12em;
-  text-transform: uppercase;
+/* Same hand-lettered artwork as the masthead, in paper for the dark footer. */
+.footer-word img {
+  display: block;
+  width: clamp(250px, 31.67vw, 500px);
+  height: auto;
 }
 .footer-info p + p { margin-top: var(--s-1); }
 .footer-info a { transition: color var(--t-fast); }
