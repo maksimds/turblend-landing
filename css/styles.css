@@ -455,13 +455,11 @@ main:focus { outline: none; }
 }
 .masthead-note { max-width: var(--w-sm); }
 
-.wordmark {
-  font-size: clamp(3rem, 1.4rem + 4vw, 4.75rem);
-  line-height: 1;
-  letter-spacing: 0.12em;
-  margin-right: -0.12em;
-  text-transform: uppercase;
-  color: var(--maroon);
+/* Hand-lettered "TURBLEND / COFFEE" artwork, drawn at 2x (1200px wide). */
+.wordmark img {
+  display: block;
+  width: clamp(300px, 38vw, 600px);
+  height: auto;
 }
 
 @media (min-width: 1024px) {
