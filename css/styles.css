@@ -928,7 +928,7 @@ main:focus { outline: none; }
   transition: rotate 0.25s var(--e-out);
 }
 .faq-icon::after { rotate: 90deg; }
-.faq-item[open] .faq-icon::after { rotate: 0deg; }
+.faq-item[open]:not([data-state="closing"]) .faq-icon::after { rotate: 0deg; }
 .faq-answer { max-width: 52ch; padding-bottom: var(--s-3); color: var(--muted); }
 
 @media (max-width: 1023px) {
