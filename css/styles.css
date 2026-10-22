@@ -414,14 +414,16 @@ main:focus { outline: none; }
 .is-close .menu-lines { top: 21.5px; rotate: 45deg; }
 .is-close .menu-lines::before { top: 0; rotate: -90deg; }
 
-.brand-word {
-  font-size: 1.375rem;
-  line-height: 1;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--maroon);
+/* The masthead's hand-lettered wordmark, scaled down to fit the bar (phones) and the menu. */
+.header-brand,
+.drawer-brand { grid-column: 2; }
+.header-brand { display: none; }
+.header-brand img,
+.drawer-brand img {
+  display: block;
+  width: 120px;
+  height: auto;
 }
-.header-brand { display: none; grid-column: 2; margin-right: -0.14em; }
 
 .primary-nav { grid-column: 2; }
 .primary-nav ul { display: flex; gap: var(--s-3); }
@@ -542,7 +544,6 @@ main:focus { outline: none; }
   height: var(--nav-h);
 }
 .drawer-top .menu-btn { display: block; }
-.drawer-top .brand-word { grid-column: 2; margin-right: -0.14em; }
 
 .drawer-nav { margin-block: auto; padding-block: var(--s-6); text-align: center; }
 .drawer-nav li + li { margin-top: var(--s-1); }
@@ -1010,8 +1011,27 @@ main:focus { outline: none; }
     100% { box-shadow: 0 0 0 0 rgb(101 29 43 / 0); }
   }
 
-  .drawer[open] { animation: drawer-in 0.35s var(--e-out); }
-  @keyframes drawer-in { from { opacity: 0; } }
+  /* Opening the menu: the paper fades up over the page, the burger folds into a
+     cross in place, then the links rise in one after another. The bar's own burger
+     hides so it doesn't show through the fade. */
+  .is-locked .header-bar .menu-btn { visibility: hidden; }
+  .drawer[open] { animation: drawer-in 0.4s ease-out; }
+  .drawer[open] .drawer-brand { animation: fade-in 0.4s ease-out; }
+  @keyframes drawer-in { from { background-color: transparent; } }
+  @keyframes fade-in { from { opacity: 0; } }
+
+  .drawer[open] .menu-lines { animation: menu-fold 0.45s ease-in-out; }
+  .drawer[open] .menu-lines::before { animation: menu-fold-bar 0.45s ease-in-out; }
+  @keyframes menu-fold { from { top: 17px; rotate: 0deg; } }
+  @keyframes menu-fold-bar { from { top: 9px; rotate: 0deg; } }
+
+  .drawer[open] .drawer-nav li,
+  .drawer[open] .drawer-actions { animation: drawer-rise 0.7s var(--e-out) backwards; }
+  .drawer[open] .drawer-nav li:nth-child(1) { animation-delay: 0.1s; }
+  .drawer[open] .drawer-nav li:nth-child(2) { animation-delay: 0.16s; }
+  .drawer[open] .drawer-nav li:nth-child(3) { animation-delay: 0.22s; }
+  .drawer[open] .drawer-actions { animation-delay: 0.3s; }
+  @keyframes drawer-rise { from { opacity: 0; transform: translateY(16px); } }
 
   /* The bar slides down when it first pins. */
   .nav-shell[data-pinned="true"] { animation: nav-in 0.35s var(--e-out); }
