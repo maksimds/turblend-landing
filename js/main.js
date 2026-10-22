@@ -211,26 +211,58 @@
       document.documentElement.classList.toggle("is-locked", open);
     }
 
+    var afterClose = null;
+
+    // The menu animates out first (styles.css), and the dialog closes when the
+    // paper has faded. With no closing animation (reduced motion) it closes at once.
+    function closeDrawer(then) {
+      if (!drawer.open || drawer.classList.contains("is-closing")) return;
+      afterClose = then || null;
+      drawer.classList.add("is-closing");
+      if (getComputedStyle(drawer).animationName !== "drawer-out") drawer.close();
+    }
+
     openButton.addEventListener("click", function () {
       drawer.showModal();
       setOpen(true);
     });
+    drawer.addEventListener("animationend", function (event) {
+      if (event.target === drawer && event.animationName === "drawer-out") drawer.close();
+    });
     drawer.addEventListener("close", function () {
+      drawer.classList.remove("is-closing");
       setOpen(false);
+      if (afterClose) {
+        var then = afterClose;
+        afterClose = null;
+        then();
+      }
     });
     $("[data-menu-close]", drawer).addEventListener("click", function () {
-      drawer.close();
+      closeDrawer();
+    });
+
+    // Escape (and Android's back gesture). Some browsers won't let the close be
+    // held off; the menu then just closes without the animation.
+    drawer.addEventListener("cancel", function (event) {
+      if (!event.cancelable) return;
+      event.preventDefault();
+      closeDrawer();
     });
 
     // A click on the backdrop lands on the <dialog> itself, not its contents.
     drawer.addEventListener("click", function (event) {
-      if (event.target === drawer) drawer.close();
+      if (event.target === drawer) closeDrawer();
     });
 
-    // Close before the browser follows the anchor, so the page can scroll.
+    // Follow the anchor only once the menu has closed, so the page can scroll.
     drawer.querySelectorAll('a[href^="#"]').forEach(function (link) {
-      link.addEventListener("click", function () {
-        drawer.close();
+      link.addEventListener("click", function (event) {
+        if (!drawer.open) return; // the replayed click below
+        event.preventDefault();
+        closeDrawer(function () {
+          link.click();
+        });
       });
     });
 

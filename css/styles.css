@@ -1033,6 +1033,26 @@ main:focus { outline: none; }
   .drawer[open] .drawer-actions { animation-delay: 0.3s; }
   @keyframes drawer-rise { from { opacity: 0; transform: translateY(16px); } }
 
+  /* Closing plays it backwards, a little quicker: the links sink away last one
+     first, the cross folds back into the burger, and the paper fades off the page.
+     main.js closes the dialog when that fade ends. */
+  .drawer.is-closing { pointer-events: none; animation: drawer-out 0.3s ease-in 0.15s forwards; }
+  .drawer.is-closing .drawer-brand { animation: fade-out 0.3s ease-in 0.15s forwards; }
+  @keyframes drawer-out { to { background-color: transparent; } }
+  @keyframes fade-out { to { opacity: 0; } }
+
+  .drawer.is-closing .menu-lines { animation: menu-unfold 0.4s ease-in-out forwards; }
+  .drawer.is-closing .menu-lines::before { animation: menu-unfold-bar 0.4s ease-in-out forwards; }
+  @keyframes menu-unfold { to { top: 17px; rotate: 0deg; } }
+  @keyframes menu-unfold-bar { to { top: 9px; rotate: 0deg; } }
+
+  .drawer.is-closing .drawer-nav li,
+  .drawer.is-closing .drawer-actions { animation: drawer-sink 0.2s ease-in forwards; }
+  .drawer.is-closing .drawer-nav li:nth-child(3) { animation-delay: 0.03s; }
+  .drawer.is-closing .drawer-nav li:nth-child(2) { animation-delay: 0.06s; }
+  .drawer.is-closing .drawer-nav li:nth-child(1) { animation-delay: 0.09s; }
+  @keyframes drawer-sink { to { opacity: 0; transform: translateY(16px); } }
+
   /* The bar slides down when it first pins. */
   .nav-shell[data-pinned="true"] { animation: nav-in 0.35s var(--e-out); }
   @keyframes nav-in { from { transform: translateY(-100%); } }
