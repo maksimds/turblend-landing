@@ -883,6 +883,9 @@ main:focus { outline: none; }
 }
 .field-error,
 .form-error { font-size: 1.0625rem; color: var(--error); }
+/* Empty messages stay in the page for screen readers but take no room in the grid. */
+.field-error:empty,
+.form-error:empty { position: absolute; }
 
 .check { display: flex; align-items: center; gap: 12px; font-size: 1.0625rem; cursor: pointer; }
 .check input { width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--paper); }

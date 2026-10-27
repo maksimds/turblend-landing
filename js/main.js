@@ -373,11 +373,12 @@
     var sending = false;
 
     // We show our own inline messages instead of the browser's tooltips.
+    // Both message elements stay in the page and are only emptied, so screen
+    // readers announce a message even when focus is already in the field.
     form.noValidate = true;
 
     function setEmailError(show) {
       emailError.textContent = show ? emailError.dataset.message : "";
-      emailError.hidden = !show;
       if (show) {
         email.setAttribute("aria-invalid", "true");
         email.setAttribute("aria-describedby", emailError.id);
@@ -395,7 +396,6 @@
 
     function showFormError() {
       formError.textContent = formError.dataset.message;
-      formError.hidden = false;
     }
 
     email.addEventListener("input", function () {
@@ -405,7 +405,7 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       if (sending) return;
-      formError.hidden = true;
+      formError.textContent = "";
 
       email.value = email.value.trim();
       if (!EMAIL.test(email.value)) {
