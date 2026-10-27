@@ -124,9 +124,10 @@
       <p class="mini masthead-note">A fusion of Puerto Rican soul and Turkish tradition</p>
       <p class="wordmark"><img src="images/turblend-coffee.png" alt="Turblend Coffee" width="1000" height="324"></p>
     </div>
-  </header>
 
-  <a class="badge-cta" href="#signup" data-badge><span>Get on the list</span></a>
+    <!-- Pinned to the corner of the screen; it sits here to be part of the header for screen readers. -->
+    <a class="badge-cta" href="#signup" data-badge><span>Get on the list</span></a>
+  </header>
 
   <!-- Mobile menu -->
   <dialog id="menu-drawer" class="drawer" aria-label="Menu" data-drawer>
@@ -138,7 +139,7 @@
         </button>
         <p class="drawer-brand" aria-hidden="true"><img src="images/turblend-coffee.png" alt="" width="1000" height="324"></p>
       </div>
-      <nav class="drawer-nav" aria-label="Menu">
+      <nav class="drawer-nav">
         <ul role="list">
           <li><a href="#origin"><span class="drawer-num mini" aria-hidden="true">01</span><span>Story</span></a></li>
           <li><a href="#popups"><span class="drawer-num mini" aria-hidden="true">02</span><span>Roadmap</span></a></li>
@@ -523,6 +524,9 @@
             <p class="success-note">Know someone who’d love a cup brewed on sand?</p>
             <a class="cta" href="mailto:?subject=Turblend%3A%20Puerto%20Rican%20coffee%2C%20brewed%20on%20sand&amp;body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fturblend.us%2F" data-share data-copied="Link copied"><span>Share Turblend</span><svg class="ar" aria-hidden="true"><use href="#icon-arrow"/></svg></a>
           </div>
+
+          <!-- Short updates for screen readers ("Sending", "Link copied"), filled in by js/main.js. -->
+          <p class="sr-only" aria-live="polite" data-announce></p>
         </div>
       </div>
     </section>

@@ -21,6 +21,17 @@
     return Array.prototype.slice.call((root || document).querySelectorAll(selector));
   }
 
+  // Reads a short update aloud to screen readers, through the hidden live region
+  // in index.html. It's emptied first so a repeated message is read again.
+  function announce(message) {
+    var region = $("[data-announce]");
+    if (!region) return;
+    region.textContent = "";
+    setTimeout(function () {
+      region.textContent = message;
+    }, 100);
+  }
+
   /* ---------- Header bar ----------------------------------------------- */
 
   // The bar scrolls away with the page. As soon as you scroll back up it
@@ -77,15 +88,19 @@
   /* ---------- Round "Get on the list" badge ---------------------------- */
 
   // The badge tucks up toward the corner once you scroll, and steps aside
-  // while the signup form itself is on screen.
+  // when the signup form comes on screen. It stays away over the FAQ and
+  // footer below, where it would only cover what's being read.
   function initBadge() {
     var badge = $("[data-badge]");
     if (!badge) return;
+    var signup = document.getElementById("signup");
     var queued = false;
 
     function update() {
       queued = false;
       badge.dataset.scrolled = String(window.scrollY > 150);
+      // Measured on every scroll, so jumps ("Back to top") are caught too.
+      if (signup) badge.dataset.hidden = String(signup.getBoundingClientRect().top < window.innerHeight * 0.65);
     }
 
     window.addEventListener("scroll", function () {
@@ -95,12 +110,6 @@
       }
     }, { passive: true });
     update();
-
-    var signup = document.getElementById("signup");
-    if (!signup || !("IntersectionObserver" in window)) return;
-    new IntersectionObserver(function (entries) {
-      badge.dataset.hidden = String(entries[0].isIntersecting);
-    }, { rootMargin: "0px 0px -35% 0px" }).observe(signup);
   }
 
   /* ---------- Scroll reveals ------------------------------------------- */
@@ -395,6 +404,7 @@
       sending = on;
       button.setAttribute("aria-disabled", String(on));
       button.textContent = on ? button.dataset.sending : button.dataset.label;
+      if (on) announce(button.dataset.sending);
     }
 
     function showFormError() {
@@ -465,6 +475,7 @@
         event.preventDefault();
         navigator.clipboard.writeText(url).then(function () {
           label.textContent = button.dataset.copied;
+          announce(button.dataset.copied);
         });
       }
     });

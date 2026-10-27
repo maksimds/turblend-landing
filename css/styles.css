@@ -484,6 +484,8 @@ main:focus { outline: none; }
 }
 
 /* ---------- Round badge --------------------------------------------------- */
+/* Sized in em so the circle grows with its text when someone enlarges text
+   (120px across at the default size, 100px and 86px on phones). */
 
 .badge-cta {
   position: fixed;
@@ -492,9 +494,9 @@ main:focus { outline: none; }
   z-index: 30;
   display: grid;
   place-items: center;
-  width: 120px;
-  height: 120px;
-  padding: 0 18px;
+  width: 5.72em;
+  height: 5.72em;
+  padding: 0 0.86em;
   border-radius: 50%;
   background: var(--maroon);
   color: var(--paper);
@@ -512,9 +514,13 @@ main:focus { outline: none; }
 .badge-cta[data-hidden="true"] { opacity: 0; visibility: hidden; }
 
 @media (max-width: 767px) {
-  .badge-cta { top: 30px; right: 10px; width: 100px; height: 100px; padding: 0 14px; font-size: 1.125rem; }
-  .badge-cta[data-scrolled="true"] { top: 10px; width: 86px; height: 86px; padding: 0 10px; font-size: 1rem; }
+  .badge-cta { top: 30px; right: 10px; width: 5.56em; height: 5.56em; padding: 0 0.78em; font-size: 1.125rem; }
+  .badge-cta[data-scrolled="true"] { top: 10px; width: 5.375em; height: 5.375em; padding: 0 0.625em; font-size: 1rem; }
   .nav-shown .badge-cta[data-scrolled="true"] { top: calc(var(--nav-h) + 10px); }
+}
+/* On short screens (phones held sideways, high zoom) it would cover too much. */
+@media (max-height: 500px) {
+  .badge-cta { display: none; }
 }
 
 /* ---------- Mobile menu --------------------------------------------------- */
