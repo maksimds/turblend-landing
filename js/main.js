@@ -232,6 +232,9 @@
     drawer.addEventListener("close", function () {
       drawer.classList.remove("is-closing");
       setOpen(false);
+      // The browser hands focus back to the menu button as the dialog closes, but
+      // the button is still hidden then (styles.css), so focus would be lost.
+      openButton.focus({ preventScroll: true });
       if (afterClose) {
         var then = afterClose;
         afterClose = null;
