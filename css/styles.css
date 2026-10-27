@@ -573,11 +573,16 @@ main:focus { outline: none; }
   min-height: 440px;
   background: var(--maroon-deep);
 }
+/* A light tint over the whole photo, deepening toward the bottom so the headline
+   and the small label above it stay readable (4.5:1 for the label). Recheck when
+   the photo changes. */
 .hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgb(46 12 20 / 0.28);
+  background:
+    linear-gradient(to top, rgb(46 12 20 / 0.6), rgb(46 12 20 / 0) 55%),
+    rgb(46 12 20 / 0.28);
   pointer-events: none;
 }
 .hero-media > .ph { justify-content: flex-start; padding-top: clamp(2.5rem, 8vw, 7rem); }
