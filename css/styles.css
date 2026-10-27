@@ -293,11 +293,11 @@ main:focus { outline: none; }
 .frame-45 { aspect-ratio: 4 / 5; }
 .frame-23 { aspect-ratio: 2 / 3; }
 
-.frame > img,
+.frame img,
 .frame > .ph,
 .hero-media img,
 .hero-media > .ph,
-.split-media > img,
+.split-media img,
 .split-media > .ph {
   position: absolute;
   inset: 0;
@@ -689,7 +689,7 @@ main:focus { outline: none; }
   background: var(--sand);
 }
 /* cup.jpg: the cup sits right of centre; keep it in frame when cropped tall on desktop. */
-.split-media > img { object-position: 75% 50%; }
+.split-media img { object-position: 75% 50%; }
 
 .split-body {
   display: flex;

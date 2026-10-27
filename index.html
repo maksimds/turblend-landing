@@ -158,11 +158,15 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-banner">
         <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
-             16:9 on desktop; phones get hero-mobile.jpg, a 2:3 crop of the same photo.
-             Keep the subject away from the bottom-left corner, where the headline sits. -->
+             16:9 on desktop; phones get hero-mobile, a 2:3 crop of the same photo.
+             Keep the subject away from the bottom-left corner, where the headline sits.
+             Every photo on the page comes in two files: .avif for current browsers and
+             .jpg for older ones. Replace both when swapping a photo. -->
         <figure class="hero-media">
           <picture>
+            <source media="(max-width: 767px)" srcset="images/hero-mobile.avif" type="image/avif">
             <source media="(max-width: 767px)" srcset="images/hero-mobile.jpg">
+            <source srcset="images/hero-1200.avif 1200w, images/hero.avif 2000w" sizes="100vw" type="image/avif">
             <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
           </picture>
         </figure>
@@ -231,7 +235,10 @@
              small (portrait, 4:5), tall (portrait, 2:3). -->
         <div class="edito-small rv" data-d="1">
           <figure class="frame frame-45">
-            <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
+            <picture>
+              <source srcset="images/cherries.avif" type="image/avif">
+              <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
+            </picture>
           </figure>
           <dl class="facts">
             <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
@@ -242,7 +249,10 @@
 
         <figure class="edito-big rv" data-d="2">
           <div class="frame frame-23">
-            <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
+            <picture>
+              <source srcset="images/origin.avif" type="image/avif">
+              <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
+            </picture>
           </div>
           <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
         </figure>
@@ -262,7 +272,10 @@
       <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
            It fills half the screen, so portrait or square works best. -->
       <figure class="split-media rv">
-        <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
+        <picture>
+          <source srcset="images/cup.avif" type="image/avif">
+          <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
+        </picture>
       </figure>
 
       <div class="split-body">
@@ -418,11 +431,17 @@
              Abdullah Al Mallah), not our stall. Swap in pop-up photos when we have them:
              small (portrait, 4:5), tall (portrait, 2:3). -->
         <figure class="edito-small frame frame-45 rv" data-d="1">
-          <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
+          <picture>
+            <source srcset="images/guests.avif" type="image/avif">
+            <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
+          </picture>
         </figure>
 
         <figure class="edito-big frame frame-23 rv" data-d="2">
-          <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
+          <picture>
+            <source srcset="images/popup.avif" type="image/avif">
+            <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
+          </picture>
         </figure>
       </div>
 
