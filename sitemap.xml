@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://turblend.us/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image><image:loc>https://turblend.us/images/hero.jpg</image:loc></image:image>
+    <image:image><image:loc>https://turblend.us/images/cherries.jpg</image:loc></image:image>
+    <image:image><image:loc>https://turblend.us/images/origin.jpg</image:loc></image:image>
+    <image:image><image:loc>https://turblend.us/images/cup.jpg</image:loc></image:image>
+    <image:image><image:loc>https://turblend.us/images/guests.jpg</image:loc></image:image>
+    <image:image><image:loc>https://turblend.us/images/popup.jpg</image:loc></image:image>
+  </url>
+</urlset>
