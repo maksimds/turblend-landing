@@ -55,7 +55,7 @@
   --strate: 100px;  /* space between sections */
   --max: 1680px;
   --nav-h: 56px;    /* header bar */
-  --nav-hover: #9ea4a3;
+  --nav-hover: #9ea4a3; /* footer links, on maroon */
 
   /* Measures */
   --w-xs: 120px;
@@ -431,9 +431,10 @@ main:focus { outline: none; }
   display: block;
   padding-block: 6px 4px;
 }
+/* The grey hover reads on the maroon footer but is too faint on paper (2.3:1). */
 @media (hover: hover) {
   .nav-link:hover,
-  .drawer-nav a:hover,
+  .drawer-nav a:hover { color: var(--muted); }
   .footer-nav a:hover { color: var(--nav-hover); }
 }
 
@@ -868,12 +869,14 @@ main:focus { outline: none; }
 .field { display: grid; gap: 4px; }
 .field label { color: var(--muted); }
 .field-hint { text-transform: none; }
+/* The underline is all that marks a field, so it keeps 3:1 against the band
+   (a hairline would be too faint); focus makes it solid and twice as thick. */
 .input {
   width: 100%;
   min-height: 52px;
   padding: 6px 0 8px;
   border: 0;
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid color-mix(in oklab, var(--rule) 50%, transparent);
   border-radius: 0;
   background: transparent;
   font-size: var(--t-small);
@@ -964,7 +967,8 @@ main:focus { outline: none; }
   height: auto;
 }
 .footer-info p + p { margin-top: var(--s-1); }
-.footer-info a { transition: color var(--t-fast); }
+/* Padded to a 24px-tall tap target; the email and Instagram lines sit close together. */
+.footer-info a { display: inline-block; padding-block: 4px; transition: color var(--t-fast); }
 .footer-info a:hover { color: var(--muted); }
 
 .footer-base {
