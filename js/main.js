@@ -340,6 +340,65 @@
     return item;
   }
 
+  // Cincinnati's offset from UTC on a given day: "-05:00" in winter, "-04:00" in summer.
+  function utcOffset(iso) {
+    try {
+      var name = new Intl.DateTimeFormat("en-US", { timeZone: TIME_ZONE, timeZoneName: "shortOffset" })
+        .formatToParts(new Date(iso + "T12:00:00Z"))
+        .filter(function (p) { return p.type === "timeZoneName"; })[0].value; // "GMT-5"
+      var match = /GMT([+-])(\d{1,2})(?::(\d{2}))?/.exec(name);
+      return match ? match[1] + ("0" + match[2]).slice(-2) + ":" + (match[3] || "00") : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  // "9 AM to 1 PM" on 2026-11-08 becomes 2026-11-08T09:00-05:00 to 2026-11-08T13:00-05:00.
+  // Hours written any other way fall back to the date alone.
+  function eventTimes(event) {
+    var match = /(\d{1,2})(?::(\d{2}))?\s*([AP])\.?M\.?\s*(?:to|-|–)\s*(\d{1,2})(?::(\d{2}))?\s*([AP])\.?M/i.exec(event.hours || "");
+    var offset = utcOffset(event.date);
+    if (!match || !offset) return { start: event.date, end: event.date };
+
+    function time(hour, minute, half) {
+      hour = (Number(hour) % 12) + (half.toUpperCase() === "P" ? 12 : 0);
+      return event.date + "T" + ("0" + hour).slice(-2) + ":" + (minute || "00") + offset;
+    }
+    return { start: time(match[1], match[2], match[3]), end: time(match[4], match[5], match[6]) };
+  }
+
+  // The upcoming dates again, as structured data, so Google can list them as events.
+  function addEventData(events) {
+    if (!events.length) return;
+    var data = {
+      "@context": "https://schema.org",
+      "@graph": events.map(function (event) {
+        var times = eventTimes(event);
+        return {
+          "@type": "Event",
+          "name": "Turblend pop-up at " + event.venue,
+          "description": "Turkish coffee from single-origin Puerto Rican beans, brewed on hot sand at " +
+            event.venue + " in " + event.neighborhood + ", Cincinnati.",
+          "startDate": times.start,
+          "endDate": times.end,
+          "eventStatus": "https://schema.org/EventScheduled",
+          "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+          "location": {
+            "@type": "Place",
+            "name": event.venue,
+            "address": { "@type": "PostalAddress", "addressLocality": "Cincinnati", "addressRegion": "OH", "addressCountry": "US" }
+          },
+          "image": ["https://turblend.us/images/og.jpg"],
+          "organizer": { "@type": "Organization", "name": "Turblend", "url": "https://turblend.us/" },
+          "url": event.url || "https://turblend.us/#popups"
+        };
+      })
+    };
+    var script = el("script", null, JSON.stringify(data));
+    script.type = "application/ld+json";
+    document.head.append(script);
+  }
+
   function initEvents() {
     var list = $("[data-events]");
     var empty = $("[data-events-empty]");
@@ -367,6 +426,8 @@
         ? formatDate(next.date, { weekday: "short", month: "short", day: "numeric" }) + " · " + typeset(next.venue)
         : ticker.dataset.fallback;
     });
+
+    addEventData(upcoming);
   }
 
   /* ---------- Email signup (Formspree) --------------------------------- */

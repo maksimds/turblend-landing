@@ -18,41 +18,65 @@
   <meta property="og:description" content="Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027. Get on the list.">
   <meta property="og:url" content="https://turblend.us/">
   <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Turblend · Puerto Rican Coffee, Brewed on Sand · Cincinnati">
   <meta name="twitter:description" content="Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027. Get on the list.">
-  <!-- {OG IMAGE}: save a 1200 x 630 JPG as images/og.jpg, then add these three lines
-       and change twitter:card above to "summary_large_image":
-       <meta property="og:image" content="https://turblend.us/images/og.jpg">
-       <meta property="og:image:width" content="1200">
-       <meta property="og:image:height" content="630"> -->
+  <!-- The preview picture: the hero photo with the wordmark, 1200 x 630. It stays a JPG
+       because most apps that draw link previews can't read AVIF. -->
+  <meta property="og:image" content="https://turblend.us/images/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Turblend Coffee wordmark over a green mountain valley planted with coffee">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
+  <!-- The fonts the first screen needs, fetched before the stylesheet asks for them. -->
+  <link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/eb-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/courier-prime-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- Business details for search engines. -->
+  <!-- Business and site details for search engines. The site's name here is the one
+       Google shows above the result. Pop-up dates are added by js/main.js. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "CafeOrCoffeeShop"],
-    "@id": "https://turblend.us/#business",
-    "name": "Turblend",
-    "description": "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027.",
-    "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
-    "url": "https://turblend.us/",
-    "email": "mfcetinkaya@turblend.us",
-    "sameAs": ["https://www.instagram.com/turblendcoffee/"],
-    "foundingDate": "2026",
-    "servesCuisine": "Turkish coffee",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Cincinnati",
-      "addressRegion": "OH",
-      "addressCountry": "US"
-    },
-    "areaServed": { "@type": "City", "name": "Cincinnati, OH" }
+    "@graph": [
+      {
+        "@type": ["LocalBusiness", "CafeOrCoffeeShop"],
+        "@id": "https://turblend.us/#business",
+        "name": "Turblend",
+        "alternateName": "Turblend Coffee",
+        "description": "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027.",
+        "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
+        "url": "https://turblend.us/",
+        "logo": "https://turblend.us/images/turblend-coffee.png",
+        "image": [
+          "https://turblend.us/images/og.jpg",
+          "https://turblend.us/images/cup.jpg",
+          "https://turblend.us/images/popup.jpg"
+        ],
+        "email": "mfcetinkaya@turblend.us",
+        "sameAs": ["https://www.instagram.com/turblendcoffee/"],
+        "foundingDate": "2026",
+        "founder": { "@type": "Person", "name": "Muhammed F. Çetinkaya", "jobTitle": "Founder" },
+        "servesCuisine": "Turkish coffee",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cincinnati",
+          "addressRegion": "OH",
+          "addressCountry": "US"
+        },
+        "areaServed": { "@type": "City", "name": "Cincinnati, OH" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://turblend.us/#website",
+        "name": "Turblend",
+        "alternateName": "Turblend Coffee",
+        "url": "https://turblend.us/",
+        "inLanguage": "en-US",
+        "publisher": { "@id": "https://turblend.us/#business" }
+      }
+    ]
   }
   </script>
 
@@ -161,8 +185,9 @@
         <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
              16:9 on desktop; phones get hero-mobile, a 2:3 crop of the same photo.
              Keep the subject away from the bottom-left corner, where the headline sits.
-             Every photo on the page comes in two files: .avif for current browsers and
-             .jpg for older ones. Replace both when swapping a photo. -->
+             Every photo on the page comes as .avif for current browsers, in a few widths
+             (name-400, name-800, ...) so phones get a small one, and as one full-size .jpg
+             for older browsers. Replace all of a photo's files when swapping it. -->
         <figure class="hero-media">
           <picture>
             <source media="(max-width: 767px)" srcset="images/hero-mobile.avif" type="image/avif">
@@ -237,7 +262,7 @@
         <div class="edito-small rv" data-d="1">
           <figure class="frame frame-45">
             <picture>
-              <source srcset="images/cherries.avif" type="image/avif">
+              <source srcset="images/cherries-400.avif 400w, images/cherries-800.avif 800w, images/cherries.avif 1200w" sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" type="image/avif">
               <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
             </picture>
           </figure>
@@ -251,7 +276,7 @@
         <figure class="edito-big rv" data-d="2">
           <div class="frame frame-23">
             <picture>
-              <source srcset="images/origin.avif" type="image/avif">
+              <source srcset="images/origin-400.avif 400w, images/origin-800.avif 800w, images/origin.avif 1200w" sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" type="image/avif">
               <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
             </picture>
           </div>
@@ -271,10 +296,12 @@
     <!-- ========================================================= 02 METHOD -->
     <section id="method" class="split strate" aria-labelledby="method-title">
       <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
-           It fills half the screen, so portrait or square works best. -->
+           It fills half the screen, so portrait or square works best.
+           This one is landscape, so in its square (phone) or tall (desktop) box it is drawn
+           about 1.5 times the box's width; the sizes below allow for that. -->
       <figure class="split-media rv">
         <picture>
-          <source srcset="images/cup.avif" type="image/avif">
+          <source srcset="images/cup-800.avif 800w, images/cup-1200.avif 1200w, images/cup.avif 1800w" sizes="(min-width: 1024px) 1800px, (min-width: 768px) 113vw, 150vw" type="image/avif">
           <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
         </picture>
       </figure>
@@ -433,14 +460,14 @@
              small (portrait, 4:5), tall (portrait, 2:3). -->
         <figure class="edito-small frame frame-45 rv" data-d="1">
           <picture>
-            <source srcset="images/guests.avif" type="image/avif">
+            <source srcset="images/guests-400.avif 400w, images/guests-800.avif 800w, images/guests.avif 1200w" sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" type="image/avif">
             <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
           </picture>
         </figure>
 
         <figure class="edito-big frame frame-23 rv" data-d="2">
           <picture>
-            <source srcset="images/popup.avif" type="image/avif">
+            <source srcset="images/popup-400.avif 400w, images/popup-800.avif 800w, images/popup.avif 1400w" sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" type="image/avif">
             <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
           </picture>
         </figure>

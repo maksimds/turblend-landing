@@ -16,6 +16,9 @@
  *   { date: "2026-11-08", venue: "Findlay Market", neighborhood: "Over-the-Rhine", hours: "9 AM to 1 PM" },
  *
  * Keep the comma at the end of each line. No em dashes, please.
+ *
+ * Upcoming dates are also handed to Google as event listings. Write hours like
+ * the example ("9 AM to 1 PM") so the start and end times come through.
  */
 
 window.TURBLEND_EVENTS = [

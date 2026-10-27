@@ -9,12 +9,13 @@
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap">
   <!-- Styles are inline because GitHub Pages serves this page at any missing URL,
        where relative links to css/ would break. -->
   <style>
+    /* The same fonts as the home page (see css/styles.css), latin letters only. */
+    @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 600; font-display: swap; src: url("/fonts/eb-garamond-latin.woff2") format("woff2"); }
+    @font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 600; font-display: swap; src: url("/fonts/eb-garamond-italic-latin.woff2") format("woff2"); }
+    @font-face { font-family: "Courier Prime"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/courier-prime-latin.woff2") format("woff2"); }
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
