@@ -108,7 +108,7 @@
   --gap: 40px;      /* grid gutter */
   --strate: 100px;  /* space between sections */
   --max: 1680px;
-  --nav-h: 56px;    /* header bar */
+  --nav-h: 62px;    /* header bar */
   --nav-hover: #9ea4a3; /* footer links, on maroon */
 
   /* Measures */
@@ -459,8 +459,8 @@ main:focus { outline: none; }
   min-height: 44px;
 }
 .header-logo img {
-  width: 40px;
-  height: 40px;
+  width: 32.6px;
+  height: 32.6px;
 }
 
 .menu-btn {
@@ -525,7 +525,8 @@ main:focus { outline: none; }
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: var(--s-4);
-  padding-block: var(--s-5);
+  /* Grows with the wordmark on wide screens, so its space stays in proportion. */
+  padding-block: clamp(var(--s-5), 4.2vw, var(--s-6));
 }
 .masthead-note { max-width: var(--w-sm); }
 
@@ -550,7 +551,7 @@ main:focus { outline: none; }
 }
 @media (max-width: 767px) {
   .header-brand { display: block; }
-  .header-logo img { width: 36px; height: 36px; }
+  .header-logo img { width: 29.4px; height: 29.4px; }
   .header-next,
   .masthead { display: none; }
 }
