@@ -116,10 +116,14 @@
       <div class="nav-shell" data-nav>
         <div class="container">
           <div class="header-bar">
-            <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
-              <span class="sr-only">Open menu</span>
-              <span class="menu-lines" aria-hidden="true"></span>
-            </button>
+            <!-- The bean emblem sits at the far left, beside the burger where there is one. -->
+            <div class="header-start">
+              <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+                <span class="sr-only">Open menu</span>
+                <span class="menu-lines" aria-hidden="true"></span>
+              </button>
+              <a class="header-logo" href="#top" aria-label="Turblend, back to top"><img src="images/turblend-bean.svg" alt="" width="40" height="40"></a>
+            </div>
 
             <a class="header-brand" href="#top" aria-label="Turblend, back to top"><img src="images/turblend-coffee.png" alt="" width="1000" height="324"></a>
 
@@ -157,10 +161,13 @@
   <dialog id="menu-drawer" class="drawer" aria-label="Menu" data-drawer>
     <div class="drawer-inner">
       <div class="drawer-top">
-        <button class="menu-btn is-close" type="button" data-menu-close>
-          <span class="sr-only">Close menu</span>
-          <span class="menu-lines" aria-hidden="true"></span>
-        </button>
+        <div class="header-start">
+          <button class="menu-btn is-close" type="button" data-menu-close>
+            <span class="sr-only">Close menu</span>
+            <span class="menu-lines" aria-hidden="true"></span>
+          </button>
+          <span class="header-logo" aria-hidden="true"><img src="images/turblend-bean.svg" alt="" width="40" height="40"></span>
+        </div>
         <p class="drawer-brand" aria-hidden="true"><img src="images/turblend-coffee.png" alt="" width="1000" height="324"></p>
       </div>
       <nav class="drawer-nav">
