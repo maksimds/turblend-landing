@@ -120,6 +120,11 @@
   --w-lg-xl: 590px;
   --w-xl: 800px;
 
+  /* The beige section at the top: its padding and the wordmark's width. The round
+     badge is positioned from these too, so it stays centred in the section. */
+  --masthead-pad: clamp(var(--s-5), 4.2vw, var(--s-6));
+  --wordmark-w: clamp(250px, 31.67vw, 500px);
+
   /* Motion */
   --e-out: cubic-bezier(0.16, 1, 0.3, 1);
   --t-fast: 0.15s ease-in-out;
@@ -526,14 +531,14 @@ main:focus { outline: none; }
   align-items: center;
   gap: var(--s-4);
   /* Grows with the wordmark on wide screens, so its space stays in proportion. */
-  padding-block: clamp(var(--s-5), 4.2vw, var(--s-6));
+  padding-block: var(--masthead-pad);
 }
 .masthead-note { max-width: var(--w-sm); }
 
 /* Hand-lettered "TURBLEND / COFFEE" artwork, drawn at 2x (1000px wide). */
 .wordmark img {
   display: block;
-  width: clamp(250px, 31.67vw, 500px);
+  width: var(--wordmark-w);
   height: auto;
 }
 
@@ -562,7 +567,9 @@ main:focus { outline: none; }
 
 .badge-cta {
   position: fixed;
-  top: 90px;
+  /* Starts centred in the beige section: below the bar, then half the section (its
+     padding plus half the wordmark, drawn 1000 x 324), less half the badge. */
+  top: calc(var(--nav-h) + var(--masthead-pad) + var(--wordmark-w) * 0.162 - 2.86em);
   right: 30px;
   z-index: 30;
   display: grid;
