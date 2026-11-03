@@ -3,51 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- GitHub Pages serves this page at any missing URL, so every relative path and
+       # link on it is anchored here. If the site moves, change this address and the
+       "Back to Turblend" link below. -->
+  <base href="https://maksimds.github.io/turblend-landing/">
   <title>Page not found · Turblend</title>
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#f7f2ea">
-  <link rel="icon" href="/favicon.ico" sizes="32x32">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <!-- Styles are inline because GitHub Pages serves this page at any missing URL,
-       where relative links to css/ would break. -->
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- The navbar and type come from css/styles.css. This is only what this page adds. -->
   <style>
-    /* The same fonts as the home page (see css/styles.css), latin letters only. */
-    @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 600; font-display: swap; src: url("/fonts/eb-garamond-latin.woff2") format("woff2"); }
-    @font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 600; font-display: swap; src: url("/fonts/eb-garamond-italic-latin.woff2") format("woff2"); }
-    @font-face { font-family: "Courier Prime"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/courier-prime-latin.woff2") format("woff2"); }
-    *, *::before, *::after { box-sizing: border-box; }
     body {
-      margin: 0;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background: #f7f2ea;
-      color: #2e0c14;
-      font: 400 1.25rem/1.45 "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    .mini {
-      margin: 0;
-      font-family: "Courier Prime", "Courier New", Courier, monospace;
-      font-size: 0.75rem;
-      line-height: 1.375;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-    header {
-      margin: 0 clamp(18px, 4vw, 40px);
-      padding: 20px 0;
-      border-bottom: 1px solid #2e0c14;
-      text-align: center;
-    }
-    .word {
-      color: #651d2b;
-      font-size: 1.375rem;
-      line-height: 1;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      text-decoration: none;
     }
     main {
       flex: 1;
@@ -65,31 +36,81 @@
       font-weight: 400;
       line-height: 1.2;
     }
-    h1 em { color: #651d2b; }
-    p.body { max-width: 34ch; margin: 18px auto 0; }
-    a.cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4em;
-      margin-top: 30px;
-      color: #651d2b;
-      font-size: 1.5rem;
-      text-decoration: none;
-    }
-    a.cta:hover span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-    a.cta svg { width: 1em; height: 0.42em; fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
-    a:focus-visible { outline: 2px solid #8b2c3e; outline-offset: 3px; }
+    p.body { max-width: 34ch; margin: 18px auto 0; font-size: 1.25rem; }
+    main .cta { margin-top: 30px; font-size: 1.5rem; }
   </style>
+  <script src="js/events.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 <body>
-  <header>
-    <a class="word" href="https://maksimds.github.io/turblend-landing/">Turblend</a>
+  <!-- The same bar and mobile menu as index.html: keep the two in step. The # links
+       lead to the home page, through the <base> address above. -->
+  <header class="site-header">
+    <div class="nav-slot">
+      <div class="nav-shell" data-nav>
+        <div class="container">
+          <div class="header-bar">
+            <div class="header-start">
+              <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+                <span class="sr-only">Open menu</span>
+                <span class="menu-lines" aria-hidden="true"></span>
+              </button>
+              <a class="header-logo" href="./" aria-label="Turblend home page"><img src="images/turblend-bean-mark.svg" alt="" width="33" height="33"></a>
+            </div>
+
+            <a class="header-brand" href="./" aria-label="Turblend home page"><img src="images/turblend-coffee.png" alt="" width="1000" height="324"></a>
+
+            <nav class="primary-nav" aria-label="Primary">
+              <ul role="list">
+                <li><a class="nav-link mini" href="#origin">Story</a></li>
+                <li><a class="nav-link mini" href="#popups">Roadmap</a></li>
+                <li><a class="nav-link mini" href="{BLOG URL}">Blog</a></li>
+              </ul>
+            </nav>
+
+            <!-- The date and venue fill in automatically from js/events.js -->
+            <a class="header-next mini" href="#popups">
+              <span class="dot pulse" aria-hidden="true"></span>
+              <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
+
+  <!-- Mobile menu -->
+  <dialog id="menu-drawer" class="drawer" aria-label="Menu" data-drawer>
+    <div class="drawer-inner">
+      <div class="drawer-top">
+        <div class="header-start">
+          <button class="menu-btn is-close" type="button" data-menu-close>
+            <span class="sr-only">Close menu</span>
+            <span class="menu-lines" aria-hidden="true"></span>
+          </button>
+          <span class="header-logo" aria-hidden="true"><img src="images/turblend-bean-mark.svg" alt="" width="33" height="33"></span>
+        </div>
+        <p class="drawer-brand" aria-hidden="true"><img src="images/turblend-coffee.png" alt="" width="1000" height="324"></p>
+      </div>
+      <nav class="drawer-nav">
+        <ul role="list">
+          <li><a href="#origin"><span class="drawer-num mini" aria-hidden="true">01</span><span>Story</span></a></li>
+          <li><a href="#popups"><span class="drawer-num mini" aria-hidden="true">02</span><span>Roadmap</span></a></li>
+          <li><a href="{BLOG URL}"><span class="drawer-num mini" aria-hidden="true">03</span><span>Blog</span></a></li>
+        </ul>
+      </nav>
+      <div class="drawer-actions">
+        <a class="cta" href="#signup"><span>Get on the list</span><svg class="ar" viewBox="0 0 24 10" aria-hidden="true"><path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/></svg></a>
+        <a class="cta" href="#popups"><span>Find a pop-up</span><svg class="ar" viewBox="0 0 24 10" aria-hidden="true"><path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/></svg></a>
+      </div>
+    </div>
+  </dialog>
+
   <main>
     <p class="mini label">404 · Page not found</p>
     <h1>This cup came up <em>empty.</em></h1>
     <p class="body">The page you’re looking for isn’t here. The coffee, the pop-up dates, and the list are all on the home page.</p>
-    <a class="cta" href="https://maksimds.github.io/turblend-landing/"><span>Back to Turblend</span><svg viewBox="0 0 24 10" aria-hidden="true"><path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/></svg></a>
+    <a class="cta" href="https://maksimds.github.io/turblend-landing/"><span>Back to Turblend</span><svg class="ar" viewBox="0 0 24 10" aria-hidden="true"><path d="M.5 5h22.5M18.5 1 23 5l-4.5 4"/></svg></a>
   </main>
 </body>
 </html>
