@@ -5,17 +5,18 @@
  *   npm run check                  fails if an em dash is found, lists placeholders
  *   npm run check -- --strict      also fails while any {PLACEHOLDER} remains
  *
- * It reads everything under src/ (pages, components, layouts, the pop-up dates)
- * and public/js/. A placeholder is capitals in braces, like {BLOG URL}; Astro code
- * in braces ({asset(...)}, {SITE_URL}) doesn't match, as long as constants used in
- * the markup keep an underscore or a lowercase letter in their names.
+ * It reads everything under src/ (pages, components, layouts, the pop-up dates).
+ * A placeholder is capitals in braces, like {BLOG URL}; Astro code in braces
+ * ({asset(...)}, {SITE_URL}) doesn't match, as long as constants used in the
+ * markup keep an underscore or a lowercase letter in their names.
+ * The build on GitHub runs it before publishing.
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join, relative, extname } from "node:path";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const folders = ["src", "public/js"];
+const folders = ["src"];
 const types = new Set([".astro", ".ts", ".js", ".mjs", ".md", ".mdx", ".css", ".html"]);
 const strict = process.argv.includes("--strict");
 

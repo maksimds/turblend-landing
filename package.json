@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "node tools/check.mjs"
+    "check": "node tools/check.mjs",
+    "typecheck": "astro check"
   },
   "dependencies": {
     "astro": "^7.4.6"

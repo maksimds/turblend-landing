@@ -1,0 +1,59 @@
+# Builds the site on every push and publishes it to GitHub Pages from main.
+# A push to any other branch only builds and checks, so a branch can be tried
+# without touching the live site. If a check or the build fails, nothing is
+# published and the live site stays as it was.
+#
+# Needs Settings > Pages > Source set to "GitHub Actions" (once).
+name: Build and deploy
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer push waits for the one in progress.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check copy (em dashes, placeholders)
+        run: npm run check
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
