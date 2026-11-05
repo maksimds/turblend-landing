@@ -1,5 +1,7 @@
 ---
+import { photos } from "../photos";
 import Cta from "./Cta.astro";
+import Photo from "./Photo.astro";
 ---
 <section id="popups" class="strate container" aria-labelledby="popups-title">
   <div class="grid edito">
@@ -16,17 +18,11 @@ import Cta from "./Cta.astro";
          Abdullah Al Mallah), not our stall. Swap in pop-up photos when we have them:
          small (portrait, 4:5), tall (portrait, 2:3). -->
     <figure class="edito-small frame frame-45 rv" data-d="1">
-      <picture>
-        <source srcset="images/guests-400.avif 400w, images/guests-800.avif 800w, images/guests.avif 1200w" sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" type="image/avif">
-        <img src="images/guests.jpg" alt="Three people raising cups of coffee in a toast over autumn leaves" loading="lazy">
-      </picture>
+      <Photo src={photos.guests} widths={[400, 800, 1200]} sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" alt="Three people raising cups of coffee in a toast over autumn leaves" />
     </figure>
 
     <figure class="edito-big frame frame-23 rv" data-d="2">
-      <picture>
-        <source srcset="images/popup-400.avif 400w, images/popup-800.avif 800w, images/popup.avif 1400w" sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" type="image/avif">
-        <img src="images/popup.jpg" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" loading="lazy">
-      </picture>
+      <Photo src={photos.popup} widths={[400, 800, 1400]} sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" />
     </figure>
   </div>
 

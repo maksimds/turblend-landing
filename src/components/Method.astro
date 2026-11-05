@@ -1,5 +1,7 @@
 ---
+import { photos } from "../photos";
 import Cta from "./Cta.astro";
+import Photo from "./Photo.astro";
 ---
 <section id="method" class="split strate" aria-labelledby="method-title">
   <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
@@ -7,10 +9,7 @@ import Cta from "./Cta.astro";
        This one is landscape, so in its square (phone) or tall (desktop) box it is drawn
        about 1.5 times the box's width; the sizes below allow for that. -->
   <figure class="split-media rv">
-    <picture>
-      <source srcset="images/cup-800.avif 800w, images/cup-1200.avif 1200w, images/cup.avif 1800w" sizes="(min-width: 1024px) 1800px, (min-width: 768px) 113vw, 150vw" type="image/avif">
-      <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
-    </picture>
+    <Photo src={photos.cup} widths={[800, 1200, 1800]} sizes="(min-width: 1024px) 1800px, (min-width: 768px) 113vw, 150vw" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" />
   </figure>
 
   <div class="split-body">

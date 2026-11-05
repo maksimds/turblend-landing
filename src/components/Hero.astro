@@ -1,20 +1,27 @@
 ---
+import { getImage } from "astro:assets";
+import { photos } from "../photos";
 import Cta from "./Cta.astro";
+
+// Phones get hero-mobile, a 2:3 crop; wider screens the 16:9 photo, in two sizes.
+const phone = await getImage({ src: photos.heroMobile, format: "avif" });
+const phoneJpg = await getImage({ src: photos.heroMobile, format: "jpg" });
+const wide = await getImage({ src: photos.hero, format: "avif", widths: [1200, 2000] });
+const wideJpg = await getImage({ src: photos.hero, format: "jpg", widths: [1200, 2000] });
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-banner">
     <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
          16:9 on desktop; phones get hero-mobile, a 2:3 crop of the same photo.
          Keep the subject away from the bottom-left corner, where the headline sits.
-         Every photo on the page comes as .avif for current browsers, in a few widths
-         (name-400, name-800, ...) so phones get a small one, and as one full-size .jpg
-         for older browsers. Replace all of a photo's files when swapping it. -->
+         Every photo is one full-size original in src/assets/photos/ (see src/photos.ts);
+         the build makes the AVIF sizes and the JPG for older browsers. -->
     <figure class="hero-media">
       <picture>
-        <source media="(max-width: 767px)" srcset="images/hero-mobile.avif" type="image/avif">
-        <source media="(max-width: 767px)" srcset="images/hero-mobile.jpg">
-        <source srcset="images/hero-1200.avif 1200w, images/hero.avif 2000w" sizes="100vw" type="image/avif">
-        <img src="images/hero.jpg" srcset="images/hero-1200.jpg 1200w, images/hero.jpg 2000w" sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
+        <source media="(max-width: 767px)" srcset={phone.src} type="image/avif">
+        <source media="(max-width: 767px)" srcset={phoneJpg.src}>
+        <source srcset={wide.srcSet.attribute} sizes="100vw" type="image/avif">
+        <img src={wideJpg.src} srcset={wideJpg.srcSet.attribute} sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
       </picture>
     </figure>
     <div class="hero-content container dark">

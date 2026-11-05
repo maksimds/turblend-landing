@@ -14,6 +14,7 @@ import Signup from "../components/Signup.astro";
 import Faq from "../components/Faq.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_URL } from "../site";
+import { photos, photoUrl } from "../photos";
 import ebGaramond from "../assets/fonts/eb-garamond-latin.woff2?url";
 import ebGaramondItalic from "../assets/fonts/eb-garamond-italic-latin.woff2?url";
 import courierPrime from "../assets/fonts/courier-prime-latin.woff2?url";
@@ -36,7 +37,7 @@ const structuredData = {
       "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
       "url": url(),
       "logo": url("images/turblend-coffee.png"),
-      "image": [url("images/og.jpg"), url("images/cup.jpg"), url("images/popup.jpg")],
+      "image": [url("images/og.jpg"), await photoUrl(photos.cup), await photoUrl(photos.popup)],
       "email": "mfcetinkaya@turblend.us",
       "sameAs": ["https://www.instagram.com/turblendcoffee/"],
       "foundingDate": "2026",

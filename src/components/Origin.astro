@@ -1,5 +1,7 @@
 ---
+import { photos } from "../photos";
 import Cta from "./Cta.astro";
+import Photo from "./Photo.astro";
 ---
 <section id="origin" class="strate container" aria-labelledby="origin-title">
   <div class="grid edito ruled">
@@ -23,10 +25,7 @@ import Cta from "./Cta.astro";
          small (portrait, 4:5), tall (portrait, 2:3). -->
     <div class="edito-small rv" data-d="1">
       <figure class="frame frame-45">
-        <picture>
-          <source srcset="images/cherries-400.avif 400w, images/cherries-800.avif 800w, images/cherries.avif 1200w" sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" type="image/avif">
-          <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
-        </picture>
+        <Photo src={photos.cherries} widths={[400, 800, 1200]} sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" alt="Ripe red and yellow coffee cherries on the branch" />
       </figure>
       <dl class="facts">
         <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
@@ -37,10 +36,7 @@ import Cta from "./Cta.astro";
 
     <figure class="edito-big rv" data-d="2">
       <div class="frame frame-23">
-        <picture>
-          <source srcset="images/origin-400.avif 400w, images/origin-800.avif 800w, images/origin.avif 1200w" sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" type="image/avif">
-          <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
-        </picture>
+        <Photo src={photos.origin} widths={[400, 800, 1200]} sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" alt="A green tropical hillside with banana plants and a farmer at work" />
       </div>
       <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
     </figure>
