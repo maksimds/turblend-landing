@@ -1,2 +1,7 @@
 .DS_Store
 *.log
+
+# Astro
+node_modules/
+dist/
+.astro/

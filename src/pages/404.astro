@@ -1,3 +1,6 @@
+---
+import "../styles/global.css";
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,9 +16,8 @@
   <link rel="icon" href="favicon.ico" sizes="32x32">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="css/styles.css">
-  <!-- The navbar and type come from css/styles.css. This is only what this page adds. -->
-  <style>
+  <!-- The navbar and type come from src/styles/global.css. This is only what this page adds. -->
+  <style is:global>
     body {
       display: flex;
       flex-direction: column;
@@ -39,8 +41,8 @@
     p.body { max-width: 34ch; margin: 18px auto 0; font-size: 1.25rem; }
     main .cta { margin-top: 30px; font-size: 1.5rem; }
   </style>
-  <script src="js/events.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <script is:inline src="js/events.js" defer></script>
+  <script is:inline src="js/main.js" defer></script>
 </head>
 <body>
   <!-- The same bar and mobile menu as index.html: keep the two in step. The # links
