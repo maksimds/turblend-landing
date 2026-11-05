@@ -30,3 +30,74 @@ import Cta from "./Cta.astro";
     </div>
   </div>
 </dialog>
+
+<script>
+  import { $ } from "../scripts/dom";
+
+  const drawer = $<HTMLDialogElement>("[data-drawer]");
+  const openButton = $("[data-menu-open]");
+  if (drawer && openButton && typeof drawer.showModal === "function") {
+    const setOpen = (open: boolean) => {
+      openButton.setAttribute("aria-expanded", String(open));
+      document.documentElement.classList.toggle("is-locked", open);
+    };
+
+    let afterClose: (() => void) | null = null;
+
+    // The menu animates out first (global.css), and the dialog closes when the
+    // paper has faded. With no closing animation (reduced motion) it closes at once.
+    const closeDrawer = (then?: () => void) => {
+      if (!drawer.open || drawer.classList.contains("is-closing")) return;
+      afterClose = then || null;
+      drawer.classList.add("is-closing");
+      if (getComputedStyle(drawer).animationName !== "drawer-out") drawer.close();
+    };
+
+    openButton.addEventListener("click", () => {
+      drawer.showModal();
+      setOpen(true);
+    });
+    drawer.addEventListener("animationend", (event) => {
+      if (event.target === drawer && event.animationName === "drawer-out") drawer.close();
+    });
+    drawer.addEventListener("close", () => {
+      drawer.classList.remove("is-closing");
+      setOpen(false);
+      // The browser hands focus back to the menu button as the dialog closes, but
+      // the button is still hidden then (global.css), so focus would be lost.
+      openButton.focus({ preventScroll: true });
+      if (afterClose) {
+        const then = afterClose;
+        afterClose = null;
+        then();
+      }
+    });
+    $("[data-menu-close]", drawer)?.addEventListener("click", () => closeDrawer());
+
+    // Escape (and Android's back gesture). Some browsers won't let the close be
+    // held off; the menu then just closes without the animation.
+    drawer.addEventListener("cancel", (event) => {
+      if (!event.cancelable) return;
+      event.preventDefault();
+      closeDrawer();
+    });
+
+    // A click on the backdrop lands on the <dialog> itself, not its contents.
+    drawer.addEventListener("click", (event) => {
+      if (event.target === drawer) closeDrawer();
+    });
+
+    // Follow the anchor only once the menu has closed, so the page can scroll.
+    drawer.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!drawer.open) return; // the replayed click below
+        event.preventDefault();
+        closeDrawer(() => link.click());
+      });
+    });
+
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
+      if (event.matches && drawer.open) drawer.close();
+    });
+  }
+</script>

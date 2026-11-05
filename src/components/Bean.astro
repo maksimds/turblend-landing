@@ -56,3 +56,37 @@ import Cta from "./Cta.astro";
     </dl>
   </div>
 </section>
+
+<script>
+  import { $$, reduceMotion } from "../scripts/dom";
+
+  // The final number is already in the HTML; this only animates up to it.
+  const counters = $$("[data-count]");
+  if (!reduceMotion && counters.length && "IntersectionObserver" in window) {
+    const format = (value: number, separator: string) => {
+      const text = String(Math.round(value));
+      return separator ? text.replace(/\B(?=(\d{3})+(?!\d))/g, separator) : text;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+
+        const node = entry.target as HTMLElement;
+        const target = parseFloat(node.dataset.count ?? "0");
+        const separator = node.dataset.sep || "";
+        const start = performance.now();
+
+        const step = (now: number) => {
+          const t = Math.min(1, (now - start) / 1500);
+          node.textContent = format(target * (1 - Math.pow(1 - t, 3)), separator);
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.4 });
+
+    counters.forEach((node) => observer.observe(node));
+  }
+</script>

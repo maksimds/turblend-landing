@@ -44,8 +44,119 @@ import Cta from "./Cta.astro";
         <Cta href="mailto:?subject=Turblend%3A%20Puerto%20Rican%20coffee%2C%20brewed%20on%20sand&body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fturblend.us%2F" data-share="" data-copied="Link copied" label="Share Turblend" />
       </div>
 
-      <!-- Short updates for screen readers ("Sending", "Link copied"), filled in by js/main.js. -->
+      <!-- Short updates for screen readers ("Sending", "Link copied"), filled in by the script below. -->
       <p class="sr-only" aria-live="polite" data-announce></p>
     </div>
   </div>
 </section>
+
+<script>
+  import { SITE_URL } from "../site";
+  import { $, announce } from "../scripts/dom";
+
+  /* ---------- Email signup (Formspree) ---------- */
+
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  const form = $<HTMLFormElement>("[data-signup]");
+  const success = $("[data-signup-success]");
+  const email = form?.elements.namedItem("email") as HTMLInputElement | null;
+  const emailError = form && $("[data-email-error]", form);
+  const formError = form && $("[data-form-error]", form);
+  const button = form && $<HTMLButtonElement>('button[type="submit"]', form);
+
+  if (form && success && email && emailError && formError && button) {
+    let sending = false;
+
+    // We show our own inline messages instead of the browser's tooltips.
+    // Both message elements stay in the page and are only emptied, so screen
+    // readers announce a message even when focus is already in the field.
+    form.noValidate = true;
+
+    const setEmailError = (show: boolean) => {
+      emailError.textContent = show ? emailError.dataset.message ?? "" : "";
+      if (show) {
+        email.setAttribute("aria-invalid", "true");
+        email.setAttribute("aria-describedby", emailError.id);
+      } else {
+        email.removeAttribute("aria-invalid");
+        email.removeAttribute("aria-describedby");
+      }
+    };
+
+    const setSending = (on: boolean) => {
+      sending = on;
+      button.setAttribute("aria-disabled", String(on));
+      button.textContent = (on ? button.dataset.sending : button.dataset.label) ?? "";
+      if (on) announce(button.dataset.sending ?? "");
+    };
+
+    const showFormError = () => {
+      formError.textContent = formError.dataset.message ?? "";
+    };
+
+    email.addEventListener("input", () => {
+      if (email.hasAttribute("aria-invalid") && EMAIL.test(email.value.trim())) setEmailError(false);
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (sending) return;
+      formError.textContent = "";
+
+      email.value = email.value.trim();
+      if (!EMAIL.test(email.value)) {
+        setEmailError(true);
+        email.focus();
+        return;
+      }
+      setEmailError(false);
+
+      const action = form.getAttribute("action") || "";
+      if (action.includes("{")) {
+        console.warn("Turblend: the signup form isn't connected yet. Put your Formspree form ID in the form's action in src/components/Signup.astro.");
+        showFormError();
+        return;
+      }
+
+      setSending(true);
+      fetch(action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("Signup failed with status " + response.status);
+          form.hidden = true;
+          success.hidden = false;
+          success.focus();
+        })
+        .catch((error) => {
+          console.error(error);
+          showFormError();
+        })
+        .finally(() => setSending(false));
+    });
+  }
+
+  /* ---------- Share prompt after signing up ---------- */
+
+  // Uses the phone's share sheet, or copies the link. Without either, the
+  // button stays a plain email link.
+  const share = $<HTMLAnchorElement>("[data-share]");
+  const shareLabel = share && $("span", share);
+  if (share && shareLabel) {
+    share.addEventListener("click", (event) => {
+      if (navigator.share) {
+        event.preventDefault();
+        navigator.share({ title: "Turblend", text: "Puerto Rican coffee, brewed on sand.", url: SITE_URL }).catch(() => {});
+      } else if (navigator.clipboard && window.isSecureContext) {
+        event.preventDefault();
+        navigator.clipboard.writeText(SITE_URL).then(() => {
+          shareLabel.textContent = share.dataset.copied ?? "";
+          announce(share.dataset.copied ?? "");
+        });
+      }
+    });
+  }
+</script>

@@ -7,8 +7,9 @@ import { basePath } from "../site";
 
 // GitHub Pages serves this page at any missing URL, so every relative path and
 // # link on it (the bar's and the menu's too) is anchored to the home page's
-// address, which comes from `site` and `base` in astro.config.mjs.
-const home = new URL(basePath, Astro.site).href;
+// folder, `base` in astro.config.mjs. It's a path, not a full address, so the
+// page also works on a local preview and on whichever domain serves the site.
+const home = basePath;
 ---
 <Base title="Page not found · Turblend" baseHref={home}>
   <meta slot="meta" name="robots" content="noindex">

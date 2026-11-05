@@ -1,6 +1,6 @@
 /* ==========================================================================
    TURBLEND · styles
-   Colors, type and layout. Copy lives in index.html; pop-up dates in js/events.js.
+   Colors, type and layout. Copy lives in src/components/; pop-up dates in src/data/events.ts.
 
    An editorial system: a 12-column grid, one serif (EB Garamond) for
    everything you read and a typewriter mono for small labels, square photo
@@ -1077,7 +1077,7 @@ main:focus { outline: none; }
 }
 
 /* ---------- Motion -------------------------------------------------------- */
-/* Hidden states apply only when main.js is running (the "js" class) and the
+/* Hidden states apply only when the page script is running (the "js" class) and the
    visitor hasn't asked for reduced motion. */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1133,7 +1133,7 @@ main:focus { outline: none; }
 
   /* Closing plays it backwards, a little quicker: the links sink away last one
      first, the cross folds back into the burger, and the paper fades off the page.
-     main.js closes the dialog when that fade ends. */
+     MenuDrawer.astro closes the dialog when that fade ends. */
   .drawer.is-closing { pointer-events: none; animation: drawer-out 0.3s ease-in 0.15s forwards; }
   .drawer.is-closing .drawer-brand { animation: fade-out 0.3s ease-in 0.15s forwards; }
   @keyframes drawer-out { to { background-color: transparent; } }

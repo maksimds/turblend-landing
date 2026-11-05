@@ -17,10 +17,22 @@
  *
  * Keep the comma at the end of each line. No em dashes, please.
  *
+ * The site won't build with a date that's mistyped or doesn't exist, or a
+ * missing field: the error names the line to fix, and the live site stays as
+ * it was until it's fixed.
+ *
  * Upcoming dates are also handed to Google as event listings. Write hours like
  * the example ("9 AM to 1 PM") so the start and end times come through.
  */
 
-window.TURBLEND_EVENTS = [
+export const events: PopUp[] = [
   // { date: "2026-11-08", venue: "Findlay Market", neighborhood: "Over-the-Rhine", hours: "9 AM to 1 PM" },
 ];
+
+export interface PopUp {
+  date: string;
+  venue: string;
+  neighborhood: string;
+  hours: string;
+  url?: string;
+}

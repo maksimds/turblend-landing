@@ -11,3 +11,22 @@ import { asset } from "../site";
 
 <!-- Pinned to the corner of the screen; it sits here to be part of the header for screen readers. -->
 <a class="badge-cta" href="#signup" data-badge><span>Get on the list</span></a>
+
+<script>
+  import { $, onScroll } from "../scripts/dom";
+
+  // The badge tucks up toward the corner once you scroll, and steps aside
+  // when the signup form comes on screen. It stays away over the FAQ and
+  // footer below, where it would only cover what's being read.
+  const badge = $("[data-badge]");
+  if (badge) {
+    const signup = document.getElementById("signup");
+    const update = () => {
+      badge.dataset.scrolled = String(window.scrollY > 150);
+      // Measured on every scroll, so jumps ("Back to top") are caught too.
+      if (signup) badge.dataset.hidden = String(signup.getBoundingClientRect().top < window.innerHeight * 0.65);
+    };
+    onScroll(update);
+    update();
+  }
+</script>

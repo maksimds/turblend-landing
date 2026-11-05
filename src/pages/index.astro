@@ -23,7 +23,7 @@ const description = "Single-origin Puerto Rican arabica, roasted fresh and brewe
 const url = (path = "") => new URL(path, SITE_URL).href;
 
 // Business and site details for search engines. The site's name here is the one
-// Google shows above the result. Pop-up dates are added by js/main.js.
+// Google shows above the result. Pop-up dates are added by src/scripts/popups.ts.
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -93,8 +93,8 @@ const structuredData = {
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
-    <!-- Turns on the scroll animations. If js/main.js doesn't load within a few
-         seconds, the class comes off again so nothing stays hidden. -->
+    <!-- Turns on the scroll animations. If the page's script (at the end of the page)
+         doesn't load within a few seconds, the class comes off again so nothing stays hidden. -->
     <script is:inline>
       document.documentElement.classList.add("js");
       setTimeout(function () {
@@ -123,4 +123,29 @@ const structuredData = {
   </main>
 
   <Footer />
+
+  <script>
+    // No imports on purpose: the hero headline stays hidden until this runs, so
+    // it's one small file with nothing more to fetch.
+
+    // Tells the inline script in <head> that the animations can run.
+    window.TURBLEND_READY = true;
+
+    // Scroll reveals: sections marked .rv or .rv-up fade in as they come on screen.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const items = document.querySelectorAll(".rv, .rv-up");
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("in"));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+      items.forEach((item) => observer.observe(item));
+    }
+  </script>
 </Base>

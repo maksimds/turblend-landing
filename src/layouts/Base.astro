@@ -1,7 +1,7 @@
 ---
-// The document shell every page shares: <head> basics, the stylesheet, the scripts.
-// Pages add their own tags to <head> through the "meta" slot (right after the
-// title) and the "head" slot (after the icons).
+// The document shell every page shares: <head> basics and the stylesheet. Pages
+// add their own tags to <head> through the "meta" slot (right after the title)
+// and the "head" slot (after the icons). Each component brings its own script.
 import "../styles/global.css";
 import { asset } from "../site";
 
@@ -25,8 +25,6 @@ const { title, baseHref } = Astro.props;
   <link rel="icon" href={asset("favicon.svg")} type="image/svg+xml">
   <link rel="apple-touch-icon" href={asset("apple-touch-icon.png")}>
   <slot name="head" />
-  <script is:inline src={asset("js/events.js")} defer></script>
-  <script is:inline src={asset("js/main.js")} defer></script>
 </head>
 <body>
   <slot />
