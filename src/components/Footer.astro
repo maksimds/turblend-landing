@@ -1,0 +1,28 @@
+---
+import { asset } from "../site";
+import { navLinks } from "../data/nav";
+import Cta from "./Cta.astro";
+---
+<footer class="site-footer strate dark">
+  <div class="container">
+    <div class="footer-main">
+      <p class="mini">A fusion of Puerto Rican soul and Turkish tradition</p>
+      <p class="footer-word"><img src={asset("images/turblend-coffee-light.png")} alt="Turblend Coffee" width="1000" height="324" loading="lazy"></p>
+      <div class="footer-info mini">
+        <p>Cincinnati, OH</p>
+        <p><a href="mailto:mfcetinkaya@turblend.us">mfcetinkaya@turblend.us</a><br><a href="https://www.instagram.com/turblendcoffee/">Instagram</a></p>
+      </div>
+      <Cta href="#signup" label="Get on the list" />
+    </div>
+
+    <div class="footer-base mini">
+      <p>© 2026 Turblend · Cincinnati, OH</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul role="list">
+          {navLinks.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+        </ul>
+      </nav>
+      <a class="footer-top" href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>

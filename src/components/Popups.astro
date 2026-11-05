@@ -1,0 +1,66 @@
+---
+import { photos } from "../photos";
+import Cta from "./Cta.astro";
+import Photo from "./Photo.astro";
+---
+<section id="popups" class="strate container" aria-labelledby="popups-title">
+  <div class="grid edito">
+    <div class="edito-text rv-up">
+      <p class="mini">Chapter 05 · Pop-ups</p>
+      <h2 id="popups-title" class="title-page">Pop-ups, <em>then a shop.</em></h2>
+      <div class="prose">
+        <p class="title-small">We’re starting small: farmers’ markets across Cincinnati, coffee partnerships, and private events. A storefront comes next. Get on the list to be first in line.</p>
+      </div>
+      <Cta class="cta-next" href="#signup" label="Get on the list" />
+    </div>
+
+    <!-- POP-UP PHOTOS: Unsplash stock (guests by Nathan Dumlao, sand brewer by
+         Abdullah Al Mallah), not our stall. Swap in pop-up photos when we have them:
+         small (portrait, 4:5), tall (portrait, 2:3). -->
+    <figure class="edito-small frame frame-45 rv" data-d="1">
+      <Photo src={photos.guests} widths={[400, 800, 1200]} sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" alt="Three people raising cups of coffee in a toast over autumn leaves" />
+    </figure>
+
+    <figure class="edito-big frame frame-23 rv" data-d="2">
+      <Photo src={photos.popup} widths={[400, 800, 1400]} sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" alt="Copper cezves set in a hot-sand brewer, cups waiting behind" />
+    </figure>
+  </div>
+
+  <!-- Timeline. Status styles: status-live, status-open, status-planned. -->
+  <ol class="timeline grid" role="list">
+    <li class="phase rv-up">
+      <p class="phase-when">Now</p>
+      <h3 class="phase-title">Farmers’ Markets</h3>
+      <p class="phase-where">Across Cincinnati, locations rotating</p>
+      <p class="status status-live mini"><span class="dot pulse" aria-hidden="true"></span>Dates posted on Instagram</p>
+    </li>
+    <li class="phase rv-up" data-d="1">
+      <p class="phase-when">Fall 2026</p>
+      <h3 class="phase-title">Private Tastings</h3>
+      <p class="phase-where">By invitation</p>
+      <p class="status status-open mini"><span class="dot" aria-hidden="true"></span>Waitlist open</p>
+    </li>
+    <li class="phase rv-up" data-d="2">
+      <p class="phase-when">2027</p>
+      <h3 class="phase-title">The Turblend Shop</h3>
+      <p class="phase-where">Cincinnati, OH</p>
+      <p class="status status-planned mini"><span class="dot" aria-hidden="true"></span>In planning</p>
+    </li>
+  </ol>
+
+  <!-- Upcoming dates come from src/data/events.ts. Edit them there, not here. -->
+  <div class="events grid rv-up">
+    <h3 class="events-title title-page">Upcoming <em>dates</em></h3>
+    <div class="events-body">
+      <ul class="event-list" role="list" data-events hidden></ul>
+      <div class="events-empty" data-events-empty>
+        <p class="title-small">Next dates drop soon. Get on the list and you’ll hear first.</p>
+        <Cta href="#signup" label="Get on the list" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/popups";
+</script>

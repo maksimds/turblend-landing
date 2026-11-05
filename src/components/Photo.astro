@@ -1,0 +1,9 @@
+---
+// A photo from src/photos.ts: AVIF in the given widths for current browsers, and
+// JPG for older ones. Loads lazily, as it comes near the screen.
+import { Picture } from "astro:assets";
+import type { ComponentProps } from "astro/types";
+
+type Props = ComponentProps<typeof Picture>;
+---
+<Picture formats={["avif"]} fallbackFormat="jpg" loading="lazy" {...Astro.props} />

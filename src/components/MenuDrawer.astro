@@ -1,0 +1,103 @@
+---
+// The mobile menu (below 1024px), opened by the burger in the header bar.
+import { asset } from "../site";
+import { navLinks } from "../data/nav";
+import Cta from "./Cta.astro";
+---
+<!-- Mobile menu -->
+<dialog id="menu-drawer" class="drawer" aria-label="Menu" data-drawer>
+  <div class="drawer-inner">
+    <div class="drawer-top">
+      <div class="header-start">
+        <button class="menu-btn is-close" type="button" data-menu-close>
+          <span class="sr-only">Close menu</span>
+          <span class="menu-lines" aria-hidden="true"></span>
+        </button>
+        <span class="header-logo" aria-hidden="true"><img src={asset("images/turblend-bean-mark.svg")} alt="" width="33" height="33"></span>
+      </div>
+      <p class="drawer-brand" aria-hidden="true"><img src={asset("images/turblend-coffee.png")} alt="" width="1000" height="324"></p>
+    </div>
+    <nav class="drawer-nav">
+      <ul role="list">
+        {navLinks.map((link, i) => (
+          <li><a href={link.href}><span class="drawer-num mini" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><span>{link.label}</span></a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="drawer-actions">
+      <Cta href="#signup" label="Get on the list" />
+      <Cta href="#popups" label="Find a pop-up" />
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { $ } from "../scripts/dom";
+
+  const drawer = $<HTMLDialogElement>("[data-drawer]");
+  const openButton = $("[data-menu-open]");
+  if (drawer && openButton && typeof drawer.showModal === "function") {
+    const setOpen = (open: boolean) => {
+      openButton.setAttribute("aria-expanded", String(open));
+      document.documentElement.classList.toggle("is-locked", open);
+    };
+
+    let afterClose: (() => void) | null = null;
+
+    // The menu animates out first (global.css), and the dialog closes when the
+    // paper has faded. With no closing animation (reduced motion) it closes at once.
+    const closeDrawer = (then?: () => void) => {
+      if (!drawer.open || drawer.classList.contains("is-closing")) return;
+      afterClose = then || null;
+      drawer.classList.add("is-closing");
+      if (getComputedStyle(drawer).animationName !== "drawer-out") drawer.close();
+    };
+
+    openButton.addEventListener("click", () => {
+      drawer.showModal();
+      setOpen(true);
+    });
+    drawer.addEventListener("animationend", (event) => {
+      if (event.target === drawer && event.animationName === "drawer-out") drawer.close();
+    });
+    drawer.addEventListener("close", () => {
+      drawer.classList.remove("is-closing");
+      setOpen(false);
+      // The browser hands focus back to the menu button as the dialog closes, but
+      // the button is still hidden then (global.css), so focus would be lost.
+      openButton.focus({ preventScroll: true });
+      if (afterClose) {
+        const then = afterClose;
+        afterClose = null;
+        then();
+      }
+    });
+    $("[data-menu-close]", drawer)?.addEventListener("click", () => closeDrawer());
+
+    // Escape (and Android's back gesture). Some browsers won't let the close be
+    // held off; the menu then just closes without the animation.
+    drawer.addEventListener("cancel", (event) => {
+      if (!event.cancelable) return;
+      event.preventDefault();
+      closeDrawer();
+    });
+
+    // A click on the backdrop lands on the <dialog> itself, not its contents.
+    drawer.addEventListener("click", (event) => {
+      if (event.target === drawer) closeDrawer();
+    });
+
+    // Follow the anchor only once the menu has closed, so the page can scroll.
+    drawer.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!drawer.open) return; // the replayed click below
+        event.preventDefault();
+        closeDrawer(() => link.click());
+      });
+    });
+
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
+      if (event.matches && drawer.open) drawer.close();
+    });
+  }
+</script>

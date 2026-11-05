@@ -1,0 +1,104 @@
+---
+// The header bar, on every page. On the home page it also holds the masthead and
+// the round badge (passed in as children).
+import { asset } from "../site";
+import { navLinks } from "../data/nav";
+import { popUps } from "../data/popups";
+
+interface Props {
+  /** The home page: the logo leads back to the top instead of to the home page. */
+  home?: boolean;
+}
+const { home = false } = Astro.props;
+const logo = home
+  ? { href: "#top", label: "Turblend, back to top" }
+  : { href: "./", label: "Turblend home page" };
+---
+<!-- Every wordmark is the same hand-lettered artwork: images/turblend-coffee.png in the
+     masthead, the phone header bar and the menu, and -light.png on the dark footer. -->
+<header id={home ? "top" : undefined} class="site-header">
+  <!-- The bar scrolls away with the page and pins to the top as soon as you
+       scroll back up (the script below). The slot holds its place meanwhile. -->
+  <div class="nav-slot">
+    <div class="nav-shell" data-nav>
+      <div class="container">
+        <div class="header-bar">
+          <!-- The bean emblem sits at the far left, beside the burger where there is one. -->
+          <div class="header-start">
+            <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+              <span class="sr-only">Open menu</span>
+              <span class="menu-lines" aria-hidden="true"></span>
+            </button>
+            <a class="header-logo" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-bean-mark.svg")} alt="" width="33" height="33"></a>
+          </div>
+
+          <a class="header-brand" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-coffee.png")} alt="" width="1000" height="324"></a>
+
+          <nav class="primary-nav" aria-label="Primary">
+            <ul role="list">
+              {navLinks.map((link) => <li><a class="nav-link mini" href={link.href}>{link.label}</a></li>)}
+            </ul>
+          </nav>
+
+          <!-- The date and venue fill in automatically from src/data/events.ts -->
+          <a class="header-next mini" href="#popups">
+            <span class="dot pulse" aria-hidden="true"></span>
+            <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <slot />
+</header>
+
+<!-- The pop-up dates from src/data/events.ts, for src/scripts/popups.ts. -->
+<script is:inline type="application/json" data-popup-dates set:html={JSON.stringify(popUps).replace(/</g, "\\u003c")} />
+
+<script>
+  import "../scripts/popups";
+  import { $, onScroll } from "../scripts/dom";
+
+  // The bar scrolls away with the page. As soon as you scroll back up it
+  // pins to the top of the screen, and it tucks away again when you scroll
+  // down. Back at the very top it returns to its place in the page.
+  const nav = $("[data-nav]");
+  if (nav) {
+    const root = document.documentElement;
+    let lastY = window.scrollY;
+
+    const set = (pinned: boolean, hidden: boolean) => {
+      nav.dataset.pinned = String(pinned);
+      nav.dataset.hidden = String(hidden);
+      root.classList.toggle("nav-shown", pinned && !hidden);
+    };
+
+    const update = () => {
+      const y = window.scrollY;
+      const pinned = nav.dataset.pinned === "true";
+
+      if (y <= 0) {
+        set(false, false);
+        lastY = y;
+        return;
+      }
+      // Small moves are saved up, so a slow scroll still counts as a direction.
+      if (Math.abs(y - lastY) < 6) return;
+
+      if (y < lastY) {
+        if (pinned || y > nav.offsetHeight) set(true, false);
+      } else if (pinned && !nav.contains(document.activeElement)) {
+        if (y > nav.offsetHeight) set(true, true);
+        else set(false, false);
+      }
+      lastY = y;
+    };
+
+    onScroll(update);
+
+    // Tabbing into a tucked-away bar brings it back.
+    nav.addEventListener("focusin", () => {
+      if (nav.dataset.pinned === "true") set(true, false);
+    });
+  }
+</script>

@@ -1,0 +1,32 @@
+---
+// The beige section under the header bar (768px and up), and the round badge,
+// which starts centred in it. Home page only.
+import { asset } from "../site";
+---
+<!-- The right-hand column stays empty: the round badge sits there. -->
+<div class="masthead container">
+  <p class="mini masthead-note">A fusion of Puerto Rican soul and Turkish tradition</p>
+  <p class="wordmark"><img src={asset("images/turblend-coffee.png")} alt="Turblend Coffee" width="1000" height="324"></p>
+</div>
+
+<!-- Pinned to the corner of the screen; it sits here to be part of the header for screen readers. -->
+<a class="badge-cta" href="#signup" data-badge><span>Get on the list</span></a>
+
+<script>
+  import { $, onScroll } from "../scripts/dom";
+
+  // The badge tucks up toward the corner once you scroll, and steps aside
+  // when the signup form comes on screen. It stays away over the FAQ and
+  // footer below, where it would only cover what's being read.
+  const badge = $("[data-badge]");
+  if (badge) {
+    const signup = document.getElementById("signup");
+    const update = () => {
+      badge.dataset.scrolled = String(window.scrollY > 150);
+      // Measured on every scroll, so jumps ("Back to top") are caught too.
+      if (signup) badge.dataset.hidden = String(signup.getBoundingClientRect().top < window.innerHeight * 0.65);
+    };
+    onScroll(update);
+    update();
+  }
+</script>

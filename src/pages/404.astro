@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import MenuDrawer from "../components/MenuDrawer.astro";
+import Cta from "../components/Cta.astro";
+import { basePath } from "../site";
+
+// GitHub Pages serves this page at any missing URL, so every relative path and
+// # link on it (the bar's and the menu's too) is anchored to the home page's
+// folder, `base` in astro.config.mjs. It's a path, not a full address, so the
+// page also works on a local preview and on whichever domain serves the site.
+const home = basePath;
+---
+<Base title="Page not found · Turblend" baseHref={home}>
+  <meta slot="meta" name="robots" content="noindex">
+
+  <Header />
+  <MenuDrawer />
+
+  <main>
+    <p class="mini label">404 · Page not found</p>
+    <h1>This cup came up <em>empty.</em></h1>
+    <p class="body">The page you’re looking for isn’t here. The coffee, the pop-up dates, and the list are all on the home page.</p>
+    <Cta href={home} label="Back to Turblend" />
+  </main>
+</Base>
+
+<!-- The navbar and type come from src/styles/global.css. This is only what this page adds. -->
+<style is:global>
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    padding: 70px clamp(18px, 4vw, 40px);
+    text-align: center;
+  }
+  .label { color: #725a5d; }
+  h1 {
+    max-width: 16ch;
+    margin: 18px auto 0;
+    font-size: clamp(2.125rem, 1.75rem + 1.2vw, 2.8125rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  p.body { max-width: 34ch; margin: 18px auto 0; font-size: 1.25rem; }
+  main .cta { margin-top: 30px; font-size: 1.5rem; }
+</style>

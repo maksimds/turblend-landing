@@ -1,0 +1,152 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Masthead from "../components/Masthead.astro";
+import MenuDrawer from "../components/MenuDrawer.astro";
+import Hero from "../components/Hero.astro";
+import Origin from "../components/Origin.astro";
+import PullQuote from "../components/PullQuote.astro";
+import Method from "../components/Method.astro";
+import Bean from "../components/Bean.astro";
+import Misfits from "../components/Misfits.astro";
+import Popups from "../components/Popups.astro";
+import Signup from "../components/Signup.astro";
+import Faq from "../components/Faq.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_URL } from "../site";
+import { photos, photoUrl } from "../photos";
+import ebGaramond from "../assets/fonts/eb-garamond-latin.woff2?url";
+import ebGaramondItalic from "../assets/fonts/eb-garamond-italic-latin.woff2?url";
+import courierPrime from "../assets/fonts/courier-prime-latin.woff2?url";
+
+const title = "Turblend · Puerto Rican Coffee, Brewed on Sand · Cincinnati";
+const description = "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027. Get on the list.";
+const url = (path = "") => new URL(path, SITE_URL).href;
+
+// Business and site details for search engines. The site's name here is the one
+// Google shows above the result. Pop-up dates are added by src/scripts/popups.ts.
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "CafeOrCoffeeShop"],
+      "@id": url("#business"),
+      "name": "Turblend",
+      "alternateName": "Turblend Coffee",
+      "description": "Single-origin Puerto Rican arabica, roasted fresh and brewed the Turkish way on hot sand. Pop-ups across Cincinnati now, a shop in 2027.",
+      "slogan": "A fusion of Puerto Rican soul and Turkish tradition",
+      "url": url(),
+      "logo": url("images/turblend-coffee.png"),
+      "image": [url("images/og.jpg"), await photoUrl(photos.cup), await photoUrl(photos.popup)],
+      "email": "mfcetinkaya@turblend.us",
+      "sameAs": ["https://www.instagram.com/turblendcoffee/"],
+      "foundingDate": "2026",
+      "founder": { "@type": "Person", "name": "Muhammed F. Çetinkaya", "jobTitle": "Founder" },
+      "servesCuisine": "Turkish coffee",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cincinnati",
+        "addressRegion": "OH",
+        "addressCountry": "US",
+      },
+      "areaServed": { "@type": "City", "name": "Cincinnati, OH" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": url("#website"),
+      "name": "Turblend",
+      "alternateName": "Turblend Coffee",
+      "url": url(),
+      "inLanguage": "en-US",
+      "publisher": { "@id": url("#business") },
+    },
+  ],
+};
+---
+<Base title={title}>
+  <Fragment slot="meta">
+    <meta name="description" content={description}>
+    <link rel="canonical" href={url()}>
+  </Fragment>
+
+  <Fragment slot="head">
+    <!-- Link previews (iMessage, Slack, social) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Turblend">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={url()}>
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <!-- The preview picture: the hero photo with the wordmark, 1200 x 630. It stays a JPG
+         because most apps that draw link previews can't read AVIF. -->
+    <meta property="og:image" content={url("images/og.jpg")}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Turblend Coffee wordmark over a green mountain valley planted with coffee">
+
+    <!-- The fonts the first screen needs, fetched before the stylesheet asks for them. -->
+    <link rel="preload" href={ebGaramond} as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href={ebGaramondItalic} as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href={courierPrime} as="font" type="font/woff2" crossorigin>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- Turns on the scroll animations. If the page's script (at the end of the page)
+         doesn't load within a few seconds, the class comes off again so nothing stays hidden. -->
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      setTimeout(function () {
+        if (!window.TURBLEND_READY) document.documentElement.classList.remove("js");
+      }, 2500);
+    </script>
+  </Fragment>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <Header home>
+    <Masthead />
+  </Header>
+  <MenuDrawer />
+
+  <main id="main" tabindex="-1">
+    <Hero />
+    <Origin />
+    <PullQuote />
+    <Method />
+    <Bean />
+    <Misfits />
+    <Popups />
+    <Signup />
+    <Faq />
+  </main>
+
+  <Footer />
+
+  <script>
+    // No imports on purpose: the hero headline stays hidden until this runs, so
+    // it's one small file with nothing more to fetch.
+
+    // Tells the inline script in <head> that the animations can run.
+    window.TURBLEND_READY = true;
+
+    // Scroll reveals: sections marked .rv or .rv-up fade in as they come on screen.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const items = document.querySelectorAll(".rv, .rv-up");
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("in"));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+
+      items.forEach((item) => observer.observe(item));
+    }
+  </script>
+</Base>
