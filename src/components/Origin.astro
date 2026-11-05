@@ -1,0 +1,48 @@
+---
+import Cta from "./Cta.astro";
+---
+<section id="origin" class="strate container" aria-labelledby="origin-title">
+  <div class="grid edito ruled">
+    <div class="edito-text rv-up">
+      <p class="mini">Chapter 01 · Origin</p>
+      <h2 id="origin-title" class="title-page">A discovery in <em>Adjuntas.</em></h2>
+      <div class="prose">
+        <p class="title-small">Three years ago, deep in the mountains of Puerto Rico, I walked the rows of Sandra Farms, a small estate in Adjuntas growing arabica at elevations most farms can only dream of. I bought a bag, took it home, and ground it fine the way my mom taught me.</p>
+        <p>What came out of the cezve that morning changed everything. The body, the foam, the chocolate-and-citrus finish. Puerto Rican coffee, it turns out, was made for Turkish brewing.</p>
+        <p>Turblend is what happened next: a Puerto Rican bean and a Turkish ritual, blended into one cup. A small, stubborn project that starts with pop-ups and is growing into a shop in Cincinnati.</p>
+      </div>
+      <p class="signature">
+        <span class="signature-name">Muhammed F. Çetinkaya</span>
+        <span class="signature-role mini">Founder</span>
+      </p>
+      <Cta class="cta-next" href="#method" label="Next: how it’s brewed" />
+    </div>
+
+    <!-- ORIGIN PHOTOS: Unsplash stock (cherries by eli hirtzel, hillside by Mareno Tene),
+         not Sandra Farms. Swap in photos from the farm when we have them:
+         small (portrait, 4:5), tall (portrait, 2:3). -->
+    <div class="edito-small rv" data-d="1">
+      <figure class="frame frame-45">
+        <picture>
+          <source srcset="images/cherries-400.avif 400w, images/cherries-800.avif 800w, images/cherries.avif 1200w" sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" type="image/avif">
+          <img src="images/cherries.jpg" alt="Ripe red and yellow coffee cherries on the branch" loading="lazy">
+        </picture>
+      </figure>
+      <dl class="facts">
+        <div><dt class="mini">Estate</dt><dd>Sandra Farms</dd></div>
+        <div><dt class="mini">Region</dt><dd>Adjuntas, PR</dd></div>
+        <div><dt class="mini">Elevation</dt><dd>3,200 ft</dd></div>
+      </dl>
+    </div>
+
+    <figure class="edito-big rv" data-d="2">
+      <div class="frame frame-23">
+        <picture>
+          <source srcset="images/origin-400.avif 400w, images/origin-800.avif 800w, images/origin.avif 1200w" sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" type="image/avif">
+          <img src="images/origin.jpg" alt="A green tropical hillside with banana plants and a farmer at work" loading="lazy">
+        </picture>
+      </div>
+      <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
+    </figure>
+  </div>
+</section>

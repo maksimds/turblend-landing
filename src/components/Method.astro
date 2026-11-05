@@ -1,0 +1,43 @@
+---
+import Cta from "./Cta.astro";
+---
+<section id="method" class="split strate" aria-labelledby="method-title">
+  <!-- METHOD PHOTO: Unsplash stock by Kameron Kincade, until we shoot our own.
+       It fills half the screen, so portrait or square works best.
+       This one is landscape, so in its square (phone) or tall (desktop) box it is drawn
+       about 1.5 times the box's width; the sizes below allow for that. -->
+  <figure class="split-media rv">
+    <picture>
+      <source srcset="images/cup-800.avif 800w, images/cup-1200.avif 1200w, images/cup.avif 1800w" sizes="(min-width: 1024px) 1800px, (min-width: 768px) 113vw, 150vw" type="image/avif">
+      <img src="images/cup.jpg" alt="A cup of Turkish coffee with thick foam, a piece of Turkish delight on the saucer" loading="lazy">
+    </picture>
+  </figure>
+
+  <div class="split-body">
+    <div class="split-inner rv-up">
+      <p class="mini">Chapter 02 · Method</p>
+      <h2 id="method-title" class="title-page">Old ritual, <em>fresh hand.</em></h2>
+      <p class="title-small">Most Turkish coffee on shelves today was roasted months ago. Ours never sits. We roast in small batches, grind to order, and brew on hot sand the way it has been done in Türkiye for centuries. The result: foam that lasts, aroma that travels, and a cup that tastes the way it was meant to.</p>
+
+      <ol class="steps" role="list">
+        <li class="step">
+          <p class="step-label mini">01 · Source</p>
+          <h3 class="step-title">Grown <em>high.</em></h3>
+          <p class="step-body">Arabica from Sandra Farms in Adjuntas, Puerto Rico. Volcanic soil, cool mountain nights, and a slow ripening that builds the chocolate and stone-fruit notes Turkish brewing pulls forward.</p>
+        </li>
+        <li class="step">
+          <p class="step-label mini">02 · Roast</p>
+          <h3 class="step-title">Roasted <em>fresh.</em></h3>
+          <p class="step-body">Small batches, never warehoused. Where the big Turkish brands sit on shelves for months, we roast weekly to a medium profile: dark enough for body, light enough to let the origin speak.</p>
+        </li>
+        <li class="step">
+          <p class="step-label mini">03 · Brew</p>
+          <h3 class="step-title">Brewed on <em>sand.</em></h3>
+          <p class="step-body">The traditional way: a copper cezve nestled into hot sand, heated slowly so the foam builds before the boil. Every cup poured in front of you.</p>
+        </li>
+      </ol>
+
+      <Cta class="cta-next" href="#bean" label="Next: why this bean" />
+    </div>
+  </div>
+</section>

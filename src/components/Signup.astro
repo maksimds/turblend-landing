@@ -1,0 +1,51 @@
+---
+import Cta from "./Cta.astro";
+---
+<section id="signup" class="band strate dark" aria-labelledby="signup-title">
+  <div class="container grid">
+    <div class="band-text rv-up">
+      <p class="mini">Chapter 06 · The List</p>
+      <h2 id="signup-title" class="title-page">Be <em>first in line.</em></h2>
+      <p class="title-small">Pop-up dates, tasting invites, and shop news. A few emails a month, nothing more.</p>
+    </div>
+
+    <div class="signup-panel rv-up" data-d="1">
+      <!-- Signups go to Formspree (formspree.io). Paste your form ID in place of
+           {FORMSPREE FORM ID} in the action below. See README for setup. -->
+      <form class="form" action="https://formspree.io/f/{FORMSPREE FORM ID}" method="POST" data-signup>
+        <input type="hidden" name="_subject" value="New Turblend list signup">
+        <p hidden><label>Leave this empty: <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="field">
+          <label class="mini" for="signup-email">Email</label>
+          <input class="input" id="signup-email" type="email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com">
+          <p class="field-error" id="signup-email-error" role="alert" data-email-error data-message="Please enter a valid email address, like you@example.com."></p>
+        </div>
+
+        <div class="field">
+          <label class="mini" for="signup-name">First name <span class="field-hint">(Optional)</span></label>
+          <input class="input" id="signup-name" type="text" name="first_name" autocomplete="given-name">
+        </div>
+
+        <label class="check">
+          <input type="checkbox" name="private_tastings" value="yes">
+          <span>Invite me to private tastings</span>
+        </label>
+
+        <button class="btn btn-light btn-block" type="submit" data-label="Get on the list" data-sending="Sending">Get on the list</button>
+
+        <p class="form-error" role="alert" data-form-error data-message="That didn’t go through. Please check your connection and try again."></p>
+      </form>
+
+      <div class="signup-success" role="status" tabindex="-1" data-signup-success hidden>
+        <svg class="success-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5"/><path d="M15 24.5 21 30.5 33.5 18"/></svg>
+        <p class="title-page">You’re in. <em>See you at the cezve.</em></p>
+        <p class="success-note">Know someone who’d love a cup brewed on sand?</p>
+        <Cta href="mailto:?subject=Turblend%3A%20Puerto%20Rican%20coffee%2C%20brewed%20on%20sand&body=Thought%20you%27d%20like%20this%3A%20https%3A%2F%2Fturblend.us%2F" data-share="" data-copied="Link copied" label="Share Turblend" />
+      </div>
+
+      <!-- Short updates for screen readers ("Sending", "Link copied"), filled in by js/main.js. -->
+      <p class="sr-only" aria-live="polite" data-announce></p>
+    </div>
+  </div>
+</section>

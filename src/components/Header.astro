@@ -1,0 +1,52 @@
+---
+// The header bar, on every page. On the home page it also holds the masthead and
+// the round badge (passed in as children).
+import { asset } from "../site";
+import { navLinks } from "../data/nav";
+
+interface Props {
+  /** The home page: the logo leads back to the top instead of to the home page. */
+  home?: boolean;
+}
+const { home = false } = Astro.props;
+const logo = home
+  ? { href: "#top", label: "Turblend, back to top" }
+  : { href: "./", label: "Turblend home page" };
+---
+<!-- Every wordmark is the same hand-lettered artwork: images/turblend-coffee.png in the
+     masthead, the phone header bar and the menu, and -light.png on the dark footer. -->
+<header id={home ? "top" : undefined} class="site-header">
+  <!-- The bar scrolls away with the page and pins to the top as soon as you
+       scroll back up (js/main.js). The slot holds its place meanwhile. -->
+  <div class="nav-slot">
+    <div class="nav-shell" data-nav>
+      <div class="container">
+        <div class="header-bar">
+          <!-- The bean emblem sits at the far left, beside the burger where there is one. -->
+          <div class="header-start">
+            <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
+              <span class="sr-only">Open menu</span>
+              <span class="menu-lines" aria-hidden="true"></span>
+            </button>
+            <a class="header-logo" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-bean-mark.svg")} alt="" width="33" height="33"></a>
+          </div>
+
+          <a class="header-brand" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-coffee.png")} alt="" width="1000" height="324"></a>
+
+          <nav class="primary-nav" aria-label="Primary">
+            <ul role="list">
+              {navLinks.map((link) => <li><a class="nav-link mini" href={link.href}>{link.label}</a></li>)}
+            </ul>
+          </nav>
+
+          <!-- The date and venue fill in automatically from js/events.js -->
+          <a class="header-next mini" href="#popups">
+            <span class="dot pulse" aria-hidden="true"></span>
+            <span>Next pop-up · <strong data-next-popup data-fallback="Dates soon">Dates soon</strong></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <slot />
+</header>
