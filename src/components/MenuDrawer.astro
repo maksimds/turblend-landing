@@ -23,6 +23,8 @@ import Cta from "./Cta.astro";
           <li><a href={link.href}><span class="drawer-num mini" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span><span>{link.label}</span></a></li>
         ))}
       </ul>
+      <!-- Phones only: there the bean emblem sits here instead of in the bar. -->
+      <img class="drawer-bean" src={asset("images/turblend-bean-mark.svg")} alt="" width="36" height="36">
     </nav>
     <div class="drawer-actions">
       <Cta href="#signup" label="Join the waitlist" />
