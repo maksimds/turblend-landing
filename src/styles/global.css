@@ -108,7 +108,7 @@
   --gap: 40px;      /* grid gutter */
   --strate: 100px;  /* space between sections */
   --max: 1680px;
-  --nav-h: 62px;    /* header bar */
+  --nav-h: 68px;    /* header bar */
   --nav-hover: #9ea4a3; /* footer links, on maroon */
 
   /* Measures */
@@ -131,7 +131,7 @@
 }
 
 @media (max-width: 1023px) {
-  :root { --pad: 18px; --gap: 18px; --strate: 70px; --nav-h: 64px; }
+  :root { --pad: 18px; --gap: 18px; --strate: 70px; --nav-h: 70px; }
 }
 
 /* Light text on maroon or a photo. */
@@ -464,8 +464,8 @@ main:focus { outline: none; }
   min-height: 44px;
 }
 .header-logo img {
-  width: 32.6px;
-  height: 32.6px;
+  width: 39.5px;
+  height: 39.5px;
 }
 
 .menu-btn {
@@ -476,19 +476,26 @@ main:focus { outline: none; }
   height: 44px;
   margin-left: -8px;
 }
+/* Three stripes, 8px apart: the middle one, with the top and bottom drawn from it. */
 .menu-lines,
-.menu-lines::before {
+.menu-lines::before,
+.menu-lines::after {
   position: absolute;
   left: 8px;
   right: 8px;
   height: 1px;
   background: currentColor;
-  transition: rotate var(--t-fast), top var(--t-fast);
+  transition: rotate var(--t-fast), top var(--t-fast), opacity var(--t-fast);
 }
-.menu-lines { top: 17px; }
-.menu-lines::before { content: ""; left: 0; right: 0; top: 9px; }
+.menu-lines { top: 21px; }
+.menu-lines::before,
+.menu-lines::after { content: ""; left: 0; right: 0; }
+.menu-lines::before { top: -8px; }
+.menu-lines::after { top: 8px; }
+/* The cross: the middle and top stripes turn, the bottom one folds away into them. */
 .is-close .menu-lines { top: 21.5px; rotate: 45deg; }
 .is-close .menu-lines::before { top: 0; rotate: -90deg; }
+.is-close .menu-lines::after { top: 0; opacity: 0; }
 
 /* The masthead's hand-lettered wordmark, scaled down to fit the bar (phones) and the menu. */
 .header-brand,
@@ -497,7 +504,7 @@ main:focus { outline: none; }
 .header-brand img,
 .drawer-brand img {
   display: block;
-  width: 120px;
+  width: 132px;
   height: auto;
 }
 
@@ -556,7 +563,8 @@ main:focus { outline: none; }
 }
 @media (max-width: 767px) {
   .header-brand { display: block; }
-  .header-logo img { width: 29.4px; height: 29.4px; }
+  /* Phones: the bar is the burger and the wordmark; the bean moves into the menu, under the links. */
+  .header-logo { display: none; }
   .header-next,
   .masthead { display: none; }
 }
@@ -586,7 +594,7 @@ main:focus { outline: none; }
   transform: rotate(-20deg);
   transition: transform 0.25s ease-in-out, top 0.25s ease-in-out, width 0.25s ease-in-out, height 0.25s ease-in-out, opacity 0.25s, visibility 0.25s;
 }
-.badge-cta > span { max-width: 4em; }  /* breaks as "Get on / the list" */
+.badge-cta > span { max-width: 4em; }  /* "Waitlist" fits on one line */
 .badge-cta:hover { transform: rotate(0); }
 .badge-cta:focus-visible { outline-offset: 4px; }
 .badge-cta[data-scrolled="true"] { top: 20px; }
@@ -594,7 +602,8 @@ main:focus { outline: none; }
 .badge-cta[data-hidden="true"] { opacity: 0; visibility: hidden; }
 
 @media (max-width: 767px) {
-  .badge-cta { top: 30px; right: 10px; width: 5.56em; height: 5.56em; padding: 0 0.78em; font-size: 1.125rem; }
+  /* Starts just under the bar, on the hero photo. */
+  .badge-cta { top: calc(var(--nav-h) + 10px); right: 10px; width: 5.56em; height: 5.56em; padding: 0 0.78em; font-size: 1.125rem; }
   .badge-cta[data-scrolled="true"] { top: 10px; width: 5.375em; height: 5.375em; padding: 0 0.625em; font-size: 1rem; }
   .nav-shown .badge-cta[data-scrolled="true"] { top: calc(var(--nav-h) + 10px); }
 }
@@ -642,6 +651,11 @@ main:focus { outline: none; }
   line-height: 1.2;
 }
 .drawer-num { color: var(--muted); }
+/* The bean emblem under the links, on phones, where the bar has no room for it. */
+.drawer-bean { display: none; width: 39.5px; height: 39.5px; margin: var(--s-3) auto 0; }
+@media (max-width: 767px) {
+  .drawer-bean { display: block; }
+}
 .drawer-actions {
   display: flex;
   flex-wrap: wrap;
@@ -660,16 +674,21 @@ main:focus { outline: none; }
   min-height: 440px;
   background: var(--maroon-deep);
 }
-/* A light tint over the whole photo, deepening toward the bottom so the headline
-   and the small label above it stay readable (4.5:1 for the label). Recheck when
-   the photo changes. */
+/* The photo shows as shot, with no tint. Only a short fade at the bottom, behind
+   the text, keeps the headline and the small label readable (4.5:1 for the label,
+   even over the brightest leaves). The text sits in the bottom 105 to 140px at
+   every screen size, so the fade is measured in px, not as a share of the photo.
+   Recheck when the photo changes. */
 .hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to top, rgb(46 12 20 / 0.6), rgb(46 12 20 / 0) 55%),
-    rgb(46 12 20 / 0.28);
+  background: linear-gradient(to top,
+    rgb(0 0 0 / 0.4) 0,
+    rgb(0 0 0 / 0.32) 120px,
+    rgb(0 0 0 / 0.17) 180px,
+    rgb(0 0 0 / 0.06) 240px,
+    rgb(0 0 0 / 0) 300px);
   pointer-events: none;
 }
 .hero-media > .ph { justify-content: flex-start; padding-top: clamp(2.5rem, 8vw, 7rem); }
@@ -689,8 +708,13 @@ main:focus { outline: none; }
 
 @media (max-width: 767px) {
   .hero-media { aspect-ratio: auto; height: 150vw; min-height: 0; max-height: 92vh; }
-  .hero-content { padding-block: var(--s-3); }
-  .hero-sup { top: -7px; margin-right: var(--s-1); }
+  /* The label gets its own line, and the headline is sized to fit on one line:
+     it measures 13.18em wide in EB Garamond, so the width over 13.5 leaves a
+     little room. Measured on the text column (container units), so a scrollbar
+     can't push it onto two lines. Above about 495px the usual size fits anyway. */
+  .hero-content { padding-block: var(--s-3); container-type: inline-size; }
+  .hero-sup { display: block; top: 0; margin-right: 0; }
+  .hero-title { display: block; font-size: min(var(--t-page), 100cqi / 13.5); }
 }
 
 /* ---------- Intro --------------------------------------------------------- */
@@ -1120,14 +1144,18 @@ main:focus { outline: none; }
 
   .drawer[open] .menu-lines { animation: menu-fold 0.45s ease-in-out; }
   .drawer[open] .menu-lines::before { animation: menu-fold-bar 0.45s ease-in-out; }
-  @keyframes menu-fold { from { top: 17px; rotate: 0deg; } }
-  @keyframes menu-fold-bar { from { top: 9px; rotate: 0deg; } }
+  .drawer[open] .menu-lines::after { animation: menu-fold-away 0.45s ease-in-out; }
+  @keyframes menu-fold { from { top: 21px; rotate: 0deg; } }
+  @keyframes menu-fold-bar { from { top: -8px; rotate: 0deg; } }
+  @keyframes menu-fold-away { from { top: 8px; opacity: 1; } }
 
   .drawer[open] .drawer-nav li,
+  .drawer[open] .drawer-bean,
   .drawer[open] .drawer-actions { animation: drawer-rise 0.7s var(--e-out) backwards; }
   .drawer[open] .drawer-nav li:nth-child(1) { animation-delay: 0.1s; }
   .drawer[open] .drawer-nav li:nth-child(2) { animation-delay: 0.16s; }
   .drawer[open] .drawer-nav li:nth-child(3) { animation-delay: 0.22s; }
+  .drawer[open] .drawer-bean { animation-delay: 0.26s; }
   .drawer[open] .drawer-actions { animation-delay: 0.3s; }
   @keyframes drawer-rise { from { opacity: 0; transform: translateY(16px); } }
 
@@ -1141,10 +1169,13 @@ main:focus { outline: none; }
 
   .drawer.is-closing .menu-lines { animation: menu-unfold 0.4s ease-in-out forwards; }
   .drawer.is-closing .menu-lines::before { animation: menu-unfold-bar 0.4s ease-in-out forwards; }
-  @keyframes menu-unfold { to { top: 17px; rotate: 0deg; } }
-  @keyframes menu-unfold-bar { to { top: 9px; rotate: 0deg; } }
+  .drawer.is-closing .menu-lines::after { animation: menu-unfold-away 0.4s ease-in-out forwards; }
+  @keyframes menu-unfold { to { top: 21px; rotate: 0deg; } }
+  @keyframes menu-unfold-bar { to { top: -8px; rotate: 0deg; } }
+  @keyframes menu-unfold-away { to { top: 8px; opacity: 1; } }
 
   .drawer.is-closing .drawer-nav li,
+  .drawer.is-closing .drawer-bean,
   .drawer.is-closing .drawer-actions { animation: drawer-sink 0.2s ease-in forwards; }
   .drawer.is-closing .drawer-nav li:nth-child(3) { animation-delay: 0.03s; }
   .drawer.is-closing .drawer-nav li:nth-child(2) { animation-delay: 0.06s; }

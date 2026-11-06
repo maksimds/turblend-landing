@@ -11,8 +11,8 @@ const wideJpg = await getImage({ src: photos.hero, format: "jpg", widths: [1200,
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-banner">
-    <!-- HERO PHOTO: Unsplash stock (unsplash.com/photos/AgPj0maIEEs), until we shoot our own.
-         16:9 on desktop; phones get hero-mobile, a 2:3 crop of the same photo.
+    <!-- HERO PHOTO: our own.
+         16:9 on desktop; phones get hero-mobile, a 2:3 crop of the same photo (centred on the tree fern).
          Keep the subject away from the bottom-left corner, where the headline sits.
          Every photo is one full-size original in src/assets/photos/ (see src/photos.ts);
          the build makes the AVIF sizes and the JPG for older browsers. -->
@@ -21,7 +21,7 @@ const wideJpg = await getImage({ src: photos.hero, format: "jpg", widths: [1200,
         <source media="(max-width: 767px)" srcset={phone.src} type="image/avif">
         <source media="(max-width: 767px)" srcset={phoneJpg.src}>
         <source srcset={wide.srcSet.attribute} sizes="100vw" type="image/avif">
-        <img src={wideJpg.src} srcset={wideJpg.srcSet.attribute} sizes="100vw" alt="A green mountain valley with rows of coffee on the hillsides" fetchpriority="high">
+        <img src={wideJpg.src} srcset={wideJpg.srcSet.attribute} sizes="100vw" alt="A tree fern in front of forested green mountains under a cloudy sky" fetchpriority="high">
       </picture>
     </figure>
     <div class="hero-content container dark">
@@ -53,7 +53,7 @@ const wideJpg = await getImage({ src: photos.hero, format: "jpg", widths: [1200,
         <p class="mini">Single origin · Fresh roasted · Brewed on sand</p>
         <p class="title-small">Single-origin Puerto Rican beans, roasted fresh in small batches and prepared in the Turkish tradition: slow, fragrant, and brewed over hot sand. A 500-year-old ritual, returned to its freshest form.</p>
         <div class="cta-row">
-          <Cta href="#signup" label="Get on the list" />
+          <Cta href="#signup" label="Join the waitlist" />
           <Cta href="#popups" label="Find a pop-up" />
         </div>
         <!-- The date and venue fill in automatically from src/data/events.ts -->

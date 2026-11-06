@@ -23,13 +23,14 @@ const logo = home
     <div class="nav-shell" data-nav>
       <div class="container">
         <div class="header-bar">
-          <!-- The bean emblem sits at the far left, beside the burger where there is one. -->
+          <!-- The bean emblem sits at the far left, beside the burger where there is one.
+               Phones hide it here and show it in the menu, under the links. -->
           <div class="header-start">
             <button class="menu-btn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-drawer" data-menu-open>
               <span class="sr-only">Open menu</span>
               <span class="menu-lines" aria-hidden="true"></span>
             </button>
-            <a class="header-logo" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-bean-mark.svg")} alt="" width="33" height="33"></a>
+            <a class="header-logo" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-bean-mark.svg")} alt="" width="40" height="40"></a>
           </div>
 
           <a class="header-brand" href={logo.href} aria-label={logo.label}><img src={asset("images/turblend-coffee.png")} alt="" width="1000" height="324"></a>

@@ -20,9 +20,9 @@ import Photo from "./Photo.astro";
       <Cta class="cta-next" href="#method" label="Next: how it’s brewed" />
     </div>
 
-    <!-- ORIGIN PHOTOS: Unsplash stock (cherries by eli hirtzel, hillside by Mareno Tene),
-         not Sandra Farms. Swap in photos from the farm when we have them:
-         small (portrait, 4:5), tall (portrait, 2:3). -->
+    <!-- ORIGIN PHOTOS: the cherries are Unsplash stock (by eli hirtzel), not Sandra Farms;
+         swap in one from the farm when we have it. The mountain view is our own.
+         Small (portrait, 4:5), tall (portrait, 2:3). -->
     <div class="edito-small rv" data-d="1">
       <figure class="frame frame-45">
         <Photo src={photos.cherries} widths={[400, 800, 1200]} sizes="(min-width: 1760px) 370px, (min-width: 1024px) 21vw, 39vw" alt="Ripe red and yellow coffee cherries on the branch" />
@@ -36,7 +36,7 @@ import Photo from "./Photo.astro";
 
     <figure class="edito-big rv" data-d="2">
       <div class="frame frame-23">
-        <Photo src={photos.origin} widths={[400, 800, 1200]} sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" alt="A green tropical hillside with banana plants and a farmer at work" />
+        <Photo src={photos.origin} widths={[400, 800, 1200]} sizes="(min-width: 1690px) 510px, (min-width: 1024px) 30vw, 56vw" alt="Mist in a forested mountain valley under a wide cloudy sky, with palms and yellow flowers in front" />
       </div>
       <figcaption class="fig-note mini">18.2101° N · 66.8193° W<br>Adjuntas · Puerto Rico</figcaption>
     </figure>
