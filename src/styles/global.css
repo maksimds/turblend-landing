@@ -586,7 +586,7 @@ main:focus { outline: none; }
   transform: rotate(-20deg);
   transition: transform 0.25s ease-in-out, top 0.25s ease-in-out, width 0.25s ease-in-out, height 0.25s ease-in-out, opacity 0.25s, visibility 0.25s;
 }
-.badge-cta > span { max-width: 4em; }  /* breaks as "Waiting / list" */
+.badge-cta > span { max-width: 4em; }  /* "Waitlist" fits on one line */
 .badge-cta:hover { transform: rotate(0); }
 .badge-cta:focus-visible { outline-offset: 4px; }
 .badge-cta[data-scrolled="true"] { top: 20px; }
