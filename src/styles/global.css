@@ -660,16 +660,21 @@ main:focus { outline: none; }
   min-height: 440px;
   background: var(--maroon-deep);
 }
-/* A light tint over the whole photo, deepening toward the bottom so the headline
-   and the small label above it stay readable (4.5:1 for the label). Recheck when
-   the photo changes. */
+/* The photo shows as shot, with no tint. Only a short fade at the bottom, behind
+   the text, keeps the headline and the small label readable (4.5:1 for the label,
+   even over the brightest leaves). The text sits in the bottom 105 to 140px at
+   every screen size, so the fade is measured in px, not as a share of the photo.
+   Recheck when the photo changes. */
 .hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to top, rgb(46 12 20 / 0.6), rgb(46 12 20 / 0) 55%),
-    rgb(46 12 20 / 0.28);
+  background: linear-gradient(to top,
+    rgb(0 0 0 / 0.4) 0,
+    rgb(0 0 0 / 0.32) 120px,
+    rgb(0 0 0 / 0.17) 180px,
+    rgb(0 0 0 / 0.06) 240px,
+    rgb(0 0 0 / 0) 300px);
   pointer-events: none;
 }
 .hero-media > .ph { justify-content: flex-start; padding-top: clamp(2.5rem, 8vw, 7rem); }
