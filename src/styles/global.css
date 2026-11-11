@@ -464,8 +464,8 @@ main:focus { outline: none; }
   min-height: 44px;
 }
 .header-logo img {
-  width: 47.4px;
-  height: 47.4px;
+  width: 56.9px;
+  height: 56.9px;
 }
 
 .menu-btn {
@@ -652,7 +652,7 @@ main:focus { outline: none; }
 }
 .drawer-num { color: var(--muted); }
 /* The bean emblem under the links, on phones, where the bar has no room for it. */
-.drawer-bean { display: none; width: 47.4px; height: 47.4px; margin: var(--s-3) auto 0; }
+.drawer-bean { display: none; width: 39.5px; height: 39.5px; margin: var(--s-3) auto 0; }
 @media (max-width: 767px) {
   .drawer-bean { display: block; }
 }
