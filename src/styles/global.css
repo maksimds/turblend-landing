@@ -513,7 +513,7 @@ main:focus { outline: none; }
 .nav-link {
   display: block;
   padding-block: 6px 4px;
-  font-size: 0.8125rem;  /* 13px, a step up from the 12px labels */
+  font-size: 0.90625rem;  /* 14.5px, larger than the 12px labels */
 }
 /* The grey hover reads on the maroon footer but is too faint on paper (2.3:1). */
 @media (hover: hover) {
